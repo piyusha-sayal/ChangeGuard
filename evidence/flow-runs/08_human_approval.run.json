@@ -1,0 +1,1111 @@
+{
+  "collectedAt": "2026-09-23T22:12:45.152Z",
+  "source": "https://<environment-id-host>.environment.api.powerplatform.com/powerautomate (GET only)",
+  "label": "08_human_approval",
+  "flowId": "42f1b9d5-b3b5-f111-aaad-000d3af45a09",
+  "runId": "08584115139116571959138843143CU31",
+  "status": "Succeeded",
+  "startTime": "2026-09-22T16:02:53.9587654Z",
+  "endTime": "2026-09-22T16:02:59.4669602Z",
+  "correlation": "08584115139116571960138843143CU28",
+  "trigger": {
+    "name": "manual",
+    "status": "Succeeded",
+    "startTime": "2026-09-22T16:02:53.8272412Z",
+    "endTime": "2026-09-22T16:02:53.8272412Z",
+    "inputs": {
+      "operationId": "RecordSelected",
+      "parameters": {
+        "entityName": "cr458_cgchangerequests"
+      },
+      "schema": {
+        "type": "object",
+        "required": [
+          "rows"
+        ],
+        "properties": {
+          "rows": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "SelectedOption",
+                  "description": "Recovery option code to approve. Leave blank to keep the option already selected on the request."
+                },
+                "entity": {
+                  "type": "object",
+                  "properties": {
+                    "cr458_cgchangerequestid": {
+                      "type": "string",
+                      "title": "Request"
+                    },
+                    "cr458_requestkey": {
+                      "type": "string",
+                      "title": "RequestKey"
+                    },
+                    "cr458_status": {
+                      "type": "string",
+                      "title": "Status"
+                    }
+                  },
+                  "required": []
+                }
+              },
+              "required": []
+            }
+          }
+        }
+      },
+      "host": {
+        "connection": {
+          "name": "@parameters('$connections')['shared_commondataserviceforapps']['connectionId']"
+        },
+        "api": {
+          "runtimeUrl": "https://<environment-id>.00.common.canada.azure-apihub.net/apim/commondataserviceforapps"
+        }
+      }
+    },
+    "outputs": {
+      "headers": {
+        "Accept": "application/json,text/plain,*/*",
+        "Host": "10.0.7.20:20221",
+        "User-Agent": "Mozilla/5.0,(Windows NT 10.0; Win64; x64),AppleWebKit/537.36,(KHTML, like Gecko),Chrome/153.0.0.0,Safari/537.36",
+        "Accept-Encoding": "gzip,deflate",
+        "Accept-Language": "en-US",
+        "Origin": "https://make.powerautomate.com",
+        "Referer": "https://make.powerautomate.com/",
+        "x-ms-client-session-id": "f62fece0-b69e-11f1-8933-c73a350a9e76",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "x-ms-licensecategorization": "BASE",
+        "sec-ch-ua": "\"Google Chrome\";v=\"153\",\"Not_A Brand\";v=\"8\",\"Chromium\";v=\"153\"",
+        "x-ms-licensecontext": "POWERAPPS",
+        "sec-ch-ua-mobile": "?0",
+        "x-ms-client-request-id": "021a87b2-7146-45b9-b2d4-640ab8a10d5a",
+        "sec-fetch-site": "cross-site",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "priority": "u=1,i",
+        "x-ms-apim-referrer": "https://<environment-id>.00.common.canada.azure-apihub.net/apim/logicflows/003FEA39ADAB353F8798668841661DA7-8172F411466DF75D/triggers/manual/run?api-version=2016-11-01",
+        "x-donotuse-ms-caller-app-id": "7df0a125-d3be-4c96-aa54-591f83ff541c",
+        "x-ms-gateway-object-id": "",
+        "x-ms-apim-referrer-prefix": "https://<environment-id>.00.common.canada.azure-apihub.net/apim/logicflows/003FEA39ADAB353F8798668841661DA7-8172F411466DF75D",
+        "x-ms-apim-callback": "https://canada-001.consent.azure-apim.net",
+        "x-ms-user-id": "<aad-object-id>",
+        "x-ms-tenant-id": "<tenant-id>",
+        "x-ms-user-name": "Maker",
+        "x-ms-user-name-encoded": "UGl5dXNoYSBTYXlhbA==",
+        "x-ms-user-email": "reviewer@changeguard-demo.example",
+        "x-ms-user-email-encoded": "UGl5dXNoYVNheWFsQFBpeXVzaGFTYXlhbC5vbm1pY3Jvc29mdC5jb20=",
+        "x-ms-user-timestamp": "2026-09-22T16:02:53.5753268Z",
+        "x-ms-flow-licensecontext": "POWERAPPS",
+        "x-ms-client-keywords": "lc:POWERAPPS,lcat:BASE,u:4EB19560B5B744CCB679897EF2727583",
+        "X-Original-Proto": "https",
+        "x-ms-origin-endpoint": "ppapigw.ca-il101.gateway.prod.island.powerapps.com",
+        "X-Original-Host": "10.0.29.16:20002",
+        "x-ms-igw-external-uri": "https://<environment-id-host>.environment.api.powerplatform.com/powerautomate/automations/direct/cu/12/workflows/8536ff8cc4d54c319a847af399d85793/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=REDACTED-SAS-SIGNATURE, https://workflowsmanagementservice.eca-il101.gateway.prod.island.powerapps.com/powerautomate/tenants/00000000-0000-0000-0000-000000000000/environments/<environment-id>/automations/direct/cu/12/workflows/8536ff8cc4d54c319a847af399d85793/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=REDACTED-SAS-SIGNATURE",
+        "x-ms-gw-trace-id": "591ccb4b-6da0-439e-9588-d6f6b023123a, 09a5d452-4768-420c-9a87-70f6ec31c675",
+        "x-ms-igw-raw-target": "/powerautomate/automations/direct/cu/12/workflows/8536ff8cc4d54c319a847af399d85793/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=REDACTED-SAS-SIGNATURE, /powerautomate/tenants/00000000-0000-0000-0000-000000000000/environments/<environment-id>/automations/direct/cu/12/workflows/8536ff8cc4d54c319a847af399d85793/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=REDACTED-SAS-SIGNATURE",
+        "x-ms-correlation-id": "e49a88b6-5a46-43ed-b8a0-031aeaa17d8d",
+        "x-ms-coreframework-caller-activity-id": "07d9cd42-8b51-497a-9f84-04d2b866eb98",
+        "X-Original-For": "[::ffff:10.0.29.16]:61759",
+        "x-ms-ppapi-forwarded-path": "/powerautomate/automations/direct/cu/12/workflows/8536ff8cc4d54c319a847af399d85793/triggers/manual/paths/invoke",
+        "x-ms-ppapi-forwarded-api-version": "1",
+        "x-ms-gateway-clusters": "prdil101cca",
+        "X-Forwarded-Prefix": "/b6d2d20b-d54d-458b-8297-781a5d75703d/134345583041769208",
+        "x-ms-activity-vector": "00.00.IN.05",
+        "X-Forwarded-For": "::ffff:4.174.148.78",
+        "X-Forwarded-Host": "workflowsmanagementservice.eca-il101.gateway.prod.island.powerapps.com",
+        "X-Forwarded-Proto": "https",
+        "Forwarded": "by=_gb000001A;for=\"[::ffff:4.174.148.78]\";host=workflowsmanagementservice.eca-il101.gateway.prod.island.powerapps.com;proto=https",
+        "Content-Type": "application/json",
+        "Content-Length": "213"
+      },
+      "body": {
+        "entity": {
+          "@odata.etag": "W/\"2623475\"",
+          "cr458_requestkey": "CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1",
+          "cr458_status": "PendingReview",
+          "cr458_cgchangerequestid": "162c5b9e-a413-4644-ac1b-f9c8872ba192"
+        }
+      }
+    }
+  },
+  "actions": {
+    "Approval_check": {
+      "status": "Succeeded",
+      "code": "OK",
+      "startTime": "2026-09-22T16:02:55.863904Z",
+      "endTime": "2026-09-22T16:02:55.8658934Z",
+      "inputs": {
+        "status": "",
+        "message": ""
+      },
+      "outputs": {
+        "status": "",
+        "message": ""
+      }
+    },
+    "Approver": {
+      "status": "Succeeded",
+      "code": "OK",
+      "startTime": "2026-09-22T16:02:54.1668635Z",
+      "endTime": "2026-09-22T16:02:54.1678196Z",
+      "inputs": "reviewer@changeguard-demo.example",
+      "outputs": "reviewer@changeguard-demo.example"
+    },
+    "Audit_decision": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:02:59.1429484Z",
+      "endTime": "2026-09-22T16:02:59.2996108Z",
+      "inputs": {
+        "expressionResult": true
+      },
+      "outputs": null
+    },
+    "Audit_decision_request": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:02:59.2228588Z",
+      "endTime": "2026-09-22T16:02:59.22363Z",
+      "error": {
+        "code": "ActionDependencyFailed",
+        "message": "The execution of template action 'Audit_decision_request' is skipped: dependant action 'Audit_outcome' completed with status 'Skipped' and code 'ActionSkipped'.",
+        "messageTemplate": "The execution of template action '{0}' is skipped: dependant action '{1}' completed with status '{2}' and code '{3}'."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Audit_decision_unknown": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:02:59.2054336Z",
+      "endTime": "2026-09-22T16:02:59.2065156Z",
+      "error": {
+        "code": "ActionDependencyFailed",
+        "message": "The execution of template action 'Audit_decision_unknown' is skipped: dependant action 'Audit_outcome' completed with status 'Skipped' and code 'ActionSkipped'.",
+        "messageTemplate": "The execution of template action '{0}' is skipped: dependant action '{1}' completed with status '{2}' and code '{3}'."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Audit_outcome": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:02:59.2386934Z",
+      "endTime": "2026-09-22T16:02:59.2393706Z",
+      "error": {
+        "code": "ActionBranchingConditionNotSatisfied",
+        "message": "The execution of template action 'Audit_outcome' skipped: the branching condition for this action is not satisfied.",
+        "messageTemplate": "The execution of template action '{0}' skipped: the branching condition for this action is not satisfied."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Audit_recorded": {
+      "status": "Succeeded",
+      "code": "Created",
+      "startTime": "2026-09-22T16:02:57.6906223Z",
+      "endTime": "2026-09-22T16:02:57.6986824Z",
+      "inputs": {
+        "host": {
+          "apiId": "subscriptions/<environment-id>/providers/Microsoft.Web/locations/canadacentral/runtimes/Canada-001/apis/commondataserviceforapps",
+          "connectionReferenceName": "shared_commondataserviceforapps",
+          "operationId": "CreateRecord"
+        },
+        "parameters": {
+          "entityName": "cr458_cgauditevents",
+          "item/cr458_name": "DecisionRecorded CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1",
+          "item/cr458_eventkey": "CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1-DECISION-08584115139116571959138843143CU31",
+          "item/cr458_eventtype": "DecisionRecorded",
+          "item/cr458_requestkey": "CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1",
+          "item/cr458_actor": "reviewer@changeguard-demo.example",
+          "item/cr458_oldstate": "PendingReview",
+          "item/cr458_newstate": "Approved",
+          "item/cr458_details": "Requested decision: Approved; selected option: CGDEMO-OPT-AIR",
+          "item/cr458_occurredon": "2026-09-22T16:02:56.8975856Z",
+          "item/cr458_demo": true,
+          "item/cr458_ChangeRequest@odata.bind": "/cr458_cgchangerequests(162c5b9e-a413-4644-ac1b-f9c8872ba192)",
+          "accept": "application/json;odata.metadata=minimal"
+        }
+      },
+      "outputs": {
+        "statusCode": 201,
+        "headers": {
+          "Preference-Applied": "odata.include-annotations=\"*\"",
+          "X-Content-Type-Options": "nosniff",
+          "OData-Version": "4.0"
+        },
+        "body": {
+          "@odata.context": "https://<org>.crm3.dynamics.com/api/data/v9.1/$metadata#cr458_cgauditevents/$entity",
+          "@odata.etag": "W/\"2631421\"",
+          "cr458_cgauditeventid": "af62420f-9fb6-f111-aaad-000d3af45a09",
+          "cr458_requestkey": "CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1",
+          "modifiedon@OData.Community.Display.V1.FormattedValue": "9/22/2026 4:02 PM",
+          "modifiedon": "2026-09-22T16:02:57Z",
+          "_owninguser_value@Microsoft.Dynamics.CRM.lookuplogicalname": "systemuser",
+          "_owninguser_value": "<user-2-systemuserid>",
+          "cr458_actor": "reviewer@changeguard-demo.example",
+          "cr458_oldstate": "PendingReview",
+          "cr458_eventkey": "CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1-DECISION-08584115139116571959138843143CU31",
+          "overriddencreatedon": null,
+          "cr458_eventtype": "DecisionRecorded",
+          "cr458_newstate": "Approved",
+          "_cr458_changerequest_value@OData.Community.Display.V1.FormattedValue": "CGDEMO-FINAL-01 CGDEMO-M1 to 2026-10-30",
+          "_cr458_changerequest_value@Microsoft.Dynamics.CRM.associatednavigationproperty": "cr458_ChangeRequest",
+          "_cr458_changerequest_value@Microsoft.Dynamics.CRM.lookuplogicalname": "cr458_cgchangerequest",
+          "_cr458_changerequest_value": "162c5b9e-a413-4644-ac1b-f9c8872ba192",
+          "importsequencenumber": null,
+          "_modifiedonbehalfby_value": null,
+          "cr458_details": "Requested decision: Approved; selected option: CGDEMO-OPT-AIR",
+          "cr458_name": "DecisionRecorded CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1",
+          "statecode@OData.Community.Display.V1.FormattedValue": "Active",
+          "statecode": 0,
+          "versionnumber@OData.Community.Display.V1.FormattedValue": "2,631,421",
+          "versionnumber": 2631421,
+          "utcconversiontimezonecode": null,
+          "cr458_occurredon@OData.Community.Display.V1.FormattedValue": "9/22/2026 4:02 PM",
+          "cr458_occurredon": "2026-09-22T16:02:56Z",
+          "_createdonbehalfby_value": null,
+          "_modifiedby_value@OData.Community.Display.V1.FormattedValue": "# ChangeGuard-Automation",
+          "_modifiedby_value@Microsoft.Dynamics.CRM.lookuplogicalname": "systemuser",
+          "_modifiedby_value": "<user-2-systemuserid>",
+          "createdon@OData.Community.Display.V1.FormattedValue": "9/22/2026 4:02 PM",
+          "createdon": "2026-09-22T16:02:57Z",
+          "_owningbusinessunit_value@OData.Community.Display.V1.FormattedValue": "<org>",
+          "_owningbusinessunit_value@Microsoft.Dynamics.CRM.associatednavigationproperty": "owningbusinessunit",
+          "_owningbusinessunit_value@Microsoft.Dynamics.CRM.lookuplogicalname": "businessunit",
+          "_owningbusinessunit_value": "cea8ffff-13b4-f111-aaae-0022486daaac",
+          "cr458_demo@OData.Community.Display.V1.FormattedValue": "Yes",
+          "cr458_demo": true,
+          "statuscode@OData.Community.Display.V1.FormattedValue": "Active",
+          "statuscode": 1,
+          "_owningteam_value": null,
+          "_createdby_value@OData.Community.Display.V1.FormattedValue": "# ChangeGuard-Automation",
+          "_createdby_value@Microsoft.Dynamics.CRM.lookuplogicalname": "systemuser",
+          "_createdby_value": "<user-2-systemuserid>",
+          "_ownerid_value@OData.Community.Display.V1.FormattedValue": "# ChangeGuard-Automation",
+          "_ownerid_value@Microsoft.Dynamics.CRM.associatednavigationproperty": "ownerid",
+          "_ownerid_value@Microsoft.Dynamics.CRM.lookuplogicalname": "systemuser",
+          "_ownerid_value": "<user-2-systemuserid>",
+          "timezoneruleversionnumber@OData.Community.Display.V1.FormattedValue": "4",
+          "timezoneruleversionnumber": 4
+        }
+      }
+    },
+    "Check_approval": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:02:55.8814401Z",
+      "endTime": "2026-09-22T16:02:58.780934Z",
+      "inputs": {
+        "expressionResult": false
+      },
+      "outputs": null
+    },
+    "Check_authorized": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:02:55.6473967Z",
+      "endTime": "2026-09-22T16:02:58.8342626Z",
+      "inputs": {
+        "expressionResult": false
+      },
+      "outputs": null
+    },
+    "Check_decision": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:02:55.6148034Z",
+      "endTime": "2026-09-22T16:02:58.8899494Z",
+      "inputs": {
+        "expressionResult": false
+      },
+      "outputs": null
+    },
+    "Check_request": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:02:55.5827912Z",
+      "endTime": "2026-09-22T16:02:58.945392Z",
+      "inputs": {
+        "expressionResult": false
+      },
+      "outputs": null
+    },
+    "Check_stale_claim": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:02:56.961618Z",
+      "endTime": "2026-09-22T16:02:56.9622681Z",
+      "error": {
+        "code": "ActionConditionFailed",
+        "message": "The execution of template action 'Check_stale_claim' is skipped: the 'runAfter' condition for action 'List_claim' is not satisfied. Expected status values 'Succeeded, Failed, TimedOut' and actual value 'Skipped'.",
+        "messageTemplate": "The execution of template action '{0}' is skipped: the 'runAfter' condition for action '{1}' is not satisfied. Expected status values '{2}' and actual value '{3}'."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Check_transition": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:02:55.9289103Z",
+      "endTime": "2026-09-22T16:02:58.7340158Z",
+      "inputs": {
+        "expressionResult": false
+      },
+      "outputs": null
+    },
+    "Claim_decision": {
+      "status": "Succeeded",
+      "code": "Created",
+      "startTime": "2026-09-22T16:02:55.9690873Z",
+      "endTime": "2026-09-22T16:02:56.8506247Z",
+      "inputs": {
+        "host": {
+          "apiId": "subscriptions/<environment-id>/providers/Microsoft.Web/locations/canadacentral/runtimes/Canada-001/apis/commondataserviceforapps",
+          "connectionReferenceName": "shared_commondataserviceforapps",
+          "operationId": "CreateRecord"
+        },
+        "parameters": {
+          "entityName": "cr458_cgclaims",
+          "item/cr458_name": "Decision claim CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1",
+          "item/cr458_claimkey": "CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1-DECISION",
+          "item/cr458_claimtype": "Decision",
+          "item/cr458_holderrun": "08584115139116571959138843143CU31",
+          "item/cr458_holder": "reviewer@changeguard-demo.example",
+          "item/cr458_acquiredon": "2026-09-22T16:02:55.9699174Z",
+          "item/cr458_expireson": "2026-09-22T16:07:55.9699214Z",
+          "item/cr458_ChangeRequest@odata.bind": "/cr458_cgchangerequests(162c5b9e-a413-4644-ac1b-f9c8872ba192)",
+          "accept": "application/json;odata.metadata=minimal"
+        }
+      },
+      "outputs": {
+        "statusCode": 201,
+        "headers": {
+          "Cache-Control": "no-cache",
+          "Set-Cookie": "ARRAffinity=2a570086dda919de769e4850d3b10fd8c0d196088c5614145ac4efe7cf706caf15134d20c556b0b34b9b6ae43ec3f5dcdad61788de889ffc592af7aca85fc1c508DF18C7281283D80000000621568005; path=/; secure; HttpOnly,ReqClientId=bfaa2337-19e9-44a9-b341-c190e85ed71a; expires=Tue, 22-Sep-2076 16:02:55 GMT; path=/; secure; HttpOnly,last_commit_time=2026-09-22 16:02:56Z; expires=Tue, 22-Sep-2026 16:03:56 GMT; path=/; secure; HttpOnly,ARRAffinity=2a570086dda919de769e4850d3b10fd8c0d196088c5614145ac4efe7cf706caf15134d20c556b0b34b9b6ae43ec3f5dcdad61788de889ffc592af7aca85fc1c508DF18C7281283D80000000621568005; path=/; secure; HttpOnly",
+          "x-ms-service-request-id": "d1d6f302-8ef5-49a1-b326-934c6a7131e1",
+          "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+          "REQ_ID": "d1d6f302-8ef5-49a1-b326-934c6a7131e1",
+          "AuthActivityId": "aa10035c-646b-48e9-ab2a-93261bdb8de2",
+          "x-ms-dop-hint": "4",
+          "x-ms-ratelimit-time-remaining-xrm-requests": "1,200.00",
+          "x-ms-ratelimit-burst-remaining-xrm-requests": "7996",
+          "Preference-Applied": "return=representation,odata.include-annotations=\"*\"",
+          "X-Content-Type-Options": "nosniff",
+          "OData-Version": "4.0",
+          "X-Source": "10523815952149249177372247491512343517151627485712011119758748842222661618130,23222168196191111751502101262431971832492161942272051625719127823118916111144104155774",
+          "Public": "OPTIONS,GET,HEAD,POST",
+          "Date": "Tue, 22 Sep 2026 16:02:56 GMT",
+          "Allow": "OPTIONS,GET,HEAD,POST",
+          "Content-Type": "application/json; odata.metadata=minimal",
+          "Expires": "-1",
+          "Content-Length": "3054"
+        },
+        "body": {
+          "@odata.context": "https://<org>.crm3.dynamics.com/api/data/v9.1/$metadata#cr458_cgclaims/$entity",
+          "@odata.etag": "W/\"2631418\"",
+          "cr458_claimkey": "CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1-DECISION",
+          "cr458_holderrun": "08584115139116571959138843143CU31",
+          "cr458_cgclaimid": "ae62420f-9fb6-f111-aaad-000d3af45a09",
+          "modifiedon@OData.Community.Display.V1.FormattedValue": "9/22/2026 4:02 PM",
+          "modifiedon": "2026-09-22T16:02:56Z",
+          "_owninguser_value@Microsoft.Dynamics.CRM.lookuplogicalname": "systemuser",
+          "_owninguser_value": "<user-2-systemuserid>",
+          "cr458_holder": "reviewer@changeguard-demo.example",
+          "cr458_expireson@OData.Community.Display.V1.FormattedValue": "9/22/2026 4:07 PM",
+          "cr458_expireson": "2026-09-22T16:07:55Z",
+          "_cr458_changerequest_value@OData.Community.Display.V1.FormattedValue": "CGDEMO-FINAL-01 CGDEMO-M1 to 2026-10-30",
+          "_cr458_changerequest_value@Microsoft.Dynamics.CRM.associatednavigationproperty": "cr458_ChangeRequest",
+          "_cr458_changerequest_value@Microsoft.Dynamics.CRM.lookuplogicalname": "cr458_cgchangerequest",
+          "_cr458_changerequest_value": "162c5b9e-a413-4644-ac1b-f9c8872ba192",
+          "cr458_name": "Decision claim CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1",
+          "statecode@OData.Community.Display.V1.FormattedValue": "Active",
+          "statecode": 0,
+          "cr458_claimtype": "Decision",
+          "versionnumber@OData.Community.Display.V1.FormattedValue": "2,631,418",
+          "versionnumber": 2631418,
+          "cr458_acquiredon@OData.Community.Display.V1.FormattedValue": "9/22/2026 4:02 PM",
+          "cr458_acquiredon": "2026-09-22T16:02:55Z",
+          "_modifiedby_value@OData.Community.Display.V1.FormattedValue": "# ChangeGuard-Automation",
+          "_modifiedby_value@Microsoft.Dynamics.CRM.lookuplogicalname": "systemuser",
+          "_modifiedby_value": "<user-2-systemuserid>",
+          "createdon@OData.Community.Display.V1.FormattedValue": "9/22/2026 4:02 PM",
+          "createdon": "2026-09-22T16:02:56Z",
+          "_owningbusinessunit_value@OData.Community.Display.V1.FormattedValue": "<org>",
+          "_owningbusinessunit_value@Microsoft.Dynamics.CRM.associatednavigationproperty": "owningbusinessunit",
+          "_owningbusinessunit_value@Microsoft.Dynamics.CRM.lookuplogicalname": "businessunit",
+          "_owningbusinessunit_value": "cea8ffff-13b4-f111-aaae-0022486daaac",
+          "statuscode@OData.Community.Display.V1.FormattedValue": "Active",
+          "statuscode": 1,
+          "_createdby_value@OData.Community.Display.V1.FormattedValue": "# ChangeGuard-Automation",
+          "_createdby_value@Microsoft.Dynamics.CRM.lookuplogicalname": "systemuser",
+          "_createdby_value": "<user-2-systemuserid>",
+          "_ownerid_value@OData.Community.Display.V1.FormattedValue": "# ChangeGuard-Automation",
+          "_ownerid_value@Microsoft.Dynamics.CRM.associatednavigationproperty": "ownerid",
+          "_ownerid_value@Microsoft.Dynamics.CRM.lookuplogicalname": "systemuser",
+          "_ownerid_value": "<user-2-systemuserid>",
+          "timezoneruleversionnumber@OData.Community.Display.V1.FormattedValue": "4",
+          "timezoneruleversionnumber": 4
+        }
+      }
+    },
+    "Commit_decision": {
+      "status": "Succeeded",
+      "code": "OK",
+      "startTime": "2026-09-22T16:02:56.8957363Z",
+      "endTime": "2026-09-22T16:02:57.7618012Z",
+      "inputs": {
+        "host": {
+          "apiId": "subscriptions/<environment-id>/providers/Microsoft.Web/locations/canadacentral/runtimes/Canada-001/apis/commondataserviceforapps",
+          "connectionReferenceName": "shared_commondataserviceforapps",
+          "operationId": "ExecuteChangeset"
+        }
+      },
+      "outputs": null
+    },
+    "Decision_result": {
+      "status": "Succeeded",
+      "code": "OK",
+      "startTime": "2026-09-22T16:02:58.964006Z",
+      "endTime": "2026-09-22T16:02:58.9707412Z",
+      "inputs": {
+        "status": "Recorded",
+        "requestKey": "CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1",
+        "decision": "Approved",
+        "approver": "reviewer@changeguard-demo.example",
+        "previousStatus": "PendingReview",
+        "message": ""
+      },
+      "outputs": {
+        "status": "Recorded",
+        "requestKey": "CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1",
+        "decision": "Approved",
+        "approver": "reviewer@changeguard-demo.example",
+        "previousStatus": "PendingReview",
+        "message": ""
+      }
+    },
+    "Effective_option": {
+      "status": "Succeeded",
+      "code": "OK",
+      "startTime": "2026-09-22T16:02:55.5653249Z",
+      "endTime": "2026-09-22T16:02:55.5664176Z",
+      "inputs": "CGDEMO-OPT-AIR",
+      "outputs": "CGDEMO-OPT-AIR"
+    },
+    "Init_Result": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:02:54.1039358Z",
+      "endTime": "2026-09-22T16:02:54.1279337Z",
+      "inputs": {
+        "variables": [
+          {
+            "name": "Result",
+            "type": "String",
+            "value": ""
+          }
+        ]
+      },
+      "outputs": {
+        "variables": [
+          {
+            "name": "Result",
+            "type": "String",
+            "value": ""
+          }
+        ]
+      }
+    },
+    "Init_ResultMessage": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:02:54.1403974Z",
+      "endTime": "2026-09-22T16:02:54.1527141Z",
+      "inputs": {
+        "variables": [
+          {
+            "name": "ResultMessage",
+            "type": "String",
+            "value": ""
+          }
+        ]
+      },
+      "outputs": {
+        "variables": [
+          {
+            "name": "ResultMessage",
+            "type": "String",
+            "value": ""
+          }
+        ]
+      }
+    },
+    "Internal_error_check": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:02:59.0073472Z",
+      "endTime": "2026-09-22T16:02:59.1206649Z",
+      "inputs": {
+        "expressionResult": false
+      },
+      "outputs": null
+    },
+    "List_claim": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:02:56.8801042Z",
+      "endTime": "2026-09-22T16:02:56.8808547Z",
+      "error": {
+        "code": "ActionConditionFailed",
+        "message": "The execution of template action 'List_claim' is skipped: the 'runAfter' condition for action 'Claim_decision' is not satisfied. Expected status values 'Failed, TimedOut' and actual value 'Succeeded'.",
+        "messageTemplate": "The execution of template action '{0}' is skipped: the 'runAfter' condition for action '{1}' is not satisfied. Expected status values '{2}' and actual value '{3}'."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "List_decision_option": {
+      "status": "Succeeded",
+      "code": "OK",
+      "startTime": "2026-09-22T16:02:55.6956405Z",
+      "endTime": "2026-09-22T16:02:55.7819057Z",
+      "inputs": {
+        "host": {
+          "apiId": "subscriptions/<environment-id>/providers/Microsoft.Web/locations/canadacentral/runtimes/Canada-001/apis/commondataserviceforapps",
+          "connectionReferenceName": "shared_commondataserviceforapps",
+          "operationId": "ListRecords"
+        },
+        "parameters": {
+          "entityName": "cr458_cgrecoveryoptions",
+          "$filter": "cr458_optioncode eq 'CGDEMO-OPT-AIR' and _cr458_project_value eq c92b43ba-84b6-f111-aaad-000d3af45a09",
+          "$select": "cr458_optioncode,cr458_availabilitystatus,cr458_arrivaldate,cr458_asofdate,cr458_validuntil",
+          "$expand": "cr458_ChangedMilestone($select=cr458_milestonecode)",
+          "$top": 1,
+          "accept": "application/json;odata.metadata=minimal"
+        }
+      },
+      "outputs": {
+        "statusCode": 200,
+        "headers": {
+          "Cache-Control": "no-cache",
+          "Vary": "Accept-Encoding",
+          "Set-Cookie": "ARRAffinity=2a570086dda919de769e4850d3b10fd8c0d196088c5614145ac4efe7cf706caf15134d20c556b0b34b9b6ae43ec3f5dcdad61788de889ffc592af7aca85fc1c508DF18C727E795FA0000000044763789; path=/; secure; HttpOnly,ReqClientId=8e8de4d3-40f4-4a21-a276-6fd8b82a8f58; expires=Tue, 22-Sep-2076 16:02:55 GMT; path=/; secure; HttpOnly,ARRAffinity=2a570086dda919de769e4850d3b10fd8c0d196088c5614145ac4efe7cf706caf15134d20c556b0b34b9b6ae43ec3f5dcdad61788de889ffc592af7aca85fc1c508DF18C727E795FA0000000044763789; path=/; secure; HttpOnly",
+          "x-ms-service-request-id": "8a62df3b-8e42-4dc4-97b3-d576c88ccc5a",
+          "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+          "REQ_ID": "8a62df3b-8e42-4dc4-97b3-d576c88ccc5a",
+          "AuthActivityId": "8fdfef74-3bb1-4c29-a5e8-d08054e3a143",
+          "x-ms-dop-hint": "4",
+          "x-ms-ratelimit-time-remaining-xrm-requests": "1,200.00",
+          "x-ms-ratelimit-burst-remaining-xrm-requests": "7998",
+          "X-Content-Type-Options": "nosniff",
+          "OData-Version": "4.0",
+          "Preference-Applied": "odata.include-annotations=\"*\"",
+          "X-Source": "10523815952149249177372247491512343517151627485712011119758748842222661618130,23222168196191111751502101262431971832492161942272051625719127823118916111144104155774",
+          "Public": "OPTIONS,GET,HEAD,POST",
+          "Date": "Tue, 22 Sep 2026 16:02:55 GMT",
+          "Allow": "OPTIONS,GET,HEAD,POST",
+          "Content-Type": "application/json; odata.metadata=minimal",
+          "Expires": "-1",
+          "Content-Length": "1028"
+        },
+        "body": {
+          "@odata.context": "https://<org>.crm3.dynamics.com/api/data/v9.1/$metadata#cr458_cgrecoveryoptions(cr458_optioncode,cr458_availabilitystatus,cr458_arrivaldate,cr458_asofdate,cr458_validuntil,cr458_ChangedMilestone(cr458_milestonecode))",
+          "@Microsoft.Dynamics.CRM.totalrecordcount": -1,
+          "@Microsoft.Dynamics.CRM.totalrecordcountlimitexceeded": false,
+          "@Microsoft.Dynamics.CRM.globalmetadataversion": "2631279",
+          "value": [
+            {
+              "@odata.etag": "W/\"2623280\"",
+              "cr458_availabilitystatus": "Confirmed",
+              "cr458_validuntil@OData.Community.Display.V1.FormattedValue": "10/9/2026",
+              "cr458_validuntil": "2026-10-09",
+              "cr458_cgrecoveryoptionid": "d62b43ba-84b6-f111-aaad-000d3af45a09",
+              "cr458_asofdate@OData.Community.Display.V1.FormattedValue": "9/21/2026",
+              "cr458_asofdate": "2026-09-21",
+              "cr458_optioncode": "CGDEMO-OPT-AIR",
+              "cr458_arrivaldate@OData.Community.Display.V1.FormattedValue": "10/16/2026",
+              "cr458_arrivaldate": "2026-10-16",
+              "cr458_ChangedMilestone": {
+                "cr458_cgmilestoneid": "ca2b43ba-84b6-f111-aaad-000d3af45a09",
+                "cr458_milestonecode": "CGDEMO-M1"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "List_prior_decision": {
+      "status": "Succeeded",
+      "code": "OK",
+      "startTime": "2026-09-22T16:02:55.7985124Z",
+      "endTime": "2026-09-22T16:02:55.8473156Z",
+      "inputs": {
+        "host": {
+          "apiId": "subscriptions/<environment-id>/providers/Microsoft.Web/locations/canadacentral/runtimes/Canada-001/apis/commondataserviceforapps",
+          "connectionReferenceName": "shared_commondataserviceforapps",
+          "operationId": "ListRecords"
+        },
+        "parameters": {
+          "entityName": "cr458_cgauditevents",
+          "$filter": "cr458_requestkey eq 'CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1' and cr458_eventtype eq 'DecisionRecorded'",
+          "$select": "cr458_details",
+          "$top": 1,
+          "accept": "application/json;odata.metadata=minimal"
+        }
+      },
+      "outputs": {
+        "statusCode": 200,
+        "headers": {
+          "Cache-Control": "no-cache",
+          "Vary": "Accept-Encoding",
+          "Set-Cookie": "ARRAffinity=2a570086dda919de769e4850d3b10fd8c0d196088c5614145ac4efe7cf706caf15134d20c556b0b34b9b6ae43ec3f5dcdad61788de889ffc592af7aca85fc1c508DF18C727F84A160000001387234268; path=/; secure; HttpOnly,ReqClientId=c7f6ba90-d9b3-4cf9-bea0-2cf27dbc12e9; expires=Tue, 22-Sep-2076 16:02:55 GMT; path=/; secure; HttpOnly,ARRAffinity=2a570086dda919de769e4850d3b10fd8c0d196088c5614145ac4efe7cf706caf15134d20c556b0b34b9b6ae43ec3f5dcdad61788de889ffc592af7aca85fc1c508DF18C727F84A160000001387234268; path=/; secure; HttpOnly",
+          "x-ms-service-request-id": "6109353c-48e9-46dd-9e87-15570fa4eefa",
+          "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+          "REQ_ID": "6109353c-48e9-46dd-9e87-15570fa4eefa",
+          "AuthActivityId": "43c5bce8-4a25-43d3-9771-9283f666ef69",
+          "x-ms-dop-hint": "4",
+          "x-ms-ratelimit-time-remaining-xrm-requests": "1,200.00",
+          "x-ms-ratelimit-burst-remaining-xrm-requests": "7997",
+          "X-Content-Type-Options": "nosniff",
+          "OData-Version": "4.0",
+          "Preference-Applied": "odata.include-annotations=\"*\"",
+          "X-Source": "10523815952149249177372247491512343517151627485712011119758748842222661618130,23222168196191111751502101262431971832492161942272051625719127823118916111144104155774",
+          "Public": "OPTIONS,GET,HEAD,POST",
+          "Date": "Tue, 22 Sep 2026 16:02:55 GMT",
+          "Allow": "OPTIONS,GET,HEAD,POST",
+          "Content-Type": "application/json; odata.metadata=minimal",
+          "Expires": "-1",
+          "Content-Length": "294"
+        },
+        "body": {
+          "@odata.context": "https://<org>.crm3.dynamics.com/api/data/v9.1/$metadata#cr458_cgauditevents(cr458_details)",
+          "@Microsoft.Dynamics.CRM.totalrecordcount": -1,
+          "@Microsoft.Dynamics.CRM.totalrecordcountlimitexceeded": false,
+          "@Microsoft.Dynamics.CRM.globalmetadataversion": "2631279",
+          "value": []
+        }
+      }
+    },
+    "List_request": {
+      "status": "Succeeded",
+      "code": "OK",
+      "startTime": "2026-09-22T16:02:54.1825601Z",
+      "endTime": "2026-09-22T16:02:55.5473381Z",
+      "inputs": {
+        "host": {
+          "apiId": "subscriptions/<environment-id>/providers/Microsoft.Web/locations/canadacentral/runtimes/Canada-001/apis/commondataserviceforapps",
+          "connectionReferenceName": "shared_commondataserviceforapps",
+          "operationId": "ListRecords"
+        },
+        "parameters": {
+          "entityName": "cr458_cgchangerequests",
+          "$filter": "cr458_requestkey eq 'CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1'",
+          "$select": "cr458_cgchangerequestid,cr458_status,cr458_requestkey,cr458_baselineversion,_cr458_project_value,cr458_selectedoption",
+          "$expand": "cr458_Project($select=cr458_approveremails,cr458_projectcode,cr458_baselineversion),cr458_Milestone($select=cr458_milestonecode)",
+          "$top": 1,
+          "accept": "application/json;odata.metadata=minimal"
+        }
+      },
+      "outputs": {
+        "statusCode": 200,
+        "headers": {
+          "Cache-Control": "no-cache",
+          "Vary": "Accept-Encoding",
+          "Set-Cookie": "ARRAffinity=2a570086dda919de769e4850d3b10fd8c0d196088c5614145ac4efe7cf706caf15134d20c556b0b34b9b6ae43ec3f5dcdad61788de889ffc592af7aca85fc1c508DF18C72707728C0000001873360062; path=/; secure; HttpOnly,ReqClientId=203003d6-f5aa-43aa-9d42-fd62337f603d; expires=Tue, 22-Sep-2076 16:02:54 GMT; path=/; secure; HttpOnly,ARRAffinity=2a570086dda919de769e4850d3b10fd8c0d196088c5614145ac4efe7cf706caf15134d20c556b0b34b9b6ae43ec3f5dcdad61788de889ffc592af7aca85fc1c508DF18C72707728C0000001873360062; path=/; secure; HttpOnly",
+          "x-ms-service-request-id": "37c0ea3e-ee86-4681-8047-9ffa9d16b97b",
+          "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+          "REQ_ID": "37c0ea3e-ee86-4681-8047-9ffa9d16b97b",
+          "AuthActivityId": "c7f3ef0e-0210-4dd5-888b-2ac0ba8f5612",
+          "x-ms-dop-hint": "4",
+          "x-ms-ratelimit-time-remaining-xrm-requests": "1,200.00",
+          "x-ms-ratelimit-burst-remaining-xrm-requests": "7999",
+          "X-Content-Type-Options": "nosniff",
+          "OData-Version": "4.0",
+          "Preference-Applied": "odata.include-annotations=\"*\"",
+          "X-Source": "10523815952149249177372247491512343517151627485712011119758748842222661618130,23222168196191111751502101262431971832492161942272051625719127823118916111144104155774",
+          "Public": "OPTIONS,GET,HEAD,POST",
+          "Date": "Tue, 22 Sep 2026 16:02:55 GMT",
+          "Allow": "OPTIONS,GET,HEAD,POST",
+          "Content-Type": "application/json; odata.metadata=minimal",
+          "Expires": "-1",
+          "Content-Length": "1576"
+        },
+        "body": {
+          "@odata.context": "https://<org>.crm3.dynamics.com/api/data/v9.1/$metadata#cr458_cgchangerequests(cr458_cgchangerequestid,cr458_status,cr458_requestkey,cr458_baselineversion,_cr458_project_value,cr458_selectedoption,cr458_Project(cr458_approveremails,cr458_projectcode,cr458_baselineversion),cr458_Milestone(cr458_milestonecode))",
+          "@Microsoft.Dynamics.CRM.totalrecordcount": -1,
+          "@Microsoft.Dynamics.CRM.totalrecordcountlimitexceeded": false,
+          "@Microsoft.Dynamics.CRM.globalmetadataversion": "2631279",
+          "value": [
+            {
+              "@odata.etag": "W/\"2623475\"",
+              "cr458_selectedoption": "CGDEMO-OPT-AIR",
+              "cr458_requestkey": "CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1",
+              "cr458_status": "PendingReview",
+              "cr458_baselineversion@OData.Community.Display.V1.FormattedValue": "1",
+              "cr458_baselineversion": 1,
+              "cr458_cgchangerequestid": "162c5b9e-a413-4644-ac1b-f9c8872ba192",
+              "_cr458_project_value@OData.Community.Display.V1.FormattedValue": "Harbour Crane Retrofit (synthetic demo)",
+              "_cr458_project_value@Microsoft.Dynamics.CRM.associatednavigationproperty": "cr458_Project",
+              "_cr458_project_value@Microsoft.Dynamics.CRM.lookuplogicalname": "cr458_cgproject",
+              "_cr458_project_value": "c92b43ba-84b6-f111-aaad-000d3af45a09",
+              "cr458_Project": {
+                "cr458_cgprojectid": "c92b43ba-84b6-f111-aaad-000d3af45a09",
+                "cr458_approveremails": "reviewer@changeguard-demo.example",
+                "cr458_baselineversion@OData.Community.Display.V1.FormattedValue": "1",
+                "cr458_baselineversion": 1,
+                "cr458_projectcode": "CGDEMO-FINAL-01"
+              },
+              "cr458_Milestone": {
+                "cr458_cgmilestoneid": "ca2b43ba-84b6-f111-aaad-000d3af45a09",
+                "cr458_milestonecode": "CGDEMO-M1"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "Proposed_option": {
+      "status": "Succeeded",
+      "code": "OK",
+      "startTime": "2026-09-22T16:02:55.680079Z",
+      "endTime": "2026-09-22T16:02:55.6808915Z",
+      "inputs": "CGDEMO-OPT-AIR",
+      "outputs": "CGDEMO-OPT-AIR"
+    },
+    "Release_claim": {
+      "status": "Succeeded",
+      "code": "NoContent",
+      "startTime": "2026-09-22T16:02:57.7858869Z",
+      "endTime": "2026-09-22T16:02:58.6533389Z",
+      "inputs": {
+        "host": {
+          "apiId": "subscriptions/<environment-id>/providers/Microsoft.Web/locations/canadacentral/runtimes/Canada-001/apis/commondataserviceforapps",
+          "connectionReferenceName": "shared_commondataserviceforapps",
+          "operationId": "DeleteRecord"
+        },
+        "parameters": {
+          "entityName": "cr458_cgclaims",
+          "recordId": "ae62420f-9fb6-f111-aaad-000d3af45a09"
+        }
+      },
+      "outputs": {
+        "statusCode": 204,
+        "headers": {
+          "Cache-Control": "no-cache",
+          "Set-Cookie": "ARRAffinity=2a570086dda919de769e4850d3b10fd8c0d196088c5614145ac4efe7cf706caf15134d20c556b0b34b9b6ae43ec3f5dcdad61788de889ffc592af7aca85fc1c508DF18C7292735FB0000000562361768; path=/; secure; HttpOnly,ReqClientId=23332c6e-07e6-4b15-b141-c6e45411a458; expires=Tue, 22-Sep-2076 16:02:57 GMT; path=/; secure; HttpOnly,last_commit_time=2026-09-22 16:02:58Z; expires=Tue, 22-Sep-2026 16:03:58 GMT; path=/; secure; HttpOnly,ARRAffinity=2a570086dda919de769e4850d3b10fd8c0d196088c5614145ac4efe7cf706caf15134d20c556b0b34b9b6ae43ec3f5dcdad61788de889ffc592af7aca85fc1c508DF18C7292735FB0000000562361768; path=/; secure; HttpOnly",
+          "x-ms-service-request-id": "005f0579-3e98-4f4f-9bae-cf39f6a4fd93",
+          "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+          "REQ_ID": "005f0579-3e98-4f4f-9bae-cf39f6a4fd93",
+          "AuthActivityId": "21751ffa-e7c2-4b75-b815-267abfe42b6a",
+          "x-ms-dop-hint": "4",
+          "x-ms-ratelimit-time-remaining-xrm-requests": "1,198.58",
+          "x-ms-ratelimit-burst-remaining-xrm-requests": "7994",
+          "OData-Version": "4.0",
+          "X-Content-Type-Options": "nosniff",
+          "X-Source": "10523815952149249177372247491512343517151627485712011119758748842222661618130,23222168196191111751502101262431971832492161942272051625719127823118916111144104155774",
+          "Public": "OPTIONS,GET,HEAD,POST",
+          "Date": "Tue, 22 Sep 2026 16:02:58 GMT",
+          "Allow": "OPTIONS,GET,HEAD,POST",
+          "Content-Type": "text/html; charset=utf-8",
+          "Expires": "-1",
+          "Content-Length": "0"
+        }
+      }
+    },
+    "Set_approval_refused": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:02:55.8974697Z",
+      "endTime": "2026-09-22T16:02:55.8981869Z",
+      "error": {
+        "code": "ActionBranchingConditionNotSatisfied",
+        "message": "The execution of template action 'Set_approval_refused' skipped: the branching condition for this action is not satisfied.",
+        "messageTemplate": "The execution of template action '{0}' skipped: the branching condition for this action is not satisfied."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Set_approval_refused_message": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:02:55.912928Z",
+      "endTime": "2026-09-22T16:02:55.9136041Z",
+      "error": {
+        "code": "ActionConditionFailed",
+        "message": "The execution of template action 'Set_approval_refused_message' is skipped: the 'runAfter' condition for action 'Set_approval_refused' is not satisfied. Expected status values 'Succeeded' and actual value 'Skipped'.",
+        "messageTemplate": "The execution of template action '{0}' is skipped: the 'runAfter' condition for action '{1}' is not satisfied. Expected status values '{2}' and actual value '{3}'."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Set_conflict": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:02:56.9410501Z",
+      "endTime": "2026-09-22T16:02:56.941721Z",
+      "error": {
+        "code": "ActionDependencyFailed",
+        "message": "The execution of template action 'Set_conflict' is skipped: dependant action 'Check_stale_claim' completed with status 'Skipped' and code 'ActionSkipped'.",
+        "messageTemplate": "The execution of template action '{0}' is skipped: dependant action '{1}' completed with status '{2}' and code '{3}'."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Set_conflict_stale": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:02:56.9083007Z",
+      "endTime": "2026-09-22T16:02:56.9090262Z",
+      "error": {
+        "code": "ActionDependencyFailed",
+        "message": "The execution of template action 'Set_conflict_stale' is skipped: dependant action 'Check_stale_claim' completed with status 'Skipped' and code 'ActionSkipped'.",
+        "messageTemplate": "The execution of template action '{0}' is skipped: dependant action '{1}' completed with status '{2}' and code '{3}'."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Set_conflict_stale_message": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:02:56.9244278Z",
+      "endTime": "2026-09-22T16:02:56.9252623Z",
+      "error": {
+        "code": "ActionConditionFailed",
+        "message": "The execution of template action 'Set_conflict_stale_message' is skipped: the 'runAfter' condition for action 'Set_conflict_stale' is not satisfied. Expected status values 'Succeeded' and actual value 'Skipped'.",
+        "messageTemplate": "The execution of template action '{0}' is skipped: the 'runAfter' condition for action '{1}' is not satisfied. Expected status values '{2}' and actual value '{3}'."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Set_internal_error_message": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:02:59.0479221Z",
+      "endTime": "2026-09-22T16:02:59.0486576Z",
+      "error": {
+        "code": "ActionConditionFailed",
+        "message": "The execution of template action 'Set_internal_error_message' is skipped: the 'runAfter' condition for action 'Set_status_InternalError' is not satisfied. Expected status values 'Succeeded' and actual value 'Skipped'.",
+        "messageTemplate": "The execution of template action '{0}' is skipped: the 'runAfter' condition for action '{1}' is not satisfied. Expected status values '{2}' and actual value '{3}'."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Set_recorded": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:02:57.7858876Z",
+      "endTime": "2026-09-22T16:02:57.8027595Z",
+      "inputs": {
+        "name": "Result",
+        "value": "Recorded"
+      },
+      "outputs": {
+        "body": {
+          "name": "Result",
+          "type": "String",
+          "value": "Recorded"
+        }
+      }
+    },
+    "Set_status_InternalError": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:02:59.0298219Z",
+      "endTime": "2026-09-22T16:02:59.0305875Z",
+      "error": {
+        "code": "ActionBranchingConditionNotSatisfied",
+        "message": "The execution of template action 'Set_status_InternalError' skipped: the branching condition for this action is not satisfied.",
+        "messageTemplate": "The execution of template action '{0}' skipped: the branching condition for this action is not satisfied."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Set_status_InvalidDecision": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:02:55.6316368Z",
+      "endTime": "2026-09-22T16:02:55.6323294Z",
+      "error": {
+        "code": "ActionBranchingConditionNotSatisfied",
+        "message": "The execution of template action 'Set_status_InvalidDecision' skipped: the branching condition for this action is not satisfied.",
+        "messageTemplate": "The execution of template action '{0}' skipped: the branching condition for this action is not satisfied."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Set_status_InvalidTransition": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:02:55.9537585Z",
+      "endTime": "2026-09-22T16:02:55.9544551Z",
+      "error": {
+        "code": "ActionBranchingConditionNotSatisfied",
+        "message": "The execution of template action 'Set_status_InvalidTransition' skipped: the branching condition for this action is not satisfied.",
+        "messageTemplate": "The execution of template action '{0}' skipped: the branching condition for this action is not satisfied."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Set_status_NotAuthorized": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:02:55.6650533Z",
+      "endTime": "2026-09-22T16:02:55.6657481Z",
+      "error": {
+        "code": "ActionBranchingConditionNotSatisfied",
+        "message": "The execution of template action 'Set_status_NotAuthorized' skipped: the branching condition for this action is not satisfied.",
+        "messageTemplate": "The execution of template action '{0}' skipped: the branching condition for this action is not satisfied."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Set_status_NotFound": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:02:55.5985244Z",
+      "endTime": "2026-09-22T16:02:55.5992663Z",
+      "error": {
+        "code": "ActionBranchingConditionNotSatisfied",
+        "message": "The execution of template action 'Set_status_NotFound' skipped: the branching condition for this action is not satisfied.",
+        "messageTemplate": "The execution of template action '{0}' skipped: the branching condition for this action is not satisfied."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Set_write_failed": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:02:57.7858859Z",
+      "endTime": "2026-09-22T16:02:57.7865901Z",
+      "error": {
+        "code": "ActionConditionFailed",
+        "message": "The execution of template action 'Set_write_failed' is skipped: the 'runAfter' condition for action 'Commit_decision' is not satisfied. Expected status values 'Failed, TimedOut' and actual value 'Succeeded'.",
+        "messageTemplate": "The execution of template action '{0}' is skipped: the 'runAfter' condition for action '{1}' is not satisfied. Expected status values '{2}' and actual value '{3}'."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Terminate_failed": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:02:59.3425326Z",
+      "endTime": "2026-09-22T16:02:59.3433179Z",
+      "error": {
+        "code": "ActionBranchingConditionNotSatisfied",
+        "message": "The execution of template action 'Terminate_failed' skipped: the branching condition for this action is not satisfied.",
+        "messageTemplate": "The execution of template action '{0}' skipped: the branching condition for this action is not satisfied."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Terminate_on_failure": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:02:59.316066Z",
+      "endTime": "2026-09-22T16:02:59.4058326Z",
+      "inputs": {
+        "expressionResult": false
+      },
+      "outputs": null
+    },
+    "Update_request": {
+      "status": "Succeeded",
+      "code": "OK",
+      "startTime": "2026-09-22T16:02:57.6906105Z",
+      "endTime": "2026-09-22T16:02:57.698685Z",
+      "inputs": {
+        "host": {
+          "apiId": "subscriptions/<environment-id>/providers/Microsoft.Web/locations/canadacentral/runtimes/Canada-001/apis/commondataserviceforapps",
+          "connectionReferenceName": "shared_commondataserviceforapps",
+          "operationId": "UpdateRecord"
+        },
+        "parameters": {
+          "entityName": "cr458_cgchangerequests",
+          "recordId": "162c5b9e-a413-4644-ac1b-f9c8872ba192",
+          "item/cr458_status": "Approved",
+          "item/cr458_approvaldecision": "Approved",
+          "item/cr458_approvedat": "2026-09-22T16:02:56.8974356Z",
+          "item/cr458_approvedby": "reviewer@changeguard-demo.example",
+          "item/cr458_selectedoption": "CGDEMO-OPT-AIR",
+          "accept": "application/json;odata.metadata=minimal"
+        }
+      },
+      "outputs": {
+        "statusCode": 200,
+        "headers": {
+          "Preference-Applied": "odata.include-annotations=\"*\"",
+          "ETag": "W/\"2631420\"",
+          "Cache-Control": "no-cache",
+          "Pragma": "no-cache",
+          "X-Content-Type-Options": "nosniff",
+          "OData-Version": "4.0"
+        },
+        "body": {
+          "@odata.context": "https://<org>.crm3.dynamics.com/api/data/v9.1/$metadata#cr458_cgchangerequests/$entity",
+          "@odata.etag": "W/\"2631420\"",
+          "cr458_selectedoption": "CGDEMO-OPT-AIR",
+          "cr458_requestkey": "CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1",
+          "modifiedon@OData.Community.Display.V1.FormattedValue": "9/22/2026 4:02 PM",
+          "modifiedon": "2026-09-22T16:02:57Z",
+          "_owninguser_value@Microsoft.Dynamics.CRM.lookuplogicalname": "systemuser",
+          "_owninguser_value": "<user-2-systemuserid>",
+          "cr458_approvedby": "reviewer@changeguard-demo.example",
+          "cr458_assessmentfingerprint": "Q0dERU1PLU0yLENHREVNTy1NM3xDR0RFTU8tTTI9MjAyNi0xMS0xMSxDR0RFTU8tTTM9MjAyNi0xMS0xOHwx",
+          "cr458_approvedat@OData.Community.Display.V1.FormattedValue": "9/22/2026 4:02 PM",
+          "cr458_approvedat": "2026-09-22T16:02:56Z",
+          "cr458_status": "Approved",
+          "cr458_sourceref": "ChangeGuard Control Tower agent (SaveChangeRequest)",
+          "cr458_proposedfinish@OData.Community.Display.V1.FormattedValue": "10/30/2026",
+          "cr458_proposedfinish": "2026-10-30",
+          "cr458_originalevidence": "Supplier email of 22 September 2026 states the gearbox now ships on 30 October because of a casting defect.",
+          "cr458_name": "CGDEMO-FINAL-01 CGDEMO-M1 to 2026-10-30",
+          "statecode@OData.Community.Display.V1.FormattedValue": "Active",
+          "statecode": 0,
+          "versionnumber@OData.Community.Display.V1.FormattedValue": "2,631,420",
+          "versionnumber": 2631420,
+          "cr458_baselineversion@OData.Community.Display.V1.FormattedValue": "1",
+          "cr458_baselineversion": 1,
+          "cr458_approvaldecision": "Approved",
+          "cr458_assessmentjson": "{\"status\":\"Assessed\",\"projectCode\":\"CGDEMO-FINAL-01\",\"projectName\":\"Harbour Crane Retrofit (synthetic demo)\",\"baselineVersion\":1,\"calendarCode\":\"CGDEMO-CAL\",\"changedMilestone\":{\"code\":\"CGDEMO-M1\",\"name\":\"Gearbox delivery to site\",\"owner\":\"Demo Owner One\",\"baselineFinish\":\"2026-10-09\",\"proposedFinish\":\"2026-10-30\",\"computedFinish\":\"2026-10-30\",\"slipWorkingDays\":15,\"verdict\":\"Changed\",\"externalCommitment\":false},\"effectiveFinish\":\"2026-10-30\",\"affected\":[\"CGDEMO-M2\",\"CGDEMO-M3\"],\"unaffected\":[],\"conflicts\":[\"CGDEMO-M3\"],\"milestones\":[{\"code\":\"CGDEMO-M2\",\"name\":\"Mechanical installation\",\"owner\":\"Demo Owner Two\",\"baselineFinish\":\"2026-10-23\",\"computedFinish\":\"2026-11-11\",\"slipWorkingDays\":13,\"verdict\":\"Slips\",\"externalCommitment\":false},{\"code\":\"CGDEMO-M3\",\"name\":\"Commissioning and handover\",\"owner\":\"Demo Owner Three\",\"baselineFinish\":\"2026-11-06\",\"computedFinish\":\"2026-11-18\",\"slipWorkingDays\":8,\"verdict\":\"Infeasible\",\"externalCommitment\":true}],\"assumptions\":[\"Calendar CGDEMO-CAL: Monday to Friday working days. No public holidays configured.\"],\"unknowns\":[],\"evidence\":[{\"milestone\":\"CGDEMO-M2\",\"path\":\"CGDEMO-M1 -> CGDEMO-M2\",\"hops\":1},{\"milestone\":\"CGDEMO-M3\",\"path\":\"CGDEMO-M1 -> CGDEMO-M2 -> CGDEMO-M3\",\"hops\":2}],\"assessmentFingerprint\":\"Q0dERU1PLU0yLENHREVNTy1NM3xDR0RFTU8tTTI9MjAyNi0xMS0xMSxDR0RFTU8tTTM9MjAyNi0xMS0xOHwx\",\"source\":\"Computed by the AssessChange flow from Dataverse records; not generated by the language model.\"}",
+          "_cr458_milestone_value@OData.Community.Display.V1.FormattedValue": "Gearbox delivery to site",
+          "_cr458_milestone_value@Microsoft.Dynamics.CRM.associatednavigationproperty": "cr458_Milestone",
+          "_cr458_milestone_value@Microsoft.Dynamics.CRM.lookuplogicalname": "cr458_cgmilestone",
+          "_cr458_milestone_value": "ca2b43ba-84b6-f111-aaad-000d3af45a09",
+          "cr458_cgchangerequestid": "162c5b9e-a413-4644-ac1b-f9c8872ba192",
+          "_modifiedby_value@OData.Community.Display.V1.FormattedValue": "# ChangeGuard-Automation",
+          "_modifiedby_value@Microsoft.Dynamics.CRM.lookuplogicalname": "systemuser",
+          "_modifiedby_value": "<user-2-systemuserid>",
+          "createdon@OData.Community.Display.V1.FormattedValue": "9/22/2026 1:01 PM",
+          "createdon": "2026-09-22T13:01:40Z",
+          "_owningbusinessunit_value@OData.Community.Display.V1.FormattedValue": "<org>",
+          "_owningbusinessunit_value@Microsoft.Dynamics.CRM.associatednavigationproperty": "owningbusinessunit",
+          "_owningbusinessunit_value@Microsoft.Dynamics.CRM.lookuplogicalname": "businessunit",
+          "_owningbusinessunit_value": "cea8ffff-13b4-f111-aaae-0022486daaac",
+          "statuscode@OData.Community.Display.V1.FormattedValue": "Active",
+          "statuscode": 1,
+          "cr458_demo@OData.Community.Display.V1.FormattedValue": "Yes",
+          "cr458_demo": true,
+          "_ownerid_value@OData.Community.Display.V1.FormattedValue": "# ChangeGuard-Automation",
+          "_ownerid_value@Microsoft.Dynamics.CRM.associatednavigationproperty": "ownerid",
+          "_ownerid_value@Microsoft.Dynamics.CRM.lookuplogicalname": "systemuser",
+          "_ownerid_value": "<user-2-systemuserid>",
+          "_createdby_value@OData.Community.Display.V1.FormattedValue": "# ChangeGuard-Automation",
+          "_createdby_value@Microsoft.Dynamics.CRM.lookuplogicalname": "systemuser",
+          "_createdby_value": "<user-2-systemuserid>",
+          "_cr458_project_value@OData.Community.Display.V1.FormattedValue": "Harbour Crane Retrofit (synthetic demo)",
+          "_cr458_project_value@Microsoft.Dynamics.CRM.associatednavigationproperty": "cr458_Project",
+          "_cr458_project_value@Microsoft.Dynamics.CRM.lookuplogicalname": "cr458_cgproject",
+          "_cr458_project_value": "c92b43ba-84b6-f111-aaad-000d3af45a09",
+          "timezoneruleversionnumber@OData.Community.Display.V1.FormattedValue": "4",
+          "timezoneruleversionnumber": 4
+        }
+      }
+    }
+  }
+}

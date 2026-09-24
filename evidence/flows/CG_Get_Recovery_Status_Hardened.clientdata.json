@@ -1,0 +1,290 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "cr458_ChangeGuardDataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "metadata": {
+        "defaultToEmbeddedConnections": true
+      },
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "Scope",
+                  "description": "A project code (for example ATLAS) or a RequestKey (CR-...)."
+                }
+              },
+              "required": [
+                "text"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Prefix": {
+          "type": "Compose",
+          "inputs": "@if(startsWith(toUpper(trim(coalesce(triggerBody()?['text'], ''))), 'CR-'), toUpper(trim(coalesce(triggerBody()?['text'], ''))), concat('CR-', toUpper(trim(coalesce(triggerBody()?['text'], ''))), '-'))",
+          "runAfter": {}
+        },
+        "List_requests": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "connectionName": "shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "cr458_cgchangerequests",
+              "$filter": "startswith(cr458_requestkey, '@{replace(outputs('Prefix'), '''', '''''')}')",
+              "$select": "cr458_requestkey,cr458_status,cr458_approvaldecision,cr458_approvedby,cr458_approvedat,cr458_proposedfinish,cr458_baselineversion",
+              "$orderby": "cr458_requestkey asc"
+            }
+          },
+          "runtimeConfiguration": {
+            "paginationPolicy": {
+              "minimumItemCount": 5000
+            }
+          },
+          "runAfter": {
+            "Prefix": [
+              "Succeeded"
+            ]
+          }
+        },
+        "List_actions": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "connectionName": "shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "cr458_cgrecoveryactions",
+              "$filter": "startswith(cr458_actionkey, '@{replace(outputs('Prefix'), '''', '''''')}')",
+              "$select": "cr458_actionkey,cr458_name,cr458_ownername,cr458_status,cr458_duedate,cr458_completedon",
+              "$orderby": "cr458_actionkey asc"
+            }
+          },
+          "runtimeConfiguration": {
+            "paginationPolicy": {
+              "minimumItemCount": 5000
+            }
+          },
+          "runAfter": {
+            "List_requests": [
+              "Succeeded"
+            ]
+          }
+        },
+        "List_audit": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "connectionName": "shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "cr458_cgauditevents",
+              "$filter": "startswith(cr458_requestkey, '@{replace(outputs('Prefix'), '''', '''''')}')",
+              "$select": "cr458_eventtype,cr458_requestkey,cr458_actor,cr458_oldstate,cr458_newstate,cr458_occurredon",
+              "$orderby": "cr458_occurredon desc",
+              "$top": 15
+            }
+          },
+          "runAfter": {
+            "List_actions": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Overdue": {
+          "type": "Query",
+          "inputs": {
+            "from": "@outputs('List_actions')?['body/value']",
+            "where": "@and(not(equals(item()?['cr458_duedate'], null)), less(item()?['cr458_duedate'], formatDateTime(utcNow(), 'yyyy-MM-dd')), not(contains(createArray('Done', 'Cancelled'), item()?['cr458_status'])))"
+          },
+          "runAfter": {
+            "List_audit": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Overdue_keys": {
+          "type": "Select",
+          "inputs": {
+            "from": "@body('Overdue')",
+            "select": "@item()?['cr458_actionkey']"
+          },
+          "runAfter": {
+            "Overdue": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Blocked": {
+          "type": "Query",
+          "inputs": {
+            "from": "@outputs('List_actions')?['body/value']",
+            "where": "@equals(item()?['cr458_status'], 'Blocked')"
+          },
+          "runAfter": {
+            "Overdue_keys": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Open_actions": {
+          "type": "Query",
+          "inputs": {
+            "from": "@outputs('List_actions')?['body/value']",
+            "where": "@not(contains(createArray('Done', 'Cancelled'), item()?['cr458_status']))"
+          },
+          "runAfter": {
+            "Blocked": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Request_rows": {
+          "type": "Select",
+          "inputs": {
+            "from": "@outputs('List_requests')?['body/value']",
+            "select": "@concat('| ', item()?['cr458_requestkey'], ' | ', item()?['cr458_status'], ' | ', coalesce(item()?['cr458_approvedby'], 'none'), ' | ', if(equals(item()?['cr458_approvedat'], null), 'none', string(item()?['cr458_approvedat'])), ' |')"
+          },
+          "runAfter": {
+            "Open_actions": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Action_rows": {
+          "type": "Select",
+          "inputs": {
+            "from": "@outputs('List_actions')?['body/value']",
+            "select": "@concat('| ', item()?['cr458_actionkey'], ' | ', item()?['cr458_name'], ' | ', coalesce(item()?['cr458_ownername'], 'unassigned'), ' | ', item()?['cr458_status'], ' | ', if(equals(item()?['cr458_duedate'], null), 'none', string(item()?['cr458_duedate'])), ' | ', if(and(not(equals(item()?['cr458_duedate'], null)), less(item()?['cr458_duedate'], formatDateTime(utcNow(), 'yyyy-MM-dd')), not(contains(createArray('Done', 'Cancelled'), item()?['cr458_status']))), 'OVERDUE', ''), ' |')"
+          },
+          "runAfter": {
+            "Request_rows": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Audit_rows": {
+          "type": "Select",
+          "inputs": {
+            "from": "@outputs('List_audit')?['body/value']",
+            "select": "@concat('- ', string(item()?['cr458_occurredon']), ' ', item()?['cr458_eventtype'], ' ', item()?['cr458_requestkey'], ': ', coalesce(item()?['cr458_oldstate'], ''), ' -> ', coalesce(item()?['cr458_newstate'], ''), ' by ', coalesce(item()?['cr458_actor'], 'unknown'))"
+          },
+          "runAfter": {
+            "Action_rows": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Respond_to_the_agent": {
+          "type": "Response",
+          "kind": "Skills",
+          "runAfter": {
+            "Audit_rows": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "statusCode": 200,
+            "schema": {
+              "type": "object",
+              "additionalProperties": {},
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "Status",
+                  "description": "Found or NoRecords."
+                },
+                "requeststablemarkdown": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "RequestsTableMarkdown",
+                  "description": "Change requests and decisions. Reproduce exactly."
+                },
+                "actionstablemarkdown": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "ActionsTableMarkdown",
+                  "description": "Recovery actions with overdue flags. Reproduce exactly."
+                },
+                "audittrailmarkdown": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "AuditTrailMarkdown",
+                  "description": "Latest audit events, newest first."
+                },
+                "overduekeyscsv": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "OverdueKeysCsv",
+                  "description": "Open actions past their due date."
+                },
+                "summary": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "Summary",
+                  "description": "Counts computed by the flow."
+                }
+              }
+            },
+            "body": {
+              "status": "@if(or(not(empty(outputs('List_requests')?['body/value'])), not(empty(outputs('List_actions')?['body/value']))), 'Found', 'NoRecords')",
+              "requeststablemarkdown": "@if(empty(body('Request_rows')), 'No change requests.', concat('| RequestKey | Status | Decided by | Decided at (UTC) |', decodeUriComponent('%0A'), '|---|---|---|---|', decodeUriComponent('%0A'), join(body('Request_rows'), decodeUriComponent('%0A'))))",
+              "actionstablemarkdown": "@if(empty(body('Action_rows')), 'No recovery actions.', concat('| ActionKey | Action | Owner | Status | Due | Overdue |', decodeUriComponent('%0A'), '|---|---|---|---|---|---|', decodeUriComponent('%0A'), join(body('Action_rows'), decodeUriComponent('%0A'))))",
+              "audittrailmarkdown": "@if(empty(body('Audit_rows')), 'No audit events.', join(body('Audit_rows'), decodeUriComponent('%0A')))",
+              "overduekeyscsv": "@join(body('Overdue_keys'), ',')",
+              "summary": "@concat(string(length(outputs('List_requests')?['body/value'])), ' request(s); ', string(length(body('Open_actions'))), ' open action(s); ', string(length(body('Overdue'))), ' overdue; ', string(length(body('Blocked'))), ' blocked. Checked on ', formatDateTime(utcNow(), 'yyyy-MM-dd'), ' (UTC).')"
+            }
+          }
+        }
+      },
+      "outputs": {}
+    }
+  },
+  "schemaVersion": "1.0.0.0"
+}

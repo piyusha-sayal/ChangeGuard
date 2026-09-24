@@ -1,0 +1,348 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "cr458_ChangeGuardDataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "metadata": {
+        "defaultToEmbeddedConnections": true
+      },
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "ProjectCode",
+                  "description": "Project code, for example ATLAS."
+                },
+                "text_1": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "MilestoneCode",
+                  "description": "Milestone whose delay the options address, for example M1."
+                },
+                "text_2": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "AsOfDate",
+                  "description": "Explicit scenario date YYYY-MM-DD used to check option validity."
+                }
+              },
+              "required": [
+                "text",
+                "text_1",
+                "text_2"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Init_Result": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "Result",
+                "type": "string",
+                "value": ""
+              }
+            ]
+          },
+          "runAfter": {}
+        },
+        "Init_ResultMessage": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "ResultMessage",
+                "type": "string",
+                "value": ""
+              }
+            ]
+          },
+          "runAfter": {
+            "Init_Result": [
+              "Succeeded"
+            ]
+          }
+        },
+        "List_project": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "connectionName": "shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "cr458_cgprojects",
+              "$filter": "cr458_projectcode eq '@{replace(toUpper(trim(coalesce(triggerBody()?['text'], ''))), '''', '''''')}'",
+              "$select": "cr458_cgprojectid,cr458_projectcode",
+              "$top": 1
+            }
+          },
+          "runAfter": {
+            "Init_ResultMessage": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Check_input": {
+          "type": "If",
+          "expression": "@not(and(equals(length(trim(coalesce(triggerBody()?['text_2'], ''))), 10), equals(substring(concat(trim(coalesce(triggerBody()?['text_2'], '')), '__________'), 4, 1), '-'), equals(substring(concat(trim(coalesce(triggerBody()?['text_2'], '')), '__________'), 7, 1), '-')))",
+          "actions": {
+            "Set_invalid_date": {
+              "type": "SetVariable",
+              "inputs": {
+                "name": "Result",
+                "value": "InvalidDate"
+              },
+              "runAfter": {}
+            },
+            "Set_invalid_message": {
+              "type": "SetVariable",
+              "inputs": {
+                "name": "ResultMessage",
+                "value": "@concat('AsOfDate ', trim(coalesce(triggerBody()?['text_2'], '')), ' is not an ISO date (YYYY-MM-DD).')"
+              },
+              "runAfter": {
+                "Set_invalid_date": [
+                  "Succeeded"
+                ]
+              }
+            }
+          },
+          "else": {
+            "actions": {
+              "Check_project": {
+                "type": "If",
+                "expression": "@empty(outputs('List_project')?['body/value'])",
+                "actions": {
+                  "Set_not_found": {
+                    "type": "SetVariable",
+                    "inputs": {
+                      "name": "Result",
+                      "value": "NotFound"
+                    },
+                    "runAfter": {}
+                  },
+                  "Set_not_found_message": {
+                    "type": "SetVariable",
+                    "inputs": {
+                      "name": "ResultMessage",
+                      "value": "@concat('Project ', toUpper(trim(coalesce(triggerBody()?['text'], ''))), ' is not available.')"
+                    },
+                    "runAfter": {
+                      "Set_not_found": [
+                        "Succeeded"
+                      ]
+                    }
+                  }
+                },
+                "else": {
+                  "actions": {
+                    "List_options": {
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                          "operationId": "ListRecords",
+                          "connectionName": "shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "cr458_cgrecoveryoptions",
+                          "$filter": "_cr458_project_value eq @{first(outputs('List_project')?['body/value'])?['cr458_cgprojectid']}",
+                          "$select": "cr458_optioncode,cr458_name,cr458_arrivaldate,cr458_asofdate,cr458_leadtimeworkingdays,cr458_incrementalcost,cr458_currencycode,cr458_availabilitystatus,cr458_evidenceref,cr458_validuntil",
+                          "$orderby": "cr458_optioncode asc",
+                          "$expand": "cr458_ChangedMilestone($select=cr458_milestonecode),cr458_Project($select=cr458_projectcode)"
+                        }
+                      },
+                      "runtimeConfiguration": {
+                        "paginationPolicy": {
+                          "minimumItemCount": 5000
+                        }
+                      },
+                      "runAfter": {}
+                    },
+                    "Evaluated": {
+                      "type": "Select",
+                      "inputs": {
+                        "from": "@outputs('List_options')?['body/value']",
+                        "select": {
+                          "optionCode": "@item()?['cr458_optioncode']",
+                          "name": "@item()?['cr458_name']",
+                          "milestone": "@item()?['cr458_ChangedMilestone']?['cr458_milestonecode']",
+                          "arrivalDate": "@item()?['cr458_arrivaldate']",
+                          "leadTimeWorkingDays": "@item()?['cr458_leadtimeworkingdays']",
+                          "incrementalCost": "@item()?['cr458_incrementalcost']",
+                          "currency": "@item()?['cr458_currencycode']",
+                          "availability": "@item()?['cr458_availabilitystatus']",
+                          "validUntil": "@item()?['cr458_validuntil']",
+                          "evidenceRef": "@item()?['cr458_evidenceref']",
+                          "evaluation": "@if(not(equals(toUpper(coalesce(item()?['cr458_ChangedMilestone']?['cr458_milestonecode'], '')), toUpper(trim(coalesce(triggerBody()?['text_1'], ''))))), concat('OtherMilestone: ', coalesce(item()?['cr458_ChangedMilestone']?['cr458_milestonecode'], 'none')), if(and(not(equals(item()?['cr458_asofdate'], null)), less(trim(coalesce(triggerBody()?['text_2'], '')), item()?['cr458_asofdate'])), concat('NotYetQuoted: quoted from ', string(item()?['cr458_asofdate'])), if(and(not(equals(item()?['cr458_validuntil'], null)), greater(trim(coalesce(triggerBody()?['text_2'], '')), item()?['cr458_validuntil'])), 'Expired', if(not(equals(item()?['cr458_availabilitystatus'], 'Confirmed')), concat('NotSelectable: ', coalesce(item()?['cr458_availabilitystatus'], 'unknown availability')), if(equals(item()?['cr458_arrivaldate'], null), 'NoDocumentedArrival', 'Selectable')))))"
+                        }
+                      },
+                      "runAfter": {
+                        "List_options": [
+                          "Succeeded"
+                        ]
+                      }
+                    },
+                    "Selectable": {
+                      "type": "Query",
+                      "inputs": {
+                        "from": "@body('Evaluated')",
+                        "where": "@equals(item()?['evaluation'], 'Selectable')"
+                      },
+                      "runAfter": {
+                        "Evaluated": [
+                          "Succeeded"
+                        ]
+                      }
+                    },
+                    "Selectable_codes": {
+                      "type": "Select",
+                      "inputs": {
+                        "from": "@body('Selectable')",
+                        "select": "@item()?['optionCode']"
+                      },
+                      "runAfter": {
+                        "Selectable": [
+                          "Succeeded"
+                        ]
+                      }
+                    },
+                    "Table_rows": {
+                      "type": "Select",
+                      "inputs": {
+                        "from": "@body('Evaluated')",
+                        "select": "@concat('| ', item()?['optionCode'], ' | ', item()?['name'], ' | ', if(equals(item()?['milestone'], null), 'none', string(item()?['milestone'])), ' | ', if(equals(item()?['availability'], null), 'unknown', string(item()?['availability'])), ' | ', if(equals(item()?['arrivalDate'], null), 'none documented', string(item()?['arrivalDate'])), ' | ', if(equals(item()?['incrementalCost'], null), 'unknown', string(item()?['incrementalCost'])), ' ', coalesce(item()?['currency'], ''), ' | ', if(equals(item()?['validUntil'], null), 'no expiry recorded', string(item()?['validUntil'])), ' | ', item()?['evaluation'], ' | ', if(equals(item()?['evidenceRef'], null), 'none', string(item()?['evidenceRef'])), ' |')"
+                      },
+                      "runAfter": {
+                        "Selectable_codes": [
+                          "Succeeded"
+                        ]
+                      }
+                    },
+                    "Set_compared": {
+                      "type": "SetVariable",
+                      "inputs": {
+                        "name": "Result",
+                        "value": "Compared"
+                      },
+                      "runAfter": {
+                        "Table_rows": [
+                          "Succeeded"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "runAfter": {}
+              }
+            }
+          },
+          "runAfter": {
+            "List_project": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Respond_to_the_agent": {
+          "type": "Response",
+          "kind": "Skills",
+          "runAfter": {
+            "Check_input": [
+              "Succeeded",
+              "Failed"
+            ]
+          },
+          "inputs": {
+            "statusCode": 200,
+            "schema": {
+              "type": "object",
+              "additionalProperties": {},
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "Status",
+                  "description": "Compared, NotFound or InvalidDate."
+                },
+                "optionstablemarkdown": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "OptionsTableMarkdown",
+                  "description": "Pre-formatted option table. Reproduce exactly."
+                },
+                "selectablecodescsv": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "SelectableCodesCsv",
+                  "description": "Options that may be simulated with SimulateRecoveryOption."
+                },
+                "optionsjson": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "OptionsJson",
+                  "description": "Structured option evaluation."
+                },
+                "message": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "Message",
+                  "description": "Reason when Status is not Compared."
+                }
+              }
+            },
+            "body": {
+              "status": "@if(equals(variables('Result'), ''), 'Error', variables('Result'))",
+              "optionstablemarkdown": "@if(equals(variables('Result'), 'Compared'), if(empty(body('Table_rows')), 'No documented recovery options.', concat(concat('| Option | Name | For milestone | Availability | Documented arrival | Incremental cost | Valid until | Evaluation (as of ', trim(coalesce(triggerBody()?['text_2'], '')), ') | Evidence |', decodeUriComponent('%0A'), '|---|---|---|---|---|---|---|---|---|'), decodeUriComponent('%0A'), join(body('Table_rows'), decodeUriComponent('%0A')))), '')",
+              "selectablecodescsv": "@if(equals(variables('Result'), 'Compared'), join(body('Selectable_codes'), ','), '')",
+              "optionsjson": "@if(equals(variables('Result'), 'Compared'), string(body('Evaluated')), '')",
+              "message": "@variables('ResultMessage')"
+            }
+          }
+        }
+      },
+      "outputs": {}
+    }
+  },
+  "schemaVersion": "1.0.0.0"
+}

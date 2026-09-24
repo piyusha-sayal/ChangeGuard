@@ -1,0 +1,1594 @@
+{
+  "collectedAt": "2026-09-23T22:12:45.152Z",
+  "source": "https://<environment-id-host>.environment.api.powerplatform.com/powerautomate (GET only)",
+  "label": "09_original_execution",
+  "flowId": "16e39304-eeb5-f111-aaad-000d3af45a09",
+  "runId": "08584115135580615032139159456CU20",
+  "status": "Succeeded",
+  "startTime": "2026-09-22T16:08:47.4745274Z",
+  "endTime": "2026-09-22T16:08:52.0572062Z",
+  "correlation": "08584115135580615032139159456CU20",
+  "trigger": {
+    "name": "manual",
+    "status": "Succeeded",
+    "startTime": "2026-09-22T16:08:47.4232643Z",
+    "endTime": "2026-09-22T16:08:47.4232643Z",
+    "inputs": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "x-ms-content-hint": "TEXT",
+            "x-ms-dynamically-added": true,
+            "title": "RequestKey",
+            "description": "RequestKey returned by SaveChangeRequest."
+          }
+        },
+        "required": [
+          "text"
+        ]
+      }
+    },
+    "outputs": {
+      "headers": {
+        "Accept": "application/json,text/plain,*/*",
+        "Host": "10.0.7.21:20331",
+        "User-Agent": "Mozilla/5.0,(Windows NT 10.0; Win64; x64),AppleWebKit/537.36,(KHTML, like Gecko),Chrome/153.0.0.0,Safari/537.36,Edg/153.0.0.0",
+        "Accept-Encoding": "gzip,deflate",
+        "Accept-Language": "en-US",
+        "Origin": "https://make.powerautomate.com",
+        "Referer": "https://make.powerautomate.com/",
+        "x-ms-client-session-id": "c9e35450-b69f-11f1-8d19-9dd24c60c7e1",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "x-ms-licensecategorization": "BASE",
+        "sec-ch-ua": "\"Microsoft Edge\";v=\"153\",\"Not_A Brand\";v=\"8\",\"Chromium\";v=\"153\"",
+        "x-ms-licensecontext": "POWERAUTOMATE",
+        "sec-ch-ua-mobile": "?0",
+        "x-ms-client-request-id": "661dfe4a-38f8-4d36-819c-be0923e2e9a5",
+        "sec-fetch-site": "cross-site",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "priority": "u=1,i",
+        "x-ms-apim-referrer": "https://<environment-id>.00.common.canada.azure-apihub.net/apim/logicflows/07EBE074690F9703459CDA8E66F04A01-8172F411466DF75D/triggers/manual/run?api-version=2016-11-01",
+        "x-donotuse-ms-caller-app-id": "6204c1d1-4712-4c46-a7d9-3ed63d992682",
+        "x-ms-gateway-object-id": "",
+        "x-ms-apim-referrer-prefix": "https://<environment-id>.00.common.canada.azure-apihub.net/apim/logicflows/07EBE074690F9703459CDA8E66F04A01-8172F411466DF75D",
+        "x-ms-apim-callback": "https://canada-001.consent.azure-apim.net",
+        "x-ms-user-id": "<aad-object-id>",
+        "x-ms-tenant-id": "<tenant-id>",
+        "x-ms-user-name": "Maker",
+        "x-ms-user-name-encoded": "UGl5dXNoYSBTYXlhbA==",
+        "x-ms-user-email": "reviewer@changeguard-demo.example",
+        "x-ms-user-email-encoded": "UGl5dXNoYVNheWFsQFBpeXVzaGFTYXlhbC5vbm1pY3Jvc29mdC5jb20=",
+        "x-ms-user-timestamp": "2026-09-22T16:08:47.2710487Z",
+        "x-ms-flow-licensecontext": "POWERAUTOMATE",
+        "x-ms-client-keywords": "lc:POWERAUTOMATE,lcat:BASE,u:4EB19560B5B744CCB679897EF2727583",
+        "X-Original-Proto": "https",
+        "x-ms-origin-endpoint": "ppapigw.ca-il101.gateway.prod.island.powerapps.com",
+        "X-Original-Host": "10.0.29.15:20017",
+        "x-ms-igw-external-uri": "https://<environment-id-host>.environment.api.powerplatform.com/powerautomate/automations/direct/cu/12/workflows/4939866251e94096ad854e0b9032e60f/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=REDACTED-SAS-SIGNATURE, https://workflowsmanagementservice.eca-il101.gateway.prod.island.powerapps.com/powerautomate/tenants/00000000-0000-0000-0000-000000000000/environments/<environment-id>/automations/direct/cu/12/workflows/4939866251e94096ad854e0b9032e60f/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=REDACTED-SAS-SIGNATURE",
+        "x-ms-gw-trace-id": "56750ed4-81c0-491d-8045-7d7debb15538, 1de7729f-a568-40ed-a718-775b3f05b58a",
+        "x-ms-igw-raw-target": "/powerautomate/automations/direct/cu/12/workflows/4939866251e94096ad854e0b9032e60f/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=REDACTED-SAS-SIGNATURE, /powerautomate/tenants/00000000-0000-0000-0000-000000000000/environments/<environment-id>/automations/direct/cu/12/workflows/4939866251e94096ad854e0b9032e60f/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=REDACTED-SAS-SIGNATURE",
+        "x-ms-correlation-id": "022540cd-fbfa-4318-bc8f-6185122b7caa",
+        "x-ms-coreframework-caller-activity-id": "333bfd04-d2a2-4fec-8f23-7f5273486c22",
+        "X-Original-For": "[::ffff:10.0.29.7]:59657",
+        "x-ms-ppapi-forwarded-path": "/powerautomate/automations/direct/cu/12/workflows/4939866251e94096ad854e0b9032e60f/triggers/manual/paths/invoke",
+        "x-ms-ppapi-forwarded-api-version": "1",
+        "x-ms-gateway-clusters": "prdil101cca",
+        "X-Forwarded-Prefix": "/b6d2d20b-d54d-458b-8297-781a5d75703d/134343523576416655",
+        "x-ms-activity-vector": "00.00.IN.05",
+        "X-Forwarded-For": "::ffff:4.174.148.78",
+        "X-Forwarded-Host": "workflowsmanagementservice.eca-il101.gateway.prod.island.powerapps.com",
+        "X-Forwarded-Proto": "https",
+        "Forwarded": "by=_GB0000003;for=\"[::ffff:4.174.148.78]\";host=workflowsmanagementservice.eca-il101.gateway.prod.island.powerapps.com;proto=https",
+        "Content-Type": "application/json",
+        "Content-Length": "53"
+      },
+      "body": {
+        "text": "CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1"
+      }
+    }
+  },
+  "actions": {
+    "Append_created_id": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:08:50.1630493Z",
+      "endTime": "2026-09-22T16:08:50.1687276Z",
+      "inputs": null,
+      "outputs": null
+    },
+    "Append_reused_id": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:08:50.2044691Z",
+      "endTime": "2026-09-22T16:08:50.2101062Z",
+      "error": {
+        "code": "ActionConditionFailed",
+        "message": "The execution of template action 'Append_reused_id' is skipped: the 'runAfter' condition for action 'Count_reused' is not satisfied. Expected status values 'Succeeded' and actual value 'Skipped'.",
+        "messageTemplate": "The execution of template action '{0}' is skipped: the 'runAfter' condition for action '{1}' is not satisfied. Expected status values '{2}' and actual value '{3}'."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Approved_option": {
+      "status": "Succeeded",
+      "code": "OK",
+      "startTime": "2026-09-22T16:08:48.2256928Z",
+      "endTime": "2026-09-22T16:08:48.2266194Z",
+      "inputs": "CGDEMO-OPT-AIR",
+      "outputs": "CGDEMO-OPT-AIR"
+    },
+    "Assessment": {
+      "status": "Succeeded",
+      "code": "OK",
+      "startTime": "2026-09-22T16:08:48.3829206Z",
+      "endTime": "2026-09-22T16:08:48.3840009Z",
+      "inputs": {
+        "status": "Assessed",
+        "projectCode": "CGDEMO-FINAL-01",
+        "projectName": "Harbour Crane Retrofit (synthetic demo)",
+        "baselineVersion": 1,
+        "calendarCode": "CGDEMO-CAL",
+        "changedMilestone": {
+          "code": "CGDEMO-M1",
+          "name": "Gearbox delivery to site",
+          "owner": "Demo Owner One",
+          "baselineFinish": "2026-10-09",
+          "proposedFinish": "2026-10-30",
+          "computedFinish": "2026-10-30",
+          "slipWorkingDays": 15,
+          "verdict": "Changed",
+          "externalCommitment": false
+        },
+        "effectiveFinish": "2026-10-30",
+        "affected": [
+          "CGDEMO-M2",
+          "CGDEMO-M3"
+        ],
+        "unaffected": [],
+        "conflicts": [
+          "CGDEMO-M3"
+        ],
+        "milestones": [
+          {
+            "code": "CGDEMO-M2",
+            "name": "Mechanical installation",
+            "owner": "Demo Owner Two",
+            "baselineFinish": "2026-10-23",
+            "computedFinish": "2026-11-11",
+            "slipWorkingDays": 13,
+            "verdict": "Slips",
+            "externalCommitment": false
+          },
+          {
+            "code": "CGDEMO-M3",
+            "name": "Commissioning and handover",
+            "owner": "Demo Owner Three",
+            "baselineFinish": "2026-11-06",
+            "computedFinish": "2026-11-18",
+            "slipWorkingDays": 8,
+            "verdict": "Infeasible",
+            "externalCommitment": true
+          }
+        ],
+        "assumptions": [
+          "Calendar CGDEMO-CAL: Monday to Friday working days. No public holidays configured."
+        ],
+        "unknowns": [],
+        "evidence": [
+          {
+            "milestone": "CGDEMO-M2",
+            "path": "CGDEMO-M1 -> CGDEMO-M2",
+            "hops": 1
+          },
+          {
+            "milestone": "CGDEMO-M3",
+            "path": "CGDEMO-M1 -> CGDEMO-M2 -> CGDEMO-M3",
+            "hops": 2
+          }
+        ],
+        "assessmentFingerprint": "Q0dERU1PLU0yLENHREVNTy1NM3xDR0RFTU8tTTI9MjAyNi0xMS0xMSxDR0RFTU8tTTM9MjAyNi0xMS0xOHwx",
+        "source": "Computed by the AssessChange flow from Dataverse records; not generated by the language model."
+      },
+      "outputs": {
+        "status": "Assessed",
+        "projectCode": "CGDEMO-FINAL-01",
+        "projectName": "Harbour Crane Retrofit (synthetic demo)",
+        "baselineVersion": 1,
+        "calendarCode": "CGDEMO-CAL",
+        "changedMilestone": {
+          "code": "CGDEMO-M1",
+          "name": "Gearbox delivery to site",
+          "owner": "Demo Owner One",
+          "baselineFinish": "2026-10-09",
+          "proposedFinish": "2026-10-30",
+          "computedFinish": "2026-10-30",
+          "slipWorkingDays": 15,
+          "verdict": "Changed",
+          "externalCommitment": false
+        },
+        "effectiveFinish": "2026-10-30",
+        "affected": [
+          "CGDEMO-M2",
+          "CGDEMO-M3"
+        ],
+        "unaffected": [],
+        "conflicts": [
+          "CGDEMO-M3"
+        ],
+        "milestones": [
+          {
+            "code": "CGDEMO-M2",
+            "name": "Mechanical installation",
+            "owner": "Demo Owner Two",
+            "baselineFinish": "2026-10-23",
+            "computedFinish": "2026-11-11",
+            "slipWorkingDays": 13,
+            "verdict": "Slips",
+            "externalCommitment": false
+          },
+          {
+            "code": "CGDEMO-M3",
+            "name": "Commissioning and handover",
+            "owner": "Demo Owner Three",
+            "baselineFinish": "2026-11-06",
+            "computedFinish": "2026-11-18",
+            "slipWorkingDays": 8,
+            "verdict": "Infeasible",
+            "externalCommitment": true
+          }
+        ],
+        "assumptions": [
+          "Calendar CGDEMO-CAL: Monday to Friday working days. No public holidays configured."
+        ],
+        "unknowns": [],
+        "evidence": [
+          {
+            "milestone": "CGDEMO-M2",
+            "path": "CGDEMO-M1 -> CGDEMO-M2",
+            "hops": 1
+          },
+          {
+            "milestone": "CGDEMO-M3",
+            "path": "CGDEMO-M1 -> CGDEMO-M2 -> CGDEMO-M3",
+            "hops": 2
+          }
+        ],
+        "assessmentFingerprint": "Q0dERU1PLU0yLENHREVNTy1NM3xDR0RFTU8tTTI9MjAyNi0xMS0xMSxDR0RFTU8tTTM9MjAyNi0xMS0xOHwx",
+        "source": "Computed by the AssessChange flow from Dataverse records; not generated by the language model."
+      }
+    },
+    "Audit_executed": {
+      "status": "Succeeded",
+      "code": "Created",
+      "startTime": "2026-09-22T16:08:50.6981646Z",
+      "endTime": "2026-09-22T16:08:50.7116719Z",
+      "inputs": {
+        "host": {
+          "apiId": "subscriptions/<environment-id>/providers/Microsoft.Web/locations/canadacentral/runtimes/Canada-001/apis/commondataserviceforapps",
+          "connectionReferenceName": "shared_commondataserviceforapps",
+          "operationId": "CreateRecord"
+        },
+        "parameters": {
+          "entityName": "cr458_cgauditevents",
+          "item/cr458_name": "ExecuteExecuted CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1",
+          "item/cr458_eventkey": "CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1-EXEC-08584115135580615032139159456CU20",
+          "item/cr458_eventtype": "ExecuteExecuted",
+          "item/cr458_requestkey": "CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1",
+          "item/cr458_actor": "ChangeGuard Control Tower agent (flow connection identity)",
+          "item/cr458_oldstate": "Approved",
+          "item/cr458_newstate": "Executed",
+          "item/cr458_details": "created 2, reused 0, failed keys: . ",
+          "item/cr458_occurredon": "2026-09-22T16:08:50.5164464Z",
+          "item/cr458_demo": true,
+          "item/cr458_ChangeRequest@odata.bind": "/cr458_cgchangerequests(162c5b9e-a413-4644-ac1b-f9c8872ba192)",
+          "accept": "application/json;odata.metadata=minimal"
+        }
+      },
+      "outputs": {
+        "statusCode": 201,
+        "headers": {
+          "Preference-Applied": "odata.include-annotations=\"*\"",
+          "X-Content-Type-Options": "nosniff",
+          "OData-Version": "4.0"
+        },
+        "body": {
+          "@odata.context": "https://<org>.crm3.dynamics.com/api/data/v9.1/$metadata#cr458_cgauditevents/$entity",
+          "@odata.etag": "W/\"2631439\"",
+          "cr458_cgauditeventid": "90e59de4-9fb6-f111-aaad-000d3af45a09",
+          "cr458_requestkey": "CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1",
+          "modifiedon@OData.Community.Display.V1.FormattedValue": "9/22/2026 4:08 PM",
+          "modifiedon": "2026-09-22T16:08:50Z",
+          "_owninguser_value@Microsoft.Dynamics.CRM.lookuplogicalname": "systemuser",
+          "_owninguser_value": "<user-2-systemuserid>",
+          "cr458_actor": "ChangeGuard Control Tower agent (flow connection identity)",
+          "cr458_oldstate": "Approved",
+          "cr458_eventkey": "CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1-EXEC-08584115135580615032139159456CU20",
+          "overriddencreatedon": null,
+          "cr458_eventtype": "ExecuteExecuted",
+          "cr458_newstate": "Executed",
+          "_cr458_changerequest_value@OData.Community.Display.V1.FormattedValue": "CGDEMO-FINAL-01 CGDEMO-M1 to 2026-10-30",
+          "_cr458_changerequest_value@Microsoft.Dynamics.CRM.associatednavigationproperty": "cr458_ChangeRequest",
+          "_cr458_changerequest_value@Microsoft.Dynamics.CRM.lookuplogicalname": "cr458_cgchangerequest",
+          "_cr458_changerequest_value": "162c5b9e-a413-4644-ac1b-f9c8872ba192",
+          "importsequencenumber": null,
+          "_modifiedonbehalfby_value": null,
+          "cr458_details": "created 2, reused 0, failed keys: . ",
+          "cr458_name": "ExecuteExecuted CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1",
+          "statecode@OData.Community.Display.V1.FormattedValue": "Active",
+          "statecode": 0,
+          "versionnumber@OData.Community.Display.V1.FormattedValue": "2,631,439",
+          "versionnumber": 2631439,
+          "utcconversiontimezonecode": null,
+          "cr458_occurredon@OData.Community.Display.V1.FormattedValue": "9/22/2026 4:08 PM",
+          "cr458_occurredon": "2026-09-22T16:08:50Z",
+          "_createdonbehalfby_value": null,
+          "_modifiedby_value@OData.Community.Display.V1.FormattedValue": "# ChangeGuard-Automation",
+          "_modifiedby_value@Microsoft.Dynamics.CRM.lookuplogicalname": "systemuser",
+          "_modifiedby_value": "<user-2-systemuserid>",
+          "createdon@OData.Community.Display.V1.FormattedValue": "9/22/2026 4:08 PM",
+          "createdon": "2026-09-22T16:08:50Z",
+          "_owningbusinessunit_value@OData.Community.Display.V1.FormattedValue": "<org>",
+          "_owningbusinessunit_value@Microsoft.Dynamics.CRM.associatednavigationproperty": "owningbusinessunit",
+          "_owningbusinessunit_value@Microsoft.Dynamics.CRM.lookuplogicalname": "businessunit",
+          "_owningbusinessunit_value": "cea8ffff-13b4-f111-aaae-0022486daaac",
+          "cr458_demo@OData.Community.Display.V1.FormattedValue": "Yes",
+          "cr458_demo": true,
+          "statuscode@OData.Community.Display.V1.FormattedValue": "Active",
+          "statuscode": 1,
+          "_owningteam_value": null,
+          "_createdby_value@OData.Community.Display.V1.FormattedValue": "# ChangeGuard-Automation",
+          "_createdby_value@Microsoft.Dynamics.CRM.lookuplogicalname": "systemuser",
+          "_createdby_value": "<user-2-systemuserid>",
+          "_ownerid_value@OData.Community.Display.V1.FormattedValue": "# ChangeGuard-Automation",
+          "_ownerid_value@Microsoft.Dynamics.CRM.associatednavigationproperty": "ownerid",
+          "_ownerid_value@Microsoft.Dynamics.CRM.lookuplogicalname": "systemuser",
+          "_ownerid_value": "<user-2-systemuserid>",
+          "timezoneruleversionnumber@OData.Community.Display.V1.FormattedValue": "4",
+          "timezoneruleversionnumber": 4
+        }
+      }
+    },
+    "Audit_execution": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:08:51.5428736Z",
+      "endTime": "2026-09-22T16:08:51.7139443Z",
+      "inputs": {
+        "expressionResult": true
+      },
+      "outputs": null
+    },
+    "Audit_execution_request": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:08:51.5879999Z",
+      "endTime": "2026-09-22T16:08:51.5959909Z",
+      "error": {
+        "code": "ActionDependencyFailed",
+        "message": "The execution of template action 'Audit_execution_request' is skipped: dependant action 'Audit_outcome' completed with status 'Skipped' and code 'ActionSkipped'.",
+        "messageTemplate": "The execution of template action '{0}' is skipped: dependant action '{1}' completed with status '{2}' and code '{3}'."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Audit_execution_unknown": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:08:51.6116538Z",
+      "endTime": "2026-09-22T16:08:51.6123623Z",
+      "error": {
+        "code": "ActionDependencyFailed",
+        "message": "The execution of template action 'Audit_execution_unknown' is skipped: dependant action 'Audit_outcome' completed with status 'Skipped' and code 'ActionSkipped'.",
+        "messageTemplate": "The execution of template action '{0}' is skipped: dependant action '{1}' completed with status '{2}' and code '{3}'."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Audit_outcome": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:08:51.6294024Z",
+      "endTime": "2026-09-22T16:08:51.6371299Z",
+      "error": {
+        "code": "ActionBranchingConditionNotSatisfied",
+        "message": "The execution of template action 'Audit_outcome' skipped: the branching condition for this action is not satisfied.",
+        "messageTemplate": "The execution of template action '{0}' skipped: the branching condition for this action is not satisfied."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Check_action": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:08:50.2243735Z",
+      "endTime": "2026-09-22T16:08:50.2352035Z",
+      "inputs": null,
+      "outputs": null
+    },
+    "Check_approved": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:08:47.9540688Z",
+      "endTime": "2026-09-22T16:08:51.3070769Z",
+      "inputs": {
+        "expressionResult": false
+      },
+      "outputs": null
+    },
+    "Check_baseline": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:08:48.0718678Z",
+      "endTime": "2026-09-22T16:08:51.1905811Z",
+      "inputs": {
+        "expressionResult": false
+      },
+      "outputs": null
+    },
+    "Check_decision_recorded": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:08:48.1747901Z",
+      "endTime": "2026-09-22T16:08:51.077263Z",
+      "inputs": {
+        "expressionResult": false
+      },
+      "outputs": null
+    },
+    "Check_option": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:08:48.3290818Z",
+      "endTime": "2026-09-22T16:08:50.9555777Z",
+      "inputs": {
+        "expressionResult": false
+      },
+      "outputs": null
+    },
+    "Check_request": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:08:47.9009253Z",
+      "endTime": "2026-09-22T16:08:51.3889063Z",
+      "inputs": {
+        "expressionResult": false
+      },
+      "outputs": null
+    },
+    "Commit_execution": {
+      "status": "Succeeded",
+      "code": "OK",
+      "startTime": "2026-09-22T16:08:50.4792703Z",
+      "endTime": "2026-09-22T16:08:50.8056883Z",
+      "inputs": {
+        "host": {
+          "apiId": "subscriptions/<environment-id>/providers/Microsoft.Web/locations/canadacentral/runtimes/Canada-001/apis/commondataserviceforapps",
+          "connectionReferenceName": "shared_commondataserviceforapps",
+          "operationId": "ExecuteChangeset"
+        }
+      },
+      "outputs": null
+    },
+    "Conflict_actions": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:08:48.424697Z",
+      "endTime": "2026-09-22T16:08:48.4260159Z",
+      "inputs": {
+        "from": [
+          {
+            "code": "CGDEMO-M3",
+            "name": "Commissioning and handover",
+            "owner": "Demo Owner Three",
+            "baselineFinish": "2026-11-06",
+            "computedFinish": "2026-11-18",
+            "slipWorkingDays": 8,
+            "verdict": "Infeasible",
+            "externalCommitment": true
+          }
+        ]
+      },
+      "outputs": {
+        "body": [
+          {
+            "title": "Agree revised CGDEMO-M3 Commissioning and handover date with the customer (computed 2026-11-18)",
+            "owner": "Demo Owner Three",
+            "milestone": "CGDEMO-M3",
+            "due": "2026-11-06"
+          }
+        ]
+      }
+    },
+    "Conflict_rows": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:08:48.4013862Z",
+      "endTime": "2026-09-22T16:08:48.4027395Z",
+      "inputs": [
+        {
+          "code": "CGDEMO-M2",
+          "name": "Mechanical installation",
+          "owner": "Demo Owner Two",
+          "baselineFinish": "2026-10-23",
+          "computedFinish": "2026-11-11",
+          "slipWorkingDays": 13,
+          "verdict": "Slips",
+          "externalCommitment": false
+        },
+        {
+          "code": "CGDEMO-M3",
+          "name": "Commissioning and handover",
+          "owner": "Demo Owner Three",
+          "baselineFinish": "2026-11-06",
+          "computedFinish": "2026-11-18",
+          "slipWorkingDays": 8,
+          "verdict": "Infeasible",
+          "externalCommitment": true
+        }
+      ],
+      "outputs": {
+        "body": [
+          {
+            "code": "CGDEMO-M3",
+            "name": "Commissioning and handover",
+            "owner": "Demo Owner Three",
+            "baselineFinish": "2026-11-06",
+            "computedFinish": "2026-11-18",
+            "slipWorkingDays": 8,
+            "verdict": "Infeasible",
+            "externalCommitment": true
+          }
+        ]
+      }
+    },
+    "Count_created": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:08:50.1385326Z",
+      "endTime": "2026-09-22T16:08:50.143794Z",
+      "inputs": null,
+      "outputs": null
+    },
+    "Count_reused": {
+      "status": "Skipped",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:08:50.1835602Z",
+      "endTime": "2026-09-22T16:08:50.1894951Z",
+      "inputs": null,
+      "outputs": null
+    },
+    "Create_action": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:08:50.1124146Z",
+      "endTime": "2026-09-22T16:08:50.1232278Z",
+      "inputs": null,
+      "outputs": null
+    },
+    "Find_action": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:08:50.0590117Z",
+      "endTime": "2026-09-22T16:08:50.0709683Z",
+      "inputs": null,
+      "outputs": null
+    },
+    "First_action": {
+      "status": "Succeeded",
+      "code": "OK",
+      "startTime": "2026-09-22T16:08:48.442099Z",
+      "endTime": "2026-09-22T16:08:48.443278Z",
+      "inputs": {
+        "title": "Book recovery option CGDEMO-OPT-AIR for CGDEMO-M1",
+        "owner": "Demo Owner One",
+        "milestone": "CGDEMO-M1",
+        "due": "2026-10-09"
+      },
+      "outputs": {
+        "title": "Book recovery option CGDEMO-OPT-AIR for CGDEMO-M1",
+        "owner": "Demo Owner One",
+        "milestone": "CGDEMO-M1",
+        "due": "2026-10-09"
+      }
+    },
+    "Init_ActionIds": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:08:47.724692Z",
+      "endTime": "2026-09-22T16:08:47.7396144Z",
+      "inputs": {
+        "variables": [
+          {
+            "name": "ActionIds",
+            "type": "Array",
+            "value": []
+          }
+        ]
+      },
+      "outputs": {
+        "variables": [
+          {
+            "name": "ActionIds",
+            "type": "Array",
+            "value": []
+          }
+        ]
+      }
+    },
+    "Init_Created": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:08:47.667371Z",
+      "endTime": "2026-09-22T16:08:47.6774869Z",
+      "inputs": {
+        "variables": [
+          {
+            "name": "Created",
+            "type": "Integer",
+            "value": 0
+          }
+        ]
+      },
+      "outputs": {
+        "variables": [
+          {
+            "name": "Created",
+            "type": "Integer",
+            "value": 0
+          }
+        ]
+      }
+    },
+    "Init_Failures": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:08:47.7584395Z",
+      "endTime": "2026-09-22T16:08:47.7696849Z",
+      "inputs": {
+        "variables": [
+          {
+            "name": "Failures",
+            "type": "Array",
+            "value": []
+          }
+        ]
+      },
+      "outputs": {
+        "variables": [
+          {
+            "name": "Failures",
+            "type": "Array",
+            "value": []
+          }
+        ]
+      }
+    },
+    "Init_Result": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:08:47.5944742Z",
+      "endTime": "2026-09-22T16:08:47.6237669Z",
+      "inputs": {
+        "variables": [
+          {
+            "name": "Result",
+            "type": "String",
+            "value": ""
+          }
+        ]
+      },
+      "outputs": {
+        "variables": [
+          {
+            "name": "Result",
+            "type": "String",
+            "value": ""
+          }
+        ]
+      }
+    },
+    "Init_ResultMessage": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:08:47.6385556Z",
+      "endTime": "2026-09-22T16:08:47.6493009Z",
+      "inputs": {
+        "variables": [
+          {
+            "name": "ResultMessage",
+            "type": "String",
+            "value": ""
+          }
+        ]
+      },
+      "outputs": {
+        "variables": [
+          {
+            "name": "ResultMessage",
+            "type": "String",
+            "value": ""
+          }
+        ]
+      }
+    },
+    "Init_Reused": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:08:47.6943367Z",
+      "endTime": "2026-09-22T16:08:47.7052173Z",
+      "inputs": {
+        "variables": [
+          {
+            "name": "Reused",
+            "type": "Integer",
+            "value": 0
+          }
+        ]
+      },
+      "outputs": {
+        "variables": [
+          {
+            "name": "Reused",
+            "type": "Integer",
+            "value": 0
+          }
+        ]
+      }
+    },
+    "Internal_error_check": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:08:51.4066708Z",
+      "endTime": "2026-09-22T16:08:51.5253508Z",
+      "inputs": {
+        "expressionResult": false
+      },
+      "outputs": null
+    },
+    "Keyed_plan": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:08:48.4767879Z",
+      "endTime": "2026-09-22T16:08:48.4779102Z",
+      "inputs": {
+        "from": [
+          0,
+          1
+        ]
+      },
+      "outputs": {
+        "body": [
+          {
+            "actionKey": "CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1-1",
+            "title": "Book recovery option CGDEMO-OPT-AIR for CGDEMO-M1",
+            "owner": "Demo Owner One",
+            "milestone": "CGDEMO-M1",
+            "due": "2026-10-09"
+          },
+          {
+            "actionKey": "CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1-2",
+            "title": "Agree revised CGDEMO-M3 Commissioning and handover date with the customer (computed 2026-11-18)",
+            "owner": "Demo Owner Three",
+            "milestone": "CGDEMO-M3",
+            "due": "2026-11-06"
+          }
+        ]
+      }
+    },
+    "List_decision": {
+      "status": "Succeeded",
+      "code": "OK",
+      "startTime": "2026-09-22T16:08:48.122665Z",
+      "endTime": "2026-09-22T16:08:48.1549982Z",
+      "inputs": {
+        "host": {
+          "apiId": "subscriptions/<environment-id>/providers/Microsoft.Web/locations/canadacentral/runtimes/Canada-001/apis/commondataserviceforapps",
+          "connectionReferenceName": "shared_commondataserviceforapps",
+          "operationId": "ListRecords"
+        },
+        "parameters": {
+          "entityName": "cr458_cgauditevents",
+          "$filter": "cr458_requestkey eq 'CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1' and cr458_eventtype eq 'DecisionRecorded'",
+          "$select": "cr458_details,cr458_actor",
+          "$orderby": "createdon desc",
+          "$top": 1,
+          "accept": "application/json;odata.metadata=minimal"
+        }
+      },
+      "outputs": {
+        "statusCode": 200,
+        "headers": {
+          "Cache-Control": "no-cache",
+          "Vary": "Accept-Encoding",
+          "Set-Cookie": "ARRAffinity=2a570086dda919de769e4850d3b10fd8c0d196088c5614145ac4efe7cf706caf15134d20c556b0b34b9b6ae43ec3f5dcdad61788de889ffc592af7aca85fc1c508DF18C7F9F7B0400000001047720176; path=/; secure; HttpOnly,ReqClientId=68e91804-6e5a-4d04-b383-0e650f7d0117; expires=Tue, 22-Sep-2076 16:08:48 GMT; path=/; secure; HttpOnly,ARRAffinity=2a570086dda919de769e4850d3b10fd8c0d196088c5614145ac4efe7cf706caf15134d20c556b0b34b9b6ae43ec3f5dcdad61788de889ffc592af7aca85fc1c508DF18C7F9F7B0400000001047720176; path=/; secure; HttpOnly",
+          "x-ms-service-request-id": "1e1b9ef3-c3be-4d86-9957-9be0fd6b6517",
+          "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+          "REQ_ID": "1e1b9ef3-c3be-4d86-9957-9be0fd6b6517",
+          "AuthActivityId": "098b6925-dc67-40e7-9922-3ba513ce368f",
+          "x-ms-dop-hint": "4",
+          "x-ms-ratelimit-time-remaining-xrm-requests": "1,200.00",
+          "x-ms-ratelimit-burst-remaining-xrm-requests": "7997",
+          "X-Content-Type-Options": "nosniff",
+          "OData-Version": "4.0",
+          "Preference-Applied": "odata.include-annotations=\"*\"",
+          "X-Source": "10523815952149249177372247491512343517151627485712011119758748842222661618130,14313325581931301411971382555421519610218811101208229121591112711719611317623116612217664",
+          "Public": "OPTIONS,GET,HEAD,POST",
+          "Date": "Tue, 22 Sep 2026 16:08:47 GMT",
+          "Allow": "OPTIONS,GET,HEAD,POST",
+          "Content-Type": "application/json; odata.metadata=minimal",
+          "Expires": "-1",
+          "Content-Length": "646"
+        },
+        "body": {
+          "@odata.context": "https://<org>.crm3.dynamics.com/api/data/v9.1/$metadata#cr458_cgauditevents(cr458_details,cr458_actor)",
+          "@Microsoft.Dynamics.CRM.totalrecordcount": -1,
+          "@Microsoft.Dynamics.CRM.totalrecordcountlimitexceeded": false,
+          "@Microsoft.Dynamics.CRM.globalmetadataversion": "2631279",
+          "value": [
+            {
+              "@odata.etag": "W/\"2631421\"",
+              "cr458_cgauditeventid": "af62420f-9fb6-f111-aaad-000d3af45a09",
+              "cr458_actor": "reviewer@changeguard-demo.example",
+              "cr458_details": "Requested decision: Approved; selected option: CGDEMO-OPT-AIR",
+              "createdon@OData.Community.Display.V1.FormattedValue": "9/22/2026 4:02 PM",
+              "createdon": "2026-09-22T16:02:57Z"
+            }
+          ]
+        }
+      }
+    },
+    "List_option": {
+      "status": "Succeeded",
+      "code": "OK",
+      "startTime": "2026-09-22T16:08:48.2423898Z",
+      "endTime": "2026-09-22T16:08:48.2836536Z",
+      "inputs": {
+        "host": {
+          "apiId": "subscriptions/<environment-id>/providers/Microsoft.Web/locations/canadacentral/runtimes/Canada-001/apis/commondataserviceforapps",
+          "connectionReferenceName": "shared_commondataserviceforapps",
+          "operationId": "ListRecords"
+        },
+        "parameters": {
+          "entityName": "cr458_cgrecoveryoptions",
+          "$filter": "cr458_optioncode eq 'CGDEMO-OPT-AIR' and _cr458_project_value eq c92b43ba-84b6-f111-aaad-000d3af45a09",
+          "$select": "cr458_optioncode,cr458_availabilitystatus,cr458_arrivaldate,cr458_asofdate,cr458_validuntil",
+          "$expand": "cr458_ChangedMilestone($select=cr458_milestonecode)",
+          "$top": 1,
+          "accept": "application/json;odata.metadata=minimal"
+        }
+      },
+      "outputs": {
+        "statusCode": 200,
+        "headers": {
+          "Cache-Control": "no-cache",
+          "Vary": "Accept-Encoding",
+          "Set-Cookie": "ARRAffinity=2a570086dda919de769e4850d3b10fd8c0d196088c5614145ac4efe7cf706caf15134d20c556b0b34b9b6ae43ec3f5dcdad61788de889ffc592af7aca85fc1c508DF18C7FA0AC3070000001255253527; path=/; secure; HttpOnly,ReqClientId=ee3f2bb7-b907-4e52-b83b-24b8cb681402; expires=Tue, 22-Sep-2076 16:08:48 GMT; path=/; secure; HttpOnly,ARRAffinity=2a570086dda919de769e4850d3b10fd8c0d196088c5614145ac4efe7cf706caf15134d20c556b0b34b9b6ae43ec3f5dcdad61788de889ffc592af7aca85fc1c508DF18C7FA0AC3070000001255253527; path=/; secure; HttpOnly",
+          "x-ms-service-request-id": "4230a7f1-2260-469c-b80e-14d647e7c839",
+          "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+          "REQ_ID": "4230a7f1-2260-469c-b80e-14d647e7c839",
+          "AuthActivityId": "27995a72-61bf-41fa-8da0-e77974926a6f",
+          "x-ms-dop-hint": "4",
+          "x-ms-ratelimit-time-remaining-xrm-requests": "1,200.00",
+          "x-ms-ratelimit-burst-remaining-xrm-requests": "7996",
+          "X-Content-Type-Options": "nosniff",
+          "OData-Version": "4.0",
+          "Preference-Applied": "odata.include-annotations=\"*\"",
+          "X-Source": "10523815952149249177372247491512343517151627485712011119758748842222661618130,14313325581931301411971382555421519610218811101208229121591112711719611317623116612217664",
+          "Public": "OPTIONS,GET,HEAD,POST",
+          "Date": "Tue, 22 Sep 2026 16:08:47 GMT",
+          "Allow": "OPTIONS,GET,HEAD,POST",
+          "Content-Type": "application/json; odata.metadata=minimal",
+          "Expires": "-1",
+          "Content-Length": "1028"
+        },
+        "body": {
+          "@odata.context": "https://<org>.crm3.dynamics.com/api/data/v9.1/$metadata#cr458_cgrecoveryoptions(cr458_optioncode,cr458_availabilitystatus,cr458_arrivaldate,cr458_asofdate,cr458_validuntil,cr458_ChangedMilestone(cr458_milestonecode))",
+          "@Microsoft.Dynamics.CRM.totalrecordcount": -1,
+          "@Microsoft.Dynamics.CRM.totalrecordcountlimitexceeded": false,
+          "@Microsoft.Dynamics.CRM.globalmetadataversion": "2631279",
+          "value": [
+            {
+              "@odata.etag": "W/\"2623280\"",
+              "cr458_availabilitystatus": "Confirmed",
+              "cr458_validuntil@OData.Community.Display.V1.FormattedValue": "10/9/2026",
+              "cr458_validuntil": "2026-10-09",
+              "cr458_cgrecoveryoptionid": "d62b43ba-84b6-f111-aaad-000d3af45a09",
+              "cr458_asofdate@OData.Community.Display.V1.FormattedValue": "9/21/2026",
+              "cr458_asofdate": "2026-09-21",
+              "cr458_optioncode": "CGDEMO-OPT-AIR",
+              "cr458_arrivaldate@OData.Community.Display.V1.FormattedValue": "10/16/2026",
+              "cr458_arrivaldate": "2026-10-16",
+              "cr458_ChangedMilestone": {
+                "cr458_cgmilestoneid": "ca2b43ba-84b6-f111-aaad-000d3af45a09",
+                "cr458_milestonecode": "CGDEMO-M1"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "List_project": {
+      "status": "Succeeded",
+      "code": "OK",
+      "startTime": "2026-09-22T16:08:48.0173428Z",
+      "endTime": "2026-09-22T16:08:48.0476074Z",
+      "inputs": {
+        "host": {
+          "apiId": "subscriptions/<environment-id>/providers/Microsoft.Web/locations/canadacentral/runtimes/Canada-001/apis/commondataserviceforapps",
+          "connectionReferenceName": "shared_commondataserviceforapps",
+          "operationId": "ListRecords"
+        },
+        "parameters": {
+          "entityName": "cr458_cgprojects",
+          "$filter": "cr458_cgprojectid eq c92b43ba-84b6-f111-aaad-000d3af45a09",
+          "$select": "cr458_baselineversion",
+          "$top": 1,
+          "accept": "application/json;odata.metadata=minimal"
+        }
+      },
+      "outputs": {
+        "statusCode": 200,
+        "headers": {
+          "Cache-Control": "no-cache",
+          "Vary": "Accept-Encoding",
+          "Set-Cookie": "ARRAffinity=2a570086dda919de769e4850d3b10fd8c0d196088c5614145ac4efe7cf706caf15134d20c556b0b34b9b6ae43ec3f5dcdad61788de889ffc592af7aca85fc1c508DF18C7F9E6FFD80000001072915110; path=/; secure; HttpOnly,ReqClientId=904a57db-5ae4-49f9-87f6-c41b761a4175; expires=Tue, 22-Sep-2076 16:08:48 GMT; path=/; secure; HttpOnly,ARRAffinity=2a570086dda919de769e4850d3b10fd8c0d196088c5614145ac4efe7cf706caf15134d20c556b0b34b9b6ae43ec3f5dcdad61788de889ffc592af7aca85fc1c508DF18C7F9E6FFD80000001072915110; path=/; secure; HttpOnly",
+          "x-ms-service-request-id": "f719beba-20ad-4a9d-8f13-0545ea0c64f1",
+          "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+          "REQ_ID": "f719beba-20ad-4a9d-8f13-0545ea0c64f1",
+          "AuthActivityId": "a3c81ba0-cd69-4519-ae52-5c2046f00214",
+          "x-ms-dop-hint": "4",
+          "x-ms-ratelimit-time-remaining-xrm-requests": "1,200.00",
+          "x-ms-ratelimit-burst-remaining-xrm-requests": "7998",
+          "X-Content-Type-Options": "nosniff",
+          "OData-Version": "4.0",
+          "Preference-Applied": "odata.include-annotations=\"*\"",
+          "X-Source": "10523815952149249177372247491512343517151627485712011119758748842222661618130,14313325581931301411971382555421519610218811101208229121591112711719611317623116612217664",
+          "Public": "OPTIONS,GET,HEAD,POST",
+          "Date": "Tue, 22 Sep 2026 16:08:47 GMT",
+          "Allow": "OPTIONS,GET,HEAD,POST",
+          "Content-Type": "application/json; odata.metadata=minimal",
+          "Expires": "-1",
+          "Content-Length": "485"
+        },
+        "body": {
+          "@odata.context": "https://<org>.crm3.dynamics.com/api/data/v9.1/$metadata#cr458_cgprojects(cr458_baselineversion)",
+          "@Microsoft.Dynamics.CRM.totalrecordcount": -1,
+          "@Microsoft.Dynamics.CRM.totalrecordcountlimitexceeded": false,
+          "@Microsoft.Dynamics.CRM.globalmetadataversion": "2631279",
+          "value": [
+            {
+              "@odata.etag": "W/\"2623473\"",
+              "cr458_cgprojectid": "c92b43ba-84b6-f111-aaad-000d3af45a09",
+              "cr458_baselineversion@OData.Community.Display.V1.FormattedValue": "1",
+              "cr458_baselineversion": 1
+            }
+          ]
+        }
+      }
+    },
+    "List_request": {
+      "status": "Succeeded",
+      "code": "OK",
+      "startTime": "2026-09-22T16:08:47.7868077Z",
+      "endTime": "2026-09-22T16:08:47.879622Z",
+      "inputs": {
+        "host": {
+          "apiId": "subscriptions/<environment-id>/providers/Microsoft.Web/locations/canadacentral/runtimes/Canada-001/apis/commondataserviceforapps",
+          "connectionReferenceName": "shared_commondataserviceforapps",
+          "operationId": "ListRecords"
+        },
+        "parameters": {
+          "entityName": "cr458_cgchangerequests",
+          "$filter": "cr458_requestkey eq 'CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1'",
+          "$select": "cr458_cgchangerequestid,cr458_status,cr458_baselineversion,cr458_assessmentjson,cr458_selectedoption,cr458_approvedat,cr458_approvedby,_cr458_project_value",
+          "$expand": "cr458_Milestone($select=cr458_milestonecode)",
+          "$top": 1,
+          "accept": "application/json;odata.metadata=minimal"
+        }
+      },
+      "outputs": {
+        "statusCode": 200,
+        "headers": {
+          "Cache-Control": "no-cache",
+          "Vary": "Accept-Encoding",
+          "Set-Cookie": "ARRAffinity=2a570086dda919de769e4850d3b10fd8c0d196088c5614145ac4efe7cf706caf15134d20c556b0b34b9b6ae43ec3f5dcdad61788de889ffc592af7aca85fc1c508DF18C7F9C8014E0000001303543012; path=/; secure; HttpOnly,ReqClientId=4895cbb4-d5b9-4a59-9386-ffdfd92599fb; expires=Tue, 22-Sep-2076 16:08:47 GMT; path=/; secure; HttpOnly,ARRAffinity=2a570086dda919de769e4850d3b10fd8c0d196088c5614145ac4efe7cf706caf15134d20c556b0b34b9b6ae43ec3f5dcdad61788de889ffc592af7aca85fc1c508DF18C7F9C8014E0000001303543012; path=/; secure; HttpOnly",
+          "x-ms-service-request-id": "0dc7e626-89f0-426b-b6d9-266aff142dcf",
+          "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+          "REQ_ID": "0dc7e626-89f0-426b-b6d9-266aff142dcf",
+          "AuthActivityId": "b712bd72-7019-4a32-8cdf-59e0d7f13a3e",
+          "x-ms-dop-hint": "4",
+          "x-ms-ratelimit-time-remaining-xrm-requests": "1,200.00",
+          "x-ms-ratelimit-burst-remaining-xrm-requests": "7999",
+          "X-Content-Type-Options": "nosniff",
+          "OData-Version": "4.0",
+          "Preference-Applied": "odata.include-annotations=\"*\"",
+          "X-Source": "10523815952149249177372247491512343517151627485712011119758748842222661618130,14313325581931301411971382555421519610218811101208229121591112711719611317623116612217664",
+          "Public": "OPTIONS,GET,HEAD,POST",
+          "Date": "Tue, 22 Sep 2026 16:08:47 GMT",
+          "Allow": "OPTIONS,GET,HEAD,POST",
+          "Content-Type": "application/json; odata.metadata=minimal",
+          "Expires": "-1",
+          "Content-Length": "3014"
+        },
+        "body": {
+          "@odata.context": "https://<org>.crm3.dynamics.com/api/data/v9.1/$metadata#cr458_cgchangerequests(cr458_cgchangerequestid,cr458_status,cr458_baselineversion,cr458_assessmentjson,cr458_selectedoption,cr458_approvedat,cr458_approvedby,_cr458_project_value,cr458_Milestone(cr458_milestonecode))",
+          "@Microsoft.Dynamics.CRM.totalrecordcount": -1,
+          "@Microsoft.Dynamics.CRM.totalrecordcountlimitexceeded": false,
+          "@Microsoft.Dynamics.CRM.globalmetadataversion": "2631279",
+          "value": [
+            {
+              "@odata.etag": "W/\"2631420\"",
+              "cr458_selectedoption": "CGDEMO-OPT-AIR",
+              "cr458_approvedby": "reviewer@changeguard-demo.example",
+              "cr458_approvedat@OData.Community.Display.V1.FormattedValue": "9/22/2026 4:02 PM",
+              "cr458_approvedat": "2026-09-22T16:02:56Z",
+              "cr458_status": "Approved",
+              "cr458_baselineversion@OData.Community.Display.V1.FormattedValue": "1",
+              "cr458_baselineversion": 1,
+              "cr458_assessmentjson": "{\"status\":\"Assessed\",\"projectCode\":\"CGDEMO-FINAL-01\",\"projectName\":\"Harbour Crane Retrofit (synthetic demo)\",\"baselineVersion\":1,\"calendarCode\":\"CGDEMO-CAL\",\"changedMilestone\":{\"code\":\"CGDEMO-M1\",\"name\":\"Gearbox delivery to site\",\"owner\":\"Demo Owner One\",\"baselineFinish\":\"2026-10-09\",\"proposedFinish\":\"2026-10-30\",\"computedFinish\":\"2026-10-30\",\"slipWorkingDays\":15,\"verdict\":\"Changed\",\"externalCommitment\":false},\"effectiveFinish\":\"2026-10-30\",\"affected\":[\"CGDEMO-M2\",\"CGDEMO-M3\"],\"unaffected\":[],\"conflicts\":[\"CGDEMO-M3\"],\"milestones\":[{\"code\":\"CGDEMO-M2\",\"name\":\"Mechanical installation\",\"owner\":\"Demo Owner Two\",\"baselineFinish\":\"2026-10-23\",\"computedFinish\":\"2026-11-11\",\"slipWorkingDays\":13,\"verdict\":\"Slips\",\"externalCommitment\":false},{\"code\":\"CGDEMO-M3\",\"name\":\"Commissioning and handover\",\"owner\":\"Demo Owner Three\",\"baselineFinish\":\"2026-11-06\",\"computedFinish\":\"2026-11-18\",\"slipWorkingDays\":8,\"verdict\":\"Infeasible\",\"externalCommitment\":true}],\"assumptions\":[\"Calendar CGDEMO-CAL: Monday to Friday working days. No public holidays configured.\"],\"unknowns\":[],\"evidence\":[{\"milestone\":\"CGDEMO-M2\",\"path\":\"CGDEMO-M1 -> CGDEMO-M2\",\"hops\":1},{\"milestone\":\"CGDEMO-M3\",\"path\":\"CGDEMO-M1 -> CGDEMO-M2 -> CGDEMO-M3\",\"hops\":2}],\"assessmentFingerprint\":\"Q0dERU1PLU0yLENHREVNTy1NM3xDR0RFTU8tTTI9MjAyNi0xMS0xMSxDR0RFTU8tTTM9MjAyNi0xMS0xOHwx\",\"source\":\"Computed by the AssessChange flow from Dataverse records; not generated by the language model.\"}",
+              "cr458_cgchangerequestid": "162c5b9e-a413-4644-ac1b-f9c8872ba192",
+              "_cr458_project_value@OData.Community.Display.V1.FormattedValue": "Harbour Crane Retrofit (synthetic demo)",
+              "_cr458_project_value@Microsoft.Dynamics.CRM.associatednavigationproperty": "cr458_Project",
+              "_cr458_project_value@Microsoft.Dynamics.CRM.lookuplogicalname": "cr458_cgproject",
+              "_cr458_project_value": "c92b43ba-84b6-f111-aaad-000d3af45a09",
+              "cr458_Milestone": {
+                "cr458_cgmilestoneid": "ca2b43ba-84b6-f111-aaad-000d3af45a09",
+                "cr458_milestonecode": "CGDEMO-M1"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "Loop_actions": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:08:48.4974872Z",
+      "endTime": "2026-09-22T16:08:50.3712707Z",
+      "inputs": {
+        "foreachItems": [
+          {
+            "actionKey": "CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1-1",
+            "title": "Book recovery option CGDEMO-OPT-AIR for CGDEMO-M1",
+            "owner": "Demo Owner One",
+            "milestone": "CGDEMO-M1",
+            "due": "2026-10-09"
+          },
+          {
+            "actionKey": "CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1-2",
+            "title": "Agree revised CGDEMO-M3 Commissioning and handover date with the customer (computed 2026-11-18)",
+            "owner": "Demo Owner Three",
+            "milestone": "CGDEMO-M3",
+            "due": "2026-11-06"
+          }
+        ]
+      },
+      "outputs": null
+    },
+    "Option_check": {
+      "status": "Succeeded",
+      "code": "OK",
+      "startTime": "2026-09-22T16:08:48.3014736Z",
+      "endTime": "2026-09-22T16:08:48.3038579Z",
+      "inputs": {
+        "status": "",
+        "message": ""
+      },
+      "outputs": {
+        "status": "",
+        "message": ""
+      }
+    },
+    "Plan": {
+      "status": "Succeeded",
+      "code": "OK",
+      "startTime": "2026-09-22T16:08:48.4595049Z",
+      "endTime": "2026-09-22T16:08:48.4605372Z",
+      "inputs": [
+        {
+          "title": "Book recovery option CGDEMO-OPT-AIR for CGDEMO-M1",
+          "owner": "Demo Owner One",
+          "milestone": "CGDEMO-M1",
+          "due": "2026-10-09"
+        },
+        {
+          "title": "Agree revised CGDEMO-M3 Commissioning and handover date with the customer (computed 2026-11-18)",
+          "owner": "Demo Owner Three",
+          "milestone": "CGDEMO-M3",
+          "due": "2026-11-06"
+        }
+      ],
+      "outputs": [
+        {
+          "title": "Book recovery option CGDEMO-OPT-AIR for CGDEMO-M1",
+          "owner": "Demo Owner One",
+          "milestone": "CGDEMO-M1",
+          "due": "2026-10-09"
+        },
+        {
+          "title": "Agree revised CGDEMO-M3 Commissioning and handover date with the customer (computed 2026-11-18)",
+          "owner": "Demo Owner Three",
+          "milestone": "CGDEMO-M3",
+          "due": "2026-11-06"
+        }
+      ]
+    },
+    "Record_failure": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:08:50.2509632Z",
+      "endTime": "2026-09-22T16:08:50.2617065Z",
+      "error": {
+        "code": "ActionConditionFailed",
+        "message": "The execution of template action 'Record_failure' is skipped: the 'runAfter' condition for action 'Check_action' is not satisfied. Expected status values 'Failed, TimedOut' and actual value 'Succeeded'.",
+        "messageTemplate": "The execution of template action '{0}' is skipped: the 'runAfter' condition for action '{1}' is not satisfied. Expected status values '{2}' and actual value '{3}'."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Respond_to_the_agent": {
+      "status": "Succeeded",
+      "code": "OK",
+      "startTime": "2026-09-22T16:08:51.7728705Z",
+      "endTime": "2026-09-22T16:08:51.7901385Z",
+      "inputs": {
+        "statusCode": "200",
+        "schema": {
+          "type": "object",
+          "additionalProperties": {},
+          "properties": {
+            "status": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "Status",
+              "description": "Executed, PartiallyExecuted, NotApproved, StaleBaseline, OptionMismatch, NoRecordedDecision, OptionNotDocumented, OptionWrongMilestone, OptionNotEligible or NotFound. The hardened build adds AlreadyExecuted (nothing left to do), DecisionNotApproved, ApproverMismatch, OptionNoLongerBookable, and the technical failures InternalError, WriteFailed and AuditFailed, which also fail the run."
+            },
+            "createdcount": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "CreatedCount",
+              "description": "Recovery actions created in this call."
+            },
+            "reusedcount": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "ReusedCount",
+              "description": "Existing actions returned instead of duplicated."
+            },
+            "actionidscsv": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "ActionIdsCsv",
+              "description": "Dataverse ids of the recovery actions."
+            },
+            "failedkeyscsv": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "FailedKeysCsv",
+              "description": "Action keys that failed; empty when all succeeded."
+            },
+            "message": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "Message",
+              "description": "Reason when nothing was executed."
+            }
+          }
+        },
+        "body": {
+          "status": "Executed",
+          "createdcount": "2",
+          "reusedcount": "0",
+          "actionidscsv": "8ee59de4-9fb6-f111-aaad-000d3af45a09,8fe59de4-9fb6-f111-aaad-000d3af45a09",
+          "failedkeyscsv": "",
+          "message": ""
+        }
+      },
+      "outputs": {
+        "statusCode": "200",
+        "schema": {
+          "type": "object",
+          "additionalProperties": {},
+          "properties": {
+            "status": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "Status",
+              "description": "Executed, PartiallyExecuted, NotApproved, StaleBaseline, OptionMismatch, NoRecordedDecision, OptionNotDocumented, OptionWrongMilestone, OptionNotEligible or NotFound. The hardened build adds AlreadyExecuted (nothing left to do), DecisionNotApproved, ApproverMismatch, OptionNoLongerBookable, and the technical failures InternalError, WriteFailed and AuditFailed, which also fail the run."
+            },
+            "createdcount": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "CreatedCount",
+              "description": "Recovery actions created in this call."
+            },
+            "reusedcount": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "ReusedCount",
+              "description": "Existing actions returned instead of duplicated."
+            },
+            "actionidscsv": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "ActionIdsCsv",
+              "description": "Dataverse ids of the recovery actions."
+            },
+            "failedkeyscsv": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "FailedKeysCsv",
+              "description": "Action keys that failed; empty when all succeeded."
+            },
+            "message": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "Message",
+              "description": "Reason when nothing was executed."
+            }
+          }
+        },
+        "body": {
+          "status": "Executed",
+          "createdcount": "2",
+          "reusedcount": "0",
+          "actionidscsv": "8ee59de4-9fb6-f111-aaad-000d3af45a09,8fe59de4-9fb6-f111-aaad-000d3af45a09",
+          "failedkeyscsv": "",
+          "message": ""
+        }
+      }
+    },
+    "Set_audit_failed": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:08:51.7386455Z",
+      "endTime": "2026-09-22T16:08:51.7394003Z",
+      "error": {
+        "code": "ActionConditionFailed",
+        "message": "The execution of template action 'Set_audit_failed' is skipped: the 'runAfter' condition for action 'Audit_execution' is not satisfied. Expected status values 'Failed, TimedOut' and actual value 'Succeeded'.",
+        "messageTemplate": "The execution of template action '{0}' is skipped: the 'runAfter' condition for action '{1}' is not satisfied. Expected status values '{2}' and actual value '{3}'."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Set_audit_failed_message": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:08:51.7553964Z",
+      "endTime": "2026-09-22T16:08:51.756234Z",
+      "error": {
+        "code": "ActionConditionFailed",
+        "message": "The execution of template action 'Set_audit_failed_message' is skipped: the 'runAfter' condition for action 'Set_audit_failed' is not satisfied. Expected status values 'Succeeded' and actual value 'Skipped'.",
+        "messageTemplate": "The execution of template action '{0}' is skipped: the 'runAfter' condition for action '{1}' is not satisfied. Expected status values '{2}' and actual value '{3}'."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Set_executed": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:08:50.3875884Z",
+      "endTime": "2026-09-22T16:08:50.441329Z",
+      "inputs": {
+        "name": "Result",
+        "value": "Executed"
+      },
+      "outputs": {
+        "body": {
+          "name": "Result",
+          "type": "String",
+          "value": "Executed"
+        }
+      }
+    },
+    "Set_internal_error_message": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:08:51.4503092Z",
+      "endTime": "2026-09-22T16:08:51.4510408Z",
+      "error": {
+        "code": "ActionConditionFailed",
+        "message": "The execution of template action 'Set_internal_error_message' is skipped: the 'runAfter' condition for action 'Set_status_InternalError' is not satisfied. Expected status values 'Succeeded' and actual value 'Skipped'.",
+        "messageTemplate": "The execution of template action '{0}' is skipped: the 'runAfter' condition for action '{1}' is not satisfied. Expected status values '{2}' and actual value '{3}'."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Set_no_decision": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:08:48.1926426Z",
+      "endTime": "2026-09-22T16:08:48.1933613Z",
+      "error": {
+        "code": "ActionBranchingConditionNotSatisfied",
+        "message": "The execution of template action 'Set_no_decision' skipped: the branching condition for this action is not satisfied.",
+        "messageTemplate": "The execution of template action '{0}' skipped: the branching condition for this action is not satisfied."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Set_no_decision_message": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:08:48.2081316Z",
+      "endTime": "2026-09-22T16:08:48.2088014Z",
+      "error": {
+        "code": "ActionConditionFailed",
+        "message": "The execution of template action 'Set_no_decision_message' is skipped: the 'runAfter' condition for action 'Set_no_decision' is not satisfied. Expected status values 'Succeeded' and actual value 'Skipped'.",
+        "messageTemplate": "The execution of template action '{0}' is skipped: the 'runAfter' condition for action '{1}' is not satisfied. Expected status values '{2}' and actual value '{3}'."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Set_not_approved": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:08:47.9826307Z",
+      "endTime": "2026-09-22T16:08:47.9833783Z",
+      "error": {
+        "code": "ActionBranchingConditionNotSatisfied",
+        "message": "The execution of template action 'Set_not_approved' skipped: the branching condition for this action is not satisfied.",
+        "messageTemplate": "The execution of template action '{0}' skipped: the branching condition for this action is not satisfied."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Set_not_approved_message": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:08:48.0001763Z",
+      "endTime": "2026-09-22T16:08:48.0009127Z",
+      "error": {
+        "code": "ActionConditionFailed",
+        "message": "The execution of template action 'Set_not_approved_message' is skipped: the 'runAfter' condition for action 'Set_not_approved' is not satisfied. Expected status values 'Succeeded' and actual value 'Skipped'.",
+        "messageTemplate": "The execution of template action '{0}' is skipped: the 'runAfter' condition for action '{1}' is not satisfied. Expected status values '{2}' and actual value '{3}'."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Set_not_found": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:08:47.9184429Z",
+      "endTime": "2026-09-22T16:08:47.9191754Z",
+      "error": {
+        "code": "ActionBranchingConditionNotSatisfied",
+        "message": "The execution of template action 'Set_not_found' skipped: the branching condition for this action is not satisfied.",
+        "messageTemplate": "The execution of template action '{0}' skipped: the branching condition for this action is not satisfied."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Set_not_found_message": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:08:47.9358998Z",
+      "endTime": "2026-09-22T16:08:47.9365406Z",
+      "error": {
+        "code": "ActionConditionFailed",
+        "message": "The execution of template action 'Set_not_found_message' is skipped: the 'runAfter' condition for action 'Set_not_found' is not satisfied. Expected status values 'Succeeded' and actual value 'Skipped'.",
+        "messageTemplate": "The execution of template action '{0}' is skipped: the 'runAfter' condition for action '{1}' is not satisfied. Expected status values '{2}' and actual value '{3}'."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Set_option_refused": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:08:48.3485645Z",
+      "endTime": "2026-09-22T16:08:48.349291Z",
+      "error": {
+        "code": "ActionBranchingConditionNotSatisfied",
+        "message": "The execution of template action 'Set_option_refused' skipped: the branching condition for this action is not satisfied.",
+        "messageTemplate": "The execution of template action '{0}' skipped: the branching condition for this action is not satisfied."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Set_option_refused_message": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:08:48.3662612Z",
+      "endTime": "2026-09-22T16:08:48.366993Z",
+      "error": {
+        "code": "ActionConditionFailed",
+        "message": "The execution of template action 'Set_option_refused_message' is skipped: the 'runAfter' condition for action 'Set_option_refused' is not satisfied. Expected status values 'Succeeded' and actual value 'Skipped'.",
+        "messageTemplate": "The execution of template action '{0}' is skipped: the 'runAfter' condition for action '{1}' is not satisfied. Expected status values '{2}' and actual value '{3}'."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Set_stale": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:08:48.0892678Z",
+      "endTime": "2026-09-22T16:08:48.0899945Z",
+      "error": {
+        "code": "ActionBranchingConditionNotSatisfied",
+        "message": "The execution of template action 'Set_stale' skipped: the branching condition for this action is not satisfied.",
+        "messageTemplate": "The execution of template action '{0}' skipped: the branching condition for this action is not satisfied."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Set_stale_message": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:08:48.1056171Z",
+      "endTime": "2026-09-22T16:08:48.1062923Z",
+      "error": {
+        "code": "ActionConditionFailed",
+        "message": "The execution of template action 'Set_stale_message' is skipped: the 'runAfter' condition for action 'Set_stale' is not satisfied. Expected status values 'Succeeded' and actual value 'Skipped'.",
+        "messageTemplate": "The execution of template action '{0}' is skipped: the 'runAfter' condition for action '{1}' is not satisfied. Expected status values '{2}' and actual value '{3}'."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Set_status_InternalError": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:08:51.4296675Z",
+      "endTime": "2026-09-22T16:08:51.4304807Z",
+      "error": {
+        "code": "ActionBranchingConditionNotSatisfied",
+        "message": "The execution of template action 'Set_status_InternalError' skipped: the branching condition for this action is not satisfied.",
+        "messageTemplate": "The execution of template action '{0}' skipped: the branching condition for this action is not satisfied."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Set_write_failed": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:08:50.8213065Z",
+      "endTime": "2026-09-22T16:08:50.828446Z",
+      "error": {
+        "code": "ActionConditionFailed",
+        "message": "The execution of template action 'Set_write_failed' is skipped: the 'runAfter' condition for action 'Commit_execution' is not satisfied. Expected status values 'Failed, TimedOut' and actual value 'Succeeded'.",
+        "messageTemplate": "The execution of template action '{0}' is skipped: the 'runAfter' condition for action '{1}' is not satisfied. Expected status values '{2}' and actual value '{3}'."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Set_write_failed_message": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:08:50.845169Z",
+      "endTime": "2026-09-22T16:08:50.8527228Z",
+      "error": {
+        "code": "ActionConditionFailed",
+        "message": "The execution of template action 'Set_write_failed_message' is skipped: the 'runAfter' condition for action 'Set_write_failed' is not satisfied. Expected status values 'Succeeded' and actual value 'Skipped'.",
+        "messageTemplate": "The execution of template action '{0}' is skipped: the 'runAfter' condition for action '{1}' is not satisfied. Expected status values '{2}' and actual value '{3}'."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Terminate_failed": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T16:08:51.8741171Z",
+      "endTime": "2026-09-22T16:08:51.8750561Z",
+      "error": {
+        "code": "ActionBranchingConditionNotSatisfied",
+        "message": "The execution of template action 'Terminate_failed' skipped: the branching condition for this action is not satisfied.",
+        "messageTemplate": "The execution of template action '{0}' skipped: the branching condition for this action is not satisfied."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Terminate_on_failure": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T16:08:51.807727Z",
+      "endTime": "2026-09-22T16:08:51.9711361Z",
+      "inputs": {
+        "expressionResult": false
+      },
+      "outputs": null
+    },
+    "Update_request": {
+      "status": "Succeeded",
+      "code": "OK",
+      "startTime": "2026-09-22T16:08:50.6981642Z",
+      "endTime": "2026-09-22T16:08:50.7125614Z",
+      "inputs": {
+        "host": {
+          "apiId": "subscriptions/<environment-id>/providers/Microsoft.Web/locations/canadacentral/runtimes/Canada-001/apis/commondataserviceforapps",
+          "connectionReferenceName": "shared_commondataserviceforapps",
+          "operationId": "UpdateRecord"
+        },
+        "parameters": {
+          "entityName": "cr458_cgchangerequests",
+          "recordId": "162c5b9e-a413-4644-ac1b-f9c8872ba192",
+          "item/cr458_status": "Executed",
+          "accept": "application/json;odata.metadata=minimal"
+        }
+      },
+      "outputs": {
+        "statusCode": 200,
+        "headers": {
+          "Preference-Applied": "odata.include-annotations=\"*\"",
+          "ETag": "W/\"2631438\"",
+          "Cache-Control": "no-cache",
+          "Pragma": "no-cache",
+          "X-Content-Type-Options": "nosniff",
+          "OData-Version": "4.0"
+        },
+        "body": {
+          "@odata.context": "https://<org>.crm3.dynamics.com/api/data/v9.1/$metadata#cr458_cgchangerequests/$entity",
+          "@odata.etag": "W/\"2631438\"",
+          "cr458_selectedoption": "CGDEMO-OPT-AIR",
+          "cr458_requestkey": "CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1",
+          "modifiedon@OData.Community.Display.V1.FormattedValue": "9/22/2026 4:08 PM",
+          "modifiedon": "2026-09-22T16:08:50Z",
+          "_owninguser_value@Microsoft.Dynamics.CRM.lookuplogicalname": "systemuser",
+          "_owninguser_value": "<user-2-systemuserid>",
+          "cr458_approvedby": "reviewer@changeguard-demo.example",
+          "cr458_assessmentfingerprint": "Q0dERU1PLU0yLENHREVNTy1NM3xDR0RFTU8tTTI9MjAyNi0xMS0xMSxDR0RFTU8tTTM9MjAyNi0xMS0xOHwx",
+          "cr458_approvedat@OData.Community.Display.V1.FormattedValue": "9/22/2026 4:02 PM",
+          "cr458_approvedat": "2026-09-22T16:02:56Z",
+          "cr458_status": "Executed",
+          "cr458_sourceref": "ChangeGuard Control Tower agent (SaveChangeRequest)",
+          "cr458_proposedfinish@OData.Community.Display.V1.FormattedValue": "10/30/2026",
+          "cr458_proposedfinish": "2026-10-30",
+          "cr458_originalevidence": "Supplier email of 22 September 2026 states the gearbox now ships on 30 October because of a casting defect.",
+          "cr458_name": "CGDEMO-FINAL-01 CGDEMO-M1 to 2026-10-30",
+          "statecode@OData.Community.Display.V1.FormattedValue": "Active",
+          "statecode": 0,
+          "versionnumber@OData.Community.Display.V1.FormattedValue": "2,631,438",
+          "versionnumber": 2631438,
+          "cr458_baselineversion@OData.Community.Display.V1.FormattedValue": "1",
+          "cr458_baselineversion": 1,
+          "cr458_approvaldecision": "Approved",
+          "cr458_assessmentjson": "{\"status\":\"Assessed\",\"projectCode\":\"CGDEMO-FINAL-01\",\"projectName\":\"Harbour Crane Retrofit (synthetic demo)\",\"baselineVersion\":1,\"calendarCode\":\"CGDEMO-CAL\",\"changedMilestone\":{\"code\":\"CGDEMO-M1\",\"name\":\"Gearbox delivery to site\",\"owner\":\"Demo Owner One\",\"baselineFinish\":\"2026-10-09\",\"proposedFinish\":\"2026-10-30\",\"computedFinish\":\"2026-10-30\",\"slipWorkingDays\":15,\"verdict\":\"Changed\",\"externalCommitment\":false},\"effectiveFinish\":\"2026-10-30\",\"affected\":[\"CGDEMO-M2\",\"CGDEMO-M3\"],\"unaffected\":[],\"conflicts\":[\"CGDEMO-M3\"],\"milestones\":[{\"code\":\"CGDEMO-M2\",\"name\":\"Mechanical installation\",\"owner\":\"Demo Owner Two\",\"baselineFinish\":\"2026-10-23\",\"computedFinish\":\"2026-11-11\",\"slipWorkingDays\":13,\"verdict\":\"Slips\",\"externalCommitment\":false},{\"code\":\"CGDEMO-M3\",\"name\":\"Commissioning and handover\",\"owner\":\"Demo Owner Three\",\"baselineFinish\":\"2026-11-06\",\"computedFinish\":\"2026-11-18\",\"slipWorkingDays\":8,\"verdict\":\"Infeasible\",\"externalCommitment\":true}],\"assumptions\":[\"Calendar CGDEMO-CAL: Monday to Friday working days. No public holidays configured.\"],\"unknowns\":[],\"evidence\":[{\"milestone\":\"CGDEMO-M2\",\"path\":\"CGDEMO-M1 -> CGDEMO-M2\",\"hops\":1},{\"milestone\":\"CGDEMO-M3\",\"path\":\"CGDEMO-M1 -> CGDEMO-M2 -> CGDEMO-M3\",\"hops\":2}],\"assessmentFingerprint\":\"Q0dERU1PLU0yLENHREVNTy1NM3xDR0RFTU8tTTI9MjAyNi0xMS0xMSxDR0RFTU8tTTM9MjAyNi0xMS0xOHwx\",\"source\":\"Computed by the AssessChange flow from Dataverse records; not generated by the language model.\"}",
+          "_cr458_milestone_value@OData.Community.Display.V1.FormattedValue": "Gearbox delivery to site",
+          "_cr458_milestone_value@Microsoft.Dynamics.CRM.associatednavigationproperty": "cr458_Milestone",
+          "_cr458_milestone_value@Microsoft.Dynamics.CRM.lookuplogicalname": "cr458_cgmilestone",
+          "_cr458_milestone_value": "ca2b43ba-84b6-f111-aaad-000d3af45a09",
+          "cr458_cgchangerequestid": "162c5b9e-a413-4644-ac1b-f9c8872ba192",
+          "_modifiedby_value@OData.Community.Display.V1.FormattedValue": "# ChangeGuard-Automation",
+          "_modifiedby_value@Microsoft.Dynamics.CRM.lookuplogicalname": "systemuser",
+          "_modifiedby_value": "<user-2-systemuserid>",
+          "createdon@OData.Community.Display.V1.FormattedValue": "9/22/2026 1:01 PM",
+          "createdon": "2026-09-22T13:01:40Z",
+          "_owningbusinessunit_value@OData.Community.Display.V1.FormattedValue": "<org>",
+          "_owningbusinessunit_value@Microsoft.Dynamics.CRM.associatednavigationproperty": "owningbusinessunit",
+          "_owningbusinessunit_value@Microsoft.Dynamics.CRM.lookuplogicalname": "businessunit",
+          "_owningbusinessunit_value": "cea8ffff-13b4-f111-aaae-0022486daaac",
+          "statuscode@OData.Community.Display.V1.FormattedValue": "Active",
+          "statuscode": 1,
+          "cr458_demo@OData.Community.Display.V1.FormattedValue": "Yes",
+          "cr458_demo": true,
+          "_ownerid_value@OData.Community.Display.V1.FormattedValue": "# ChangeGuard-Automation",
+          "_ownerid_value@Microsoft.Dynamics.CRM.associatednavigationproperty": "ownerid",
+          "_ownerid_value@Microsoft.Dynamics.CRM.lookuplogicalname": "systemuser",
+          "_ownerid_value": "<user-2-systemuserid>",
+          "_createdby_value@OData.Community.Display.V1.FormattedValue": "# ChangeGuard-Automation",
+          "_createdby_value@Microsoft.Dynamics.CRM.lookuplogicalname": "systemuser",
+          "_createdby_value": "<user-2-systemuserid>",
+          "_cr458_project_value@OData.Community.Display.V1.FormattedValue": "Harbour Crane Retrofit (synthetic demo)",
+          "_cr458_project_value@Microsoft.Dynamics.CRM.associatednavigationproperty": "cr458_Project",
+          "_cr458_project_value@Microsoft.Dynamics.CRM.lookuplogicalname": "cr458_cgproject",
+          "_cr458_project_value": "c92b43ba-84b6-f111-aaad-000d3af45a09",
+          "timezoneruleversionnumber@OData.Community.Display.V1.FormattedValue": "4",
+          "timezoneruleversionnumber": 4
+        }
+      }
+    }
+  }
+}

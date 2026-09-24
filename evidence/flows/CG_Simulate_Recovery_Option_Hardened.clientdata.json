@@ -1,0 +1,1462 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "cr458_ChangeGuardDataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "metadata": {
+        "defaultToEmbeddedConnections": true
+      },
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "OptionCode",
+                  "description": "Recovery option code, for example ATLAS-EXPEDITE-B."
+                },
+                "text_1": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "AsOfDate",
+                  "description": "Explicit scenario date YYYY-MM-DD used to check option validity."
+                }
+              },
+              "required": [
+                "text",
+                "text_1"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Init_OptEval": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "OptEval",
+                "type": "string",
+                "value": ""
+              }
+            ]
+          },
+          "runAfter": {}
+        },
+        "List_option": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "connectionName": "shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "cr458_cgrecoveryoptions",
+              "$filter": "cr458_optioncode eq '@{replace(toUpper(trim(coalesce(triggerBody()?['text'], ''))), '''', '''''')}'",
+              "$select": "cr458_optioncode,cr458_name,cr458_arrivaldate,cr458_asofdate,cr458_leadtimeworkingdays,cr458_incrementalcost,cr458_currencycode,cr458_availabilitystatus,cr458_evidenceref,cr458_validuntil",
+              "$orderby": "cr458_optioncode asc",
+              "$top": 1,
+              "$expand": "cr458_ChangedMilestone($select=cr458_milestonecode),cr458_Project($select=cr458_projectcode)"
+            }
+          },
+          "runAfter": {
+            "Init_OptEval": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Option": {
+          "type": "Compose",
+          "inputs": "@first(outputs('List_option')?['body/value'])",
+          "runAfter": {
+            "List_option": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Set_opt_eval": {
+          "type": "SetVariable",
+          "inputs": {
+            "name": "OptEval",
+            "value": "@if(empty(outputs('List_option')?['body/value']), 'NotFound', if(not(and(equals(length(trim(coalesce(triggerBody()?['text_1'], ''))), 10), equals(substring(concat(trim(coalesce(triggerBody()?['text_1'], '')), '__________'), 4, 1), '-'), equals(substring(concat(trim(coalesce(triggerBody()?['text_1'], '')), '__________'), 7, 1), '-'))), 'InvalidDate', if(and(not(equals(outputs('Option')?['cr458_asofdate'], null)), less(trim(coalesce(triggerBody()?['text_1'], '')), outputs('Option')?['cr458_asofdate'])), concat('NotYetQuoted: quoted from ', string(outputs('Option')?['cr458_asofdate'])), if(and(not(equals(outputs('Option')?['cr458_validuntil'], null)), greater(trim(coalesce(triggerBody()?['text_1'], '')), outputs('Option')?['cr458_validuntil'])), 'Expired', if(not(equals(outputs('Option')?['cr458_availabilitystatus'], 'Confirmed')), concat('NotSelectable: ', coalesce(outputs('Option')?['cr458_availabilitystatus'], 'unknown availability')), if(equals(outputs('Option')?['cr458_arrivaldate'], null), 'NoDocumentedArrival', 'Selectable'))))))"
+          },
+          "runAfter": {
+            "Option": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Init_Status": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "Status",
+                "type": "string",
+                "value": ""
+              }
+            ]
+          },
+          "runAfter": {
+            "Set_opt_eval": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Init_Message": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "Message",
+                "type": "string",
+                "value": ""
+              }
+            ]
+          },
+          "runAfter": {
+            "Init_Status": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Init_Assumptions": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "Assumptions",
+                "type": "array",
+                "value": []
+              }
+            ]
+          },
+          "runAfter": {
+            "Init_Message": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Init_Unknowns": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "Unknowns",
+                "type": "array",
+                "value": []
+              }
+            ]
+          },
+          "runAfter": {
+            "Init_Assumptions": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Init_Computed": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "Computed",
+                "type": "object",
+                "value": {}
+              }
+            ]
+          },
+          "runAfter": {
+            "Init_Unknowns": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Init_ComputedTemp": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "ComputedTemp",
+                "type": "object",
+                "value": {}
+              }
+            ]
+          },
+          "runAfter": {
+            "Init_Computed": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Init_Rows": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "Rows",
+                "type": "array",
+                "value": []
+              }
+            ]
+          },
+          "runAfter": {
+            "Init_ComputedTemp": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Init_UnknownSet": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "UnknownSet",
+                "type": "array",
+                "value": []
+              }
+            ]
+          },
+          "runAfter": {
+            "Init_Rows": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Init_Conflicts": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "Conflicts",
+                "type": "array",
+                "value": []
+              }
+            ]
+          },
+          "runAfter": {
+            "Init_UnknownSet": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Init_EffectiveIdx": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "EffectiveIdx",
+                "type": "integer",
+                "value": 0
+              }
+            ]
+          },
+          "runAfter": {
+            "Init_Conflicts": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Padded_date": {
+          "type": "Compose",
+          "inputs": "@concat(if(equals(variables('OptEval'), 'Selectable'), coalesce(outputs('Option')?['cr458_arrivaldate'], ''), ''),'__________')",
+          "runAfter": {
+            "Init_EffectiveIdx": [
+              "Succeeded"
+            ]
+          }
+        },
+        "List_project": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "connectionName": "shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "cr458_cgprojects",
+              "$filter": "cr458_projectcode eq '@{replace(toUpper(coalesce(outputs('Option')?['cr458_Project']?['cr458_projectcode'], '')),'''','''''')}'",
+              "$select": "cr458_cgprojectid,cr458_name,cr458_projectcode,cr458_baselineversion,cr458_calendarcode",
+              "$top": 1
+            }
+          },
+          "runAfter": {
+            "Padded_date": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Check_project": {
+          "type": "If",
+          "expression": "@empty(outputs('List_project')?['body/value'])",
+          "actions": {
+            "Set_status_NotFound_1": {
+              "type": "SetVariable",
+              "inputs": {
+                "name": "Status",
+                "value": "NotFound"
+              },
+              "runAfter": {}
+            },
+            "Set_message_NotFound_1": {
+              "type": "SetVariable",
+              "inputs": {
+                "name": "Message",
+                "value": "@concat('Baseline for project ', toUpper(coalesce(outputs('Option')?['cr458_Project']?['cr458_projectcode'], '')), ' is not available.')"
+              },
+              "runAfter": {
+                "Set_status_NotFound_1": [
+                  "Succeeded"
+                ]
+              }
+            }
+          },
+          "else": {
+            "actions": {}
+          },
+          "runAfter": {
+            "List_project": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Project": {
+          "type": "Compose",
+          "inputs": "@first(outputs('List_project')?['body/value'])",
+          "runAfter": {
+            "Check_project": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Gate_load": {
+          "type": "If",
+          "expression": "@equals(variables('Status'),'')",
+          "actions": {
+            "List_milestones": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "connectionName": "shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "cr458_cgmilestones",
+                  "$filter": "_cr458_project_value eq @{outputs('Project')?['cr458_cgprojectid']}",
+                  "$select": "cr458_cgmilestoneid,cr458_milestonecode,cr458_name,cr458_ownername,cr458_baselinefinish,cr458_durationdays,cr458_topoorder,cr458_isexternalcommitment",
+                  "$orderby": "cr458_topoorder asc,cr458_milestonecode asc"
+                }
+              },
+              "runtimeConfiguration": {
+                "paginationPolicy": {
+                  "minimumItemCount": 5000
+                }
+              },
+              "runAfter": {}
+            },
+            "Changed_rows": {
+              "type": "Query",
+              "inputs": {
+                "from": "@outputs('List_milestones')?['body/value']",
+                "where": "@equals(toUpper(item()?['cr458_milestonecode']), toUpper(coalesce(outputs('Option')?['cr458_ChangedMilestone']?['cr458_milestonecode'], '')))"
+              },
+              "runAfter": {
+                "List_milestones": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Check_milestone": {
+              "type": "If",
+              "expression": "@empty(body('Changed_rows'))",
+              "actions": {
+                "Set_status_NotFound_2": {
+                  "type": "SetVariable",
+                  "inputs": {
+                    "name": "Status",
+                    "value": "NotFound"
+                  },
+                  "runAfter": {}
+                },
+                "Set_message_NotFound_2": {
+                  "type": "SetVariable",
+                  "inputs": {
+                    "name": "Message",
+                    "value": "@concat('Milestone ', toUpper(coalesce(outputs('Option')?['cr458_ChangedMilestone']?['cr458_milestonecode'], '')), ' is not in the ', toUpper(coalesce(outputs('Option')?['cr458_Project']?['cr458_projectcode'], '')), ' baseline.')"
+                  },
+                  "runAfter": {
+                    "Set_status_NotFound_2": [
+                      "Succeeded"
+                    ]
+                  }
+                }
+              },
+              "else": {
+                "actions": {
+                  "Check_version": {
+                    "type": "If",
+                    "expression": "@and(not(equals(triggerBody()?['number'], null)), not(equals(triggerBody()?['number'], outputs('Project')?['cr458_baselineversion'])))",
+                    "actions": {
+                      "Set_status_VersionMismatch_3": {
+                        "type": "SetVariable",
+                        "inputs": {
+                          "name": "Status",
+                          "value": "VersionMismatch"
+                        },
+                        "runAfter": {}
+                      },
+                      "Set_message_VersionMismatch_3": {
+                        "type": "SetVariable",
+                        "inputs": {
+                          "name": "Message",
+                          "value": "@concat('Requested baseline version ', string(triggerBody()?['number']), ' does not match current version ', string(outputs('Project')?['cr458_baselineversion']), '.')"
+                        },
+                        "runAfter": {
+                          "Set_status_VersionMismatch_3": [
+                            "Succeeded"
+                          ]
+                        }
+                      }
+                    },
+                    "else": {
+                      "actions": {
+                        "Check_date_format": {
+                          "type": "If",
+                          "expression": "@not(and(equals(length(if(equals(variables('OptEval'), 'Selectable'), coalesce(outputs('Option')?['cr458_arrivaldate'], ''), '')),10),equals(substring(outputs('Padded_date'),4,1),'-'),equals(substring(outputs('Padded_date'),7,1),'-'),equals(length(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(concat(substring(outputs('Padded_date'),0,4),substring(outputs('Padded_date'),5,2),substring(outputs('Padded_date'),8,2)),'0',''),'1',''),'2',''),'3',''),'4',''),'5',''),'6',''),'7',''),'8',''),'9','')),0)))",
+                          "actions": {
+                            "Set_status_InvalidDate_4": {
+                              "type": "SetVariable",
+                              "inputs": {
+                                "name": "Status",
+                                "value": "InvalidDate"
+                              },
+                              "runAfter": {}
+                            },
+                            "Set_message_InvalidDate_4": {
+                              "type": "SetVariable",
+                              "inputs": {
+                                "name": "Message",
+                                "value": "@concat('Proposed finish ', if(equals(variables('OptEval'), 'Selectable'), coalesce(outputs('Option')?['cr458_arrivaldate'], ''), ''), ' is not an ISO date (YYYY-MM-DD). Relative dates are not interpreted.')"
+                              },
+                              "runAfter": {
+                                "Set_status_InvalidDate_4": [
+                                  "Succeeded"
+                                ]
+                              }
+                            }
+                          },
+                          "else": {
+                            "actions": {}
+                          },
+                          "runAfter": {}
+                        }
+                      }
+                    },
+                    "runAfter": {}
+                  }
+                }
+              },
+              "runAfter": {
+                "Changed_rows": [
+                  "Succeeded"
+                ]
+              }
+            }
+          },
+          "else": {
+            "actions": {}
+          },
+          "runAfter": {
+            "Project": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Gate_calendar": {
+          "type": "If",
+          "expression": "@equals(variables('Status'),'')",
+          "actions": {
+            "List_calendar": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "connectionName": "shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "cr458_cgcalendardaies",
+                  "$filter": "cr458_calendarcode eq '@{outputs('Project')?['cr458_calendarcode']}'",
+                  "$select": "cr458_calendardate,cr458_isworkingday,cr458_workingdayindex",
+                  "$orderby": "cr458_calendardate asc"
+                }
+              },
+              "runtimeConfiguration": {
+                "paginationPolicy": {
+                  "minimumItemCount": 5000
+                }
+              },
+              "runAfter": {}
+            },
+            "Select_date_to_idx": {
+              "type": "Select",
+              "inputs": {
+                "from": "@outputs('List_calendar')?['body/value']",
+                "select": "@concat('\"', item()?['cr458_calendardate'], '\":', string(item()?['cr458_workingdayindex']))"
+              },
+              "runAfter": {
+                "List_calendar": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "DateIdx": {
+              "type": "Compose",
+              "inputs": "@json(concat('{', join(body('Select_date_to_idx'), ','), '}'))",
+              "runAfter": {
+                "Select_date_to_idx": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Working_days": {
+              "type": "Query",
+              "inputs": {
+                "from": "@outputs('List_calendar')?['body/value']",
+                "where": "@equals(item()?['cr458_isworkingday'], true)"
+              },
+              "runAfter": {
+                "DateIdx": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Select_idx_to_date": {
+              "type": "Select",
+              "inputs": {
+                "from": "@body('Working_days')",
+                "select": "@concat('\"', string(item()?['cr458_workingdayindex']), '\":\"', item()?['cr458_calendardate'], '\"')"
+              },
+              "runAfter": {
+                "Working_days": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "IdxDate": {
+              "type": "Compose",
+              "inputs": "@json(concat('{', join(body('Select_idx_to_date'), ','), '}'))",
+              "runAfter": {
+                "Select_idx_to_date": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Proposed_rows": {
+              "type": "Query",
+              "inputs": {
+                "from": "@outputs('List_calendar')?['body/value']",
+                "where": "@equals(item()?['cr458_calendardate'], if(equals(variables('OptEval'), 'Selectable'), coalesce(outputs('Option')?['cr458_arrivaldate'], ''), ''))"
+              },
+              "runAfter": {
+                "IdxDate": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Check_range": {
+              "type": "If",
+              "expression": "@empty(body('Proposed_rows'))",
+              "actions": {
+                "Set_status_OutOfCalendarRange_5": {
+                  "type": "SetVariable",
+                  "inputs": {
+                    "name": "Status",
+                    "value": "OutOfCalendarRange"
+                  },
+                  "runAfter": {}
+                },
+                "Set_message_OutOfCalendarRange_5": {
+                  "type": "SetVariable",
+                  "inputs": {
+                    "name": "Message",
+                    "value": "@concat('Proposed finish ', if(equals(variables('OptEval'), 'Selectable'), coalesce(outputs('Option')?['cr458_arrivaldate'], ''), ''), ' is outside calendar ', outputs('Project')?['cr458_calendarcode'], '. The tool does not extrapolate.')"
+                  },
+                  "runAfter": {
+                    "Set_status_OutOfCalendarRange_5": [
+                      "Succeeded"
+                    ]
+                  }
+                }
+              },
+              "else": {
+                "actions": {
+                  "Set_effective_idx": {
+                    "type": "SetVariable",
+                    "inputs": {
+                      "name": "EffectiveIdx",
+                      "value": "@if(equals(first(body('Proposed_rows'))?['cr458_isworkingday'], true), first(body('Proposed_rows'))?['cr458_workingdayindex'], add(first(body('Proposed_rows'))?['cr458_workingdayindex'], 1))"
+                    },
+                    "runAfter": {}
+                  },
+                  "Check_effective_in_range": {
+                    "type": "If",
+                    "expression": "@equals(outputs('IdxDate')?[string(variables('EffectiveIdx'))], null)",
+                    "actions": {
+                      "Set_status_OutOfCalendarRange_6": {
+                        "type": "SetVariable",
+                        "inputs": {
+                          "name": "Status",
+                          "value": "OutOfCalendarRange"
+                        },
+                        "runAfter": {}
+                      },
+                      "Set_message_OutOfCalendarRange_6": {
+                        "type": "SetVariable",
+                        "inputs": {
+                          "name": "Message",
+                          "value": "@concat('The next working day after ', if(equals(variables('OptEval'), 'Selectable'), coalesce(outputs('Option')?['cr458_arrivaldate'], ''), ''), ' is outside the seeded calendar.')"
+                        },
+                        "runAfter": {
+                          "Set_status_OutOfCalendarRange_6": [
+                            "Succeeded"
+                          ]
+                        }
+                      }
+                    },
+                    "else": {
+                      "actions": {
+                        "Check_nonworking": {
+                          "type": "If",
+                          "expression": "@not(equals(first(body('Proposed_rows'))?['cr458_isworkingday'], true))",
+                          "actions": {
+                            "Append_nonworking": {
+                              "type": "AppendToArrayVariable",
+                              "inputs": {
+                                "name": "Assumptions",
+                                "value": "@concat('Proposed finish ', if(equals(variables('OptEval'), 'Selectable'), coalesce(outputs('Option')?['cr458_arrivaldate'], ''), ''), ' falls on a non-working day; earliest effective completion is ', outputs('IdxDate')?[string(variables('EffectiveIdx'))], '.')"
+                              },
+                              "runAfter": {}
+                            }
+                          },
+                          "else": {
+                            "actions": {}
+                          },
+                          "runAfter": {}
+                        },
+                        "Append_calendar": {
+                          "type": "AppendToArrayVariable",
+                          "inputs": {
+                            "name": "Assumptions",
+                            "value": "@concat('Calendar ', outputs('Project')?['cr458_calendarcode'], ': Monday to Friday working days. No public holidays configured.')"
+                          },
+                          "runAfter": {
+                            "Check_nonworking": [
+                              "Succeeded"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "runAfter": {
+                      "Set_effective_idx": [
+                        "Succeeded"
+                      ]
+                    }
+                  }
+                }
+              },
+              "runAfter": {
+                "Proposed_rows": [
+                  "Succeeded"
+                ]
+              }
+            }
+          },
+          "else": {
+            "actions": {}
+          },
+          "runAfter": {
+            "Gate_load": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Gate_graph": {
+          "type": "If",
+          "expression": "@equals(variables('Status'),'')",
+          "actions": {
+            "List_closure": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "connectionName": "shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "cr458_cgdependencyclosures",
+                  "$filter": "_cr458_project_value eq @{outputs('Project')?['cr458_cgprojectid']}",
+                  "$select": "cr458_ancestorcode,cr458_descendantcode,cr458_pathevidence,cr458_hopcount"
+                }
+              },
+              "runtimeConfiguration": {
+                "paginationPolicy": {
+                  "minimumItemCount": 5000
+                }
+              },
+              "runAfter": {}
+            },
+            "Self_loops": {
+              "type": "Query",
+              "inputs": {
+                "from": "@outputs('List_closure')?['body/value']",
+                "where": "@equals(item()?['cr458_ancestorcode'], item()?['cr458_descendantcode'])"
+              },
+              "runAfter": {
+                "List_closure": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Check_cycle": {
+              "type": "If",
+              "expression": "@not(empty(body('Self_loops')))",
+              "actions": {
+                "Set_status_CycleDetected_7": {
+                  "type": "SetVariable",
+                  "inputs": {
+                    "name": "Status",
+                    "value": "CycleDetected"
+                  },
+                  "runAfter": {}
+                },
+                "Set_message_CycleDetected_7": {
+                  "type": "SetVariable",
+                  "inputs": {
+                    "name": "Message",
+                    "value": "@concat('The dependency graph for ', toUpper(coalesce(outputs('Option')?['cr458_Project']?['cr458_projectcode'], '')), ' contains a cycle. Assessment refused.')"
+                  },
+                  "runAfter": {
+                    "Set_status_CycleDetected_7": [
+                      "Succeeded"
+                    ]
+                  }
+                }
+              },
+              "else": {
+                "actions": {}
+              },
+              "runAfter": {
+                "Self_loops": [
+                  "Succeeded"
+                ]
+              }
+            }
+          },
+          "else": {
+            "actions": {}
+          },
+          "runAfter": {
+            "Gate_calendar": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Gate_compute": {
+          "type": "If",
+          "expression": "@equals(variables('Status'),'')",
+          "actions": {
+            "List_dependencies": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "connectionName": "shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "cr458_cgdependencies",
+                  "$filter": "_cr458_project_value eq @{outputs('Project')?['cr458_cgprojectid']}",
+                  "$select": "_cr458_predecessor_value,_cr458_successor_value,cr458_lagdays,cr458_evidenceref"
+                }
+              },
+              "runtimeConfiguration": {
+                "paginationPolicy": {
+                  "minimumItemCount": 5000
+                }
+              },
+              "runAfter": {}
+            },
+            "Select_id_to_code": {
+              "type": "Select",
+              "inputs": {
+                "from": "@outputs('List_milestones')?['body/value']",
+                "select": "@concat('\"', item()?['cr458_cgmilestoneid'], '\":\"', item()?['cr458_milestonecode'], '\"')"
+              },
+              "runAfter": {
+                "List_dependencies": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "IdCode": {
+              "type": "Compose",
+              "inputs": "@json(concat('{', join(body('Select_id_to_code'), ','), '}'))",
+              "runAfter": {
+                "Select_id_to_code": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Affected_closure": {
+              "type": "Query",
+              "inputs": {
+                "from": "@outputs('List_closure')?['body/value']",
+                "where": "@equals(item()?['cr458_ancestorcode'], first(body('Changed_rows'))?['cr458_milestonecode'])"
+              },
+              "runAfter": {
+                "IdCode": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Select_affected_codes": {
+              "type": "Select",
+              "inputs": {
+                "from": "@body('Affected_closure')",
+                "select": "@item()?['cr458_descendantcode']"
+              },
+              "runAfter": {
+                "Affected_closure": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "AffectedSet": {
+              "type": "Compose",
+              "inputs": "@body('Select_affected_codes')",
+              "runAfter": {
+                "Select_affected_codes": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Seed_changed": {
+              "type": "SetVariable",
+              "inputs": {
+                "name": "ComputedTemp",
+                "value": "@setProperty(variables('Computed'), first(body('Changed_rows'))?['cr458_milestonecode'], variables('EffectiveIdx'))"
+              },
+              "runAfter": {
+                "AffectedSet": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Store_changed": {
+              "type": "SetVariable",
+              "inputs": {
+                "name": "Computed",
+                "value": "@variables('ComputedTemp')"
+              },
+              "runAfter": {
+                "Seed_changed": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Loop_milestones": {
+              "type": "Foreach",
+              "foreach": "@outputs('List_milestones')?['body/value']",
+              "actions": {
+                "Skip_changed": {
+                  "type": "If",
+                  "expression": "@not(equals(items('Loop_milestones')?['cr458_milestonecode'], first(body('Changed_rows'))?['cr458_milestonecode']))",
+                  "actions": {
+                    "Check_affected": {
+                      "type": "If",
+                      "expression": "@contains(outputs('AffectedSet'), items('Loop_milestones')?['cr458_milestonecode'])",
+                      "actions": {
+                        "Pred_deps": {
+                          "type": "Query",
+                          "inputs": {
+                            "from": "@outputs('List_dependencies')?['body/value']",
+                            "where": "@equals(outputs('IdCode')?[item()?['_cr458_successor_value']], items('Loop_milestones')?['cr458_milestonecode'])"
+                          },
+                          "runAfter": {}
+                        },
+                        "Select_pred_codes": {
+                          "type": "Select",
+                          "inputs": {
+                            "from": "@body('Pred_deps')",
+                            "select": "@outputs('IdCode')?[item()?['_cr458_predecessor_value']]"
+                          },
+                          "runAfter": {
+                            "Pred_deps": [
+                              "Succeeded"
+                            ]
+                          }
+                        },
+                        "Select_pred_idx": {
+                          "type": "Select",
+                          "inputs": {
+                            "from": "@body('Pred_deps')",
+                            "select": "@add(coalesce(variables('Computed')?[outputs('IdCode')?[item()?['_cr458_predecessor_value']]], -1), coalesce(item()?['cr458_lagdays'], 0))"
+                          },
+                          "runAfter": {
+                            "Select_pred_codes": [
+                              "Succeeded"
+                            ]
+                          }
+                        },
+                        "Check_unknown": {
+                          "type": "If",
+                          "expression": "@or(equals(items('Loop_milestones')?['cr458_durationdays'], null), not(empty(intersection(body('Select_pred_codes'), variables('UnknownSet')))))",
+                          "actions": {
+                            "Append_unknown_code": {
+                              "type": "AppendToArrayVariable",
+                              "inputs": {
+                                "name": "UnknownSet",
+                                "value": "@items('Loop_milestones')?['cr458_milestonecode']"
+                              },
+                              "runAfter": {}
+                            },
+                            "Append_unknown_text": {
+                              "type": "AppendToArrayVariable",
+                              "inputs": {
+                                "name": "Unknowns",
+                                "value": "@if(equals(items('Loop_milestones')?['cr458_durationdays'], null), concat('Finish for ', items('Loop_milestones')?['cr458_milestonecode'], ' cannot be computed: its duration is not documented.'), concat('A predecessor of ', items('Loop_milestones')?['cr458_milestonecode'], ' has no computable finish; its finish date cannot be computed.'))"
+                              },
+                              "runAfter": {
+                                "Append_unknown_code": [
+                                  "Succeeded"
+                                ]
+                              }
+                            },
+                            "Append_unknown_row": {
+                              "type": "AppendToArrayVariable",
+                              "inputs": {
+                                "name": "Rows",
+                                "value": {
+                                  "code": "@items('Loop_milestones')?['cr458_milestonecode']",
+                                  "name": "@items('Loop_milestones')?['cr458_name']",
+                                  "owner": "@items('Loop_milestones')?['cr458_ownername']",
+                                  "baselineFinish": "@items('Loop_milestones')?['cr458_baselinefinish']",
+                                  "computedFinish": null,
+                                  "slipWorkingDays": null,
+                                  "verdict": "ReassessNoDurationData",
+                                  "externalCommitment": "@items('Loop_milestones')?['cr458_isexternalcommitment']"
+                                }
+                              },
+                              "runAfter": {
+                                "Append_unknown_text": [
+                                  "Succeeded"
+                                ]
+                              }
+                            }
+                          },
+                          "else": {
+                            "actions": {
+                              "Finish_idx": {
+                                "type": "Compose",
+                                "inputs": "@max(add(max(body('Select_pred_idx')), items('Loop_milestones')?['cr458_durationdays']), coalesce(outputs('DateIdx')?[items('Loop_milestones')?['cr458_baselinefinish']], 0))",
+                                "runAfter": {}
+                              },
+                              "Slip": {
+                                "type": "Compose",
+                                "inputs": "@sub(outputs('Finish_idx'), coalesce(outputs('DateIdx')?[items('Loop_milestones')?['cr458_baselinefinish']], outputs('Finish_idx')))",
+                                "runAfter": {
+                                  "Finish_idx": [
+                                    "Succeeded"
+                                  ]
+                                }
+                              },
+                              "Verdict": {
+                                "type": "Compose",
+                                "inputs": "@if(greater(outputs('Slip'), 0), if(equals(items('Loop_milestones')?['cr458_isexternalcommitment'], true), 'Infeasible', 'Slips'), 'NoDateImpact')",
+                                "runAfter": {
+                                  "Slip": [
+                                    "Succeeded"
+                                  ]
+                                }
+                              },
+                              "Buffer_affected": {
+                                "type": "SetVariable",
+                                "inputs": {
+                                  "name": "ComputedTemp",
+                                  "value": "@setProperty(variables('Computed'), items('Loop_milestones')?['cr458_milestonecode'], outputs('Finish_idx'))"
+                                },
+                                "runAfter": {
+                                  "Verdict": [
+                                    "Succeeded"
+                                  ]
+                                }
+                              },
+                              "Store_affected": {
+                                "type": "SetVariable",
+                                "inputs": {
+                                  "name": "Computed",
+                                  "value": "@variables('ComputedTemp')"
+                                },
+                                "runAfter": {
+                                  "Buffer_affected": [
+                                    "Succeeded"
+                                  ]
+                                }
+                              },
+                              "Append_row": {
+                                "type": "AppendToArrayVariable",
+                                "inputs": {
+                                  "name": "Rows",
+                                  "value": {
+                                    "code": "@items('Loop_milestones')?['cr458_milestonecode']",
+                                    "name": "@items('Loop_milestones')?['cr458_name']",
+                                    "owner": "@items('Loop_milestones')?['cr458_ownername']",
+                                    "baselineFinish": "@items('Loop_milestones')?['cr458_baselinefinish']",
+                                    "computedFinish": "@outputs('IdxDate')?[string(outputs('Finish_idx'))]",
+                                    "slipWorkingDays": "@outputs('Slip')",
+                                    "verdict": "@outputs('Verdict')",
+                                    "externalCommitment": "@items('Loop_milestones')?['cr458_isexternalcommitment']"
+                                  }
+                                },
+                                "runAfter": {
+                                  "Store_affected": [
+                                    "Succeeded"
+                                  ]
+                                }
+                              },
+                              "Check_conflict": {
+                                "type": "If",
+                                "expression": "@equals(outputs('Verdict'), 'Infeasible')",
+                                "actions": {
+                                  "Append_conflict": {
+                                    "type": "AppendToArrayVariable",
+                                    "inputs": {
+                                      "name": "Conflicts",
+                                      "value": "@items('Loop_milestones')?['cr458_milestonecode']"
+                                    },
+                                    "runAfter": {}
+                                  }
+                                },
+                                "else": {
+                                  "actions": {}
+                                },
+                                "runAfter": {
+                                  "Append_row": [
+                                    "Succeeded"
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "runAfter": {
+                            "Select_pred_idx": [
+                              "Succeeded"
+                            ]
+                          }
+                        }
+                      },
+                      "else": {
+                        "actions": {
+                          "Buffer_anchor": {
+                            "type": "SetVariable",
+                            "inputs": {
+                              "name": "ComputedTemp",
+                              "value": "@setProperty(variables('Computed'), items('Loop_milestones')?['cr458_milestonecode'], outputs('DateIdx')?[items('Loop_milestones')?['cr458_baselinefinish']])"
+                            },
+                            "runAfter": {}
+                          },
+                          "Store_anchor": {
+                            "type": "SetVariable",
+                            "inputs": {
+                              "name": "Computed",
+                              "value": "@variables('ComputedTemp')"
+                            },
+                            "runAfter": {
+                              "Buffer_anchor": [
+                                "Succeeded"
+                              ]
+                            }
+                          }
+                        }
+                      },
+                      "runAfter": {}
+                    }
+                  },
+                  "else": {
+                    "actions": {}
+                  },
+                  "runAfter": {}
+                }
+              },
+              "runAfter": {
+                "Store_changed": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Set_assessed": {
+              "type": "SetVariable",
+              "inputs": {
+                "name": "Status",
+                "value": "Assessed"
+              },
+              "runAfter": {
+                "Loop_milestones": [
+                  "Succeeded"
+                ]
+              }
+            }
+          },
+          "else": {
+            "actions": {}
+          },
+          "runAfter": {
+            "Gate_graph": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Gate_output": {
+          "type": "If",
+          "expression": "@equals(variables('Status'), 'Assessed')",
+          "actions": {
+            "Affected_ordered": {
+              "type": "Query",
+              "inputs": {
+                "from": "@outputs('List_milestones')?['body/value']",
+                "where": "@contains(outputs('AffectedSet'), item()?['cr458_milestonecode'])"
+              },
+              "runAfter": {}
+            },
+            "Affected_codes": {
+              "type": "Select",
+              "inputs": {
+                "from": "@body('Affected_ordered')",
+                "select": "@item()?['cr458_milestonecode']"
+              },
+              "runAfter": {
+                "Affected_ordered": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Unaffected_rows": {
+              "type": "Query",
+              "inputs": {
+                "from": "@outputs('List_milestones')?['body/value']",
+                "where": "@and(not(contains(outputs('AffectedSet'), item()?['cr458_milestonecode'])), not(equals(item()?['cr458_milestonecode'], first(body('Changed_rows'))?['cr458_milestonecode'])))"
+              },
+              "runAfter": {
+                "Affected_codes": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Unaffected_codes": {
+              "type": "Select",
+              "inputs": {
+                "from": "@body('Unaffected_rows')",
+                "select": "@item()?['cr458_milestonecode']"
+              },
+              "runAfter": {
+                "Unaffected_rows": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Changed_row": {
+              "type": "Compose",
+              "inputs": {
+                "code": "@first(body('Changed_rows'))?['cr458_milestonecode']",
+                "name": "@first(body('Changed_rows'))?['cr458_name']",
+                "owner": "@first(body('Changed_rows'))?['cr458_ownername']",
+                "baselineFinish": "@first(body('Changed_rows'))?['cr458_baselinefinish']",
+                "proposedFinish": "@if(equals(variables('OptEval'), 'Selectable'), coalesce(outputs('Option')?['cr458_arrivaldate'], ''), '')",
+                "computedFinish": "@outputs('IdxDate')?[string(variables('EffectiveIdx'))]",
+                "slipWorkingDays": "@max(0, sub(variables('EffectiveIdx'), coalesce(outputs('DateIdx')?[first(body('Changed_rows'))?['cr458_baselinefinish']], variables('EffectiveIdx'))))",
+                "verdict": "Changed",
+                "externalCommitment": "@first(body('Changed_rows'))?['cr458_isexternalcommitment']"
+              },
+              "runAfter": {
+                "Unaffected_codes": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Select_table_rows": {
+              "type": "Select",
+              "inputs": {
+                "from": "@variables('Rows')",
+                "select": "@concat('| ', item()?['code'], ' ', item()?['name'], ' | ', item()?['owner'], ' | ', item()?['baselineFinish'], ' | ', coalesce(item()?['computedFinish'], 'unknown'), ' | ', if(equals(item()?['slipWorkingDays'], null), 'unknown', string(item()?['slipWorkingDays'])), ' | ', item()?['verdict'], ' |')"
+              },
+              "runAfter": {
+                "Changed_row": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Select_computed_pairs": {
+              "type": "Select",
+              "inputs": {
+                "from": "@variables('Rows')",
+                "select": "@concat(item()?['code'], '=', coalesce(item()?['computedFinish'], 'unknown'))"
+              },
+              "runAfter": {
+                "Select_table_rows": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Select_evidence": {
+              "type": "Select",
+              "inputs": {
+                "from": "@body('Affected_closure')",
+                "select": {
+                  "milestone": "@item()?['cr458_descendantcode']",
+                  "path": "@item()?['cr458_pathevidence']",
+                  "hops": "@item()?['cr458_hopcount']"
+                }
+              },
+              "runAfter": {
+                "Select_computed_pairs": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Fingerprint": {
+              "type": "Compose",
+              "inputs": "@base64(concat(join(body('Affected_codes'), ','), '|', join(body('Select_computed_pairs'), ','), '|', string(outputs('Project')?['cr458_baselineversion'])))",
+              "runAfter": {
+                "Select_evidence": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Impact_table": {
+              "type": "Compose",
+              "inputs": "@concat('| Milestone | Owner | Baseline finish | Computed finish | Slip (working days) | Verdict |', decodeUriComponent('%0A'), '|---|---|---|---|---|---|', decodeUriComponent('%0A'), '| ', outputs('Changed_row')?['code'], ' ', outputs('Changed_row')?['name'], ' | ', outputs('Changed_row')?['owner'], ' | ', outputs('Changed_row')?['baselineFinish'], ' | ', outputs('Changed_row')?['computedFinish'], ' | ', string(outputs('Changed_row')?['slipWorkingDays']), ' | Changed (proposed ', outputs('Changed_row')?['proposedFinish'], ') |', if(empty(body('Select_table_rows')), '', concat(decodeUriComponent('%0A'), join(body('Select_table_rows'), decodeUriComponent('%0A')))))",
+              "runAfter": {
+                "Fingerprint": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Assessment": {
+              "type": "Compose",
+              "inputs": {
+                "status": "@variables('Status')",
+                "projectCode": "@outputs('Project')?['cr458_projectcode']",
+                "projectName": "@outputs('Project')?['cr458_name']",
+                "baselineVersion": "@outputs('Project')?['cr458_baselineversion']",
+                "calendarCode": "@outputs('Project')?['cr458_calendarcode']",
+                "changedMilestone": "@outputs('Changed_row')",
+                "effectiveFinish": "@outputs('IdxDate')?[string(variables('EffectiveIdx'))]",
+                "affected": "@body('Affected_codes')",
+                "unaffected": "@body('Unaffected_codes')",
+                "conflicts": "@variables('Conflicts')",
+                "milestones": "@variables('Rows')",
+                "assumptions": "@variables('Assumptions')",
+                "unknowns": "@variables('Unknowns')",
+                "evidence": "@body('Select_evidence')",
+                "assessmentFingerprint": "@outputs('Fingerprint')",
+                "source": "Computed by the AssessChange flow from Dataverse records; not generated by the language model."
+              },
+              "runAfter": {
+                "Impact_table": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Set_outputs": {
+              "type": "SetVariable",
+              "inputs": {
+                "name": "Message",
+                "value": "@string(outputs('Assessment'))"
+              },
+              "runAfter": {
+                "Assessment": [
+                  "Succeeded"
+                ]
+              }
+            }
+          },
+          "else": {
+            "actions": {}
+          },
+          "runAfter": {
+            "Gate_compute": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Respond_to_the_agent": {
+          "type": "Response",
+          "kind": "Skills",
+          "runAfter": {
+            "Gate_output": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "statusCode": 200,
+            "body": {
+              "status": "@if(equals(variables('OptEval'), 'Selectable'), if(equals(variables('Status'), ''), 'Error', variables('Status')), variables('OptEval'))",
+              "message": "@if(equals(variables('OptEval'), 'Selectable'), if(equals(variables('Status'), 'Assessed'), '', variables('Message')), concat('Option ', toUpper(trim(coalesce(triggerBody()?['text'], ''))), ' was not simulated: ', variables('OptEval'), '.'))",
+              "assessmentjson": "@if(equals(variables('Status'), 'Assessed'), variables('Message'), '')",
+              "impacttablemarkdown": "@if(equals(variables('Status'), 'Assessed'), outputs('Impact_table'), '')",
+              "affectedcodescsv": "@if(equals(variables('Status'), 'Assessed'), join(body('Affected_codes'), ','), '')",
+              "unaffectedcodescsv": "@if(equals(variables('Status'), 'Assessed'), join(body('Unaffected_codes'), ','), '')",
+              "conflictcodescsv": "@if(equals(variables('Status'), 'Assessed'), join(variables('Conflicts'), ','), '')",
+              "assessmentfingerprint": "@if(equals(variables('Status'), 'Assessed'), outputs('Fingerprint'), '')",
+              "optioncode": "@coalesce(outputs('Option')?['cr458_optioncode'], toUpper(trim(coalesce(triggerBody()?['text'], ''))))",
+              "optionevaluation": "@variables('OptEval')",
+              "arrivaldate": "@if(equals(outputs('Option')?['cr458_arrivaldate'], null), '', string(outputs('Option')?['cr458_arrivaldate']))",
+              "incrementalcost": "@if(equals(outputs('Option')?['cr458_incrementalcost'], null), 'unknown', string(outputs('Option')?['cr458_incrementalcost']))",
+              "currency": "@coalesce(outputs('Option')?['cr458_currencycode'], '')",
+              "evidenceref": "@coalesce(outputs('Option')?['cr458_evidenceref'], '')"
+            },
+            "schema": {
+              "type": "object",
+              "additionalProperties": {},
+              "properties": {
+                "status": {
+                  "title": "Status",
+                  "description": "Assessed when simulated; otherwise the option evaluation or an engine status.",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "message": {
+                  "title": "Message",
+                  "description": "Reason when Status is not Assessed.",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "assessmentjson": {
+                  "title": "AssessmentJson",
+                  "description": "Full structured assessment. Quote from it; do not recompute.",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "impacttablemarkdown": {
+                  "title": "ImpactTableMarkdown",
+                  "description": "Pre-formatted impact table. Reproduce exactly.",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "affectedcodescsv": {
+                  "title": "AffectedCodesCsv",
+                  "description": "Downstream milestone codes in topological order.",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "unaffectedcodescsv": {
+                  "title": "UnaffectedCodesCsv",
+                  "description": "Milestones not reachable from the change.",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "conflictcodescsv": {
+                  "title": "ConflictCodesCsv",
+                  "description": "External commitments that become infeasible.",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "assessmentfingerprint": {
+                  "title": "AssessmentFingerprint",
+                  "description": "Determinism check. Not a cryptographic hash.",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "optioncode": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "OptionCode",
+                  "description": "Simulated option."
+                },
+                "optionevaluation": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "OptionEvaluation",
+                  "description": "Selectable, Expired, NotSelectable: ..., NoDocumentedArrival, NotFound or InvalidDate."
+                },
+                "arrivaldate": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "ArrivalDate",
+                  "description": "Documented arrival used as the changed milestone's finish."
+                },
+                "incrementalcost": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "IncrementalCost",
+                  "description": "Documented incremental cost."
+                },
+                "currency": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "Currency",
+                  "description": "Currency of the cost."
+                },
+                "evidenceref": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "EvidenceRef",
+                  "description": "Option evidence reference."
+                }
+              }
+            }
+          }
+        }
+      },
+      "outputs": {}
+    }
+  },
+  "schemaVersion": "1.0.0.0"
+}

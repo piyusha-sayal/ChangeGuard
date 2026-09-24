@@ -1,0 +1,947 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "cr458_ChangeGuardDataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "metadata": {
+        "defaultToEmbeddedConnections": true
+      },
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "RequestKey",
+                  "description": "RequestKey returned by SaveChangeRequest."
+                }
+              },
+              "required": [
+                "text"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Init_Result": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "Result",
+                "type": "string",
+                "value": ""
+              }
+            ]
+          },
+          "runAfter": {}
+        },
+        "Init_ResultMessage": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "ResultMessage",
+                "type": "string",
+                "value": ""
+              }
+            ]
+          },
+          "runAfter": {
+            "Init_Result": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Init_Created": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "Created",
+                "type": "integer",
+                "value": 0
+              }
+            ]
+          },
+          "runAfter": {
+            "Init_ResultMessage": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Init_Reused": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "Reused",
+                "type": "integer",
+                "value": 0
+              }
+            ]
+          },
+          "runAfter": {
+            "Init_Created": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Init_ActionIds": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "ActionIds",
+                "type": "array",
+                "value": []
+              }
+            ]
+          },
+          "runAfter": {
+            "Init_Reused": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Init_Failures": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "Failures",
+                "type": "array",
+                "value": []
+              }
+            ]
+          },
+          "runAfter": {
+            "Init_ActionIds": [
+              "Succeeded"
+            ]
+          }
+        },
+        "List_request": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "connectionName": "shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "cr458_cgchangerequests",
+              "$filter": "cr458_requestkey eq '@{replace(trim(coalesce(triggerBody()?['text'], '')), '''', '''''')}'",
+              "$select": "cr458_cgchangerequestid,cr458_status,cr458_baselineversion,cr458_assessmentjson,cr458_selectedoption,cr458_approvedat,cr458_approvedby,_cr458_project_value",
+              "$expand": "cr458_Milestone($select=cr458_milestonecode)",
+              "$top": 1
+            }
+          },
+          "runAfter": {
+            "Init_Failures": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Check_request": {
+          "type": "If",
+          "expression": "@empty(outputs('List_request')?['body/value'])",
+          "actions": {
+            "Set_not_found": {
+              "type": "SetVariable",
+              "inputs": {
+                "name": "Result",
+                "value": "NotFound"
+              },
+              "runAfter": {}
+            },
+            "Set_not_found_message": {
+              "type": "SetVariable",
+              "inputs": {
+                "name": "ResultMessage",
+                "value": "No saved change request has this RequestKey."
+              },
+              "runAfter": {
+                "Set_not_found": [
+                  "Succeeded"
+                ]
+              }
+            }
+          },
+          "else": {
+            "actions": {
+              "Check_approved": {
+                "type": "If",
+                "expression": "@not(contains(createArray('Approved', 'PartiallyExecuted', 'Executed'), first(outputs('List_request')?['body/value'])?['cr458_status']))",
+                "actions": {
+                  "Set_not_approved": {
+                    "type": "SetVariable",
+                    "inputs": {
+                      "name": "Result",
+                      "value": "NotApproved"
+                    },
+                    "runAfter": {}
+                  },
+                  "Set_not_approved_message": {
+                    "type": "SetVariable",
+                    "inputs": {
+                      "name": "ResultMessage",
+                      "value": "@concat('The request is ', first(outputs('List_request')?['body/value'])?['cr458_status'], '. Execution requires a recorded approval by an authorized reviewer.')"
+                    },
+                    "runAfter": {
+                      "Set_not_approved": [
+                        "Succeeded"
+                      ]
+                    }
+                  }
+                },
+                "else": {
+                  "actions": {
+                    "List_project": {
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                          "operationId": "ListRecords",
+                          "connectionName": "shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "cr458_cgprojects",
+                          "$filter": "cr458_cgprojectid eq @{first(outputs('List_request')?['body/value'])?['_cr458_project_value']}",
+                          "$select": "cr458_baselineversion",
+                          "$top": 1
+                        }
+                      },
+                      "runAfter": {}
+                    },
+                    "Check_baseline": {
+                      "type": "If",
+                      "expression": "@not(equals(first(outputs('List_project')?['body/value'])?['cr458_baselineversion'], first(outputs('List_request')?['body/value'])?['cr458_baselineversion']))",
+                      "actions": {
+                        "Set_stale": {
+                          "type": "SetVariable",
+                          "inputs": {
+                            "name": "Result",
+                            "value": "StaleBaseline"
+                          },
+                          "runAfter": {}
+                        },
+                        "Set_stale_message": {
+                          "type": "SetVariable",
+                          "inputs": {
+                            "name": "ResultMessage",
+                            "value": "The project baseline changed after approval. Reassess and re-approve before executing."
+                          },
+                          "runAfter": {
+                            "Set_stale": [
+                              "Succeeded"
+                            ]
+                          }
+                        }
+                      },
+                      "else": {
+                        "actions": {
+                          "List_decision": {
+                            "type": "OpenApiConnection",
+                            "inputs": {
+                              "host": {
+                                "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                                "operationId": "ListRecords",
+                                "connectionName": "shared_commondataserviceforapps"
+                              },
+                              "parameters": {
+                                "entityName": "cr458_cgauditevents",
+                                "$filter": "cr458_requestkey eq '@{replace(trim(coalesce(triggerBody()?['text'], '')), '''', '''''')}' and cr458_eventtype eq 'DecisionRecorded'",
+                                "$select": "cr458_details,cr458_actor",
+                                "$orderby": "createdon desc",
+                                "$top": 1
+                              }
+                            },
+                            "runAfter": {}
+                          },
+                          "Check_decision_recorded": {
+                            "type": "If",
+                            "expression": "@empty(outputs('List_decision')?['body/value'])",
+                            "actions": {
+                              "Set_no_decision": {
+                                "type": "SetVariable",
+                                "inputs": {
+                                  "name": "Result",
+                                  "value": "NoRecordedDecision"
+                                },
+                                "runAfter": {}
+                              },
+                              "Set_no_decision_message": {
+                                "type": "SetVariable",
+                                "inputs": {
+                                  "name": "ResultMessage",
+                                  "value": "No approval decision is recorded for this request. Execution requires an approval recorded by an authorized reviewer."
+                                },
+                                "runAfter": {
+                                  "Set_no_decision": [
+                                    "Succeeded"
+                                  ]
+                                }
+                              }
+                            },
+                            "else": {
+                              "actions": {
+                                "Approved_option": {
+                                  "type": "Compose",
+                                  "inputs": "@trim(last(split(coalesce(first(outputs('List_decision')?['body/value'])?['cr458_details'], ''), 'selected option:')))",
+                                  "runAfter": {}
+                                },
+                                "List_option": {
+                                  "type": "OpenApiConnection",
+                                  "inputs": {
+                                    "host": {
+                                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                                      "operationId": "ListRecords",
+                                      "connectionName": "shared_commondataserviceforapps"
+                                    },
+                                    "parameters": {
+                                      "entityName": "cr458_cgrecoveryoptions",
+                                      "$filter": "cr458_optioncode eq '@{replace(outputs('Approved_option'), '''', '''''')}' and _cr458_project_value eq @{first(outputs('List_request')?['body/value'])?['_cr458_project_value']}",
+                                      "$select": "cr458_optioncode,cr458_availabilitystatus,cr458_arrivaldate,cr458_asofdate,cr458_validuntil",
+                                      "$expand": "cr458_ChangedMilestone($select=cr458_milestonecode)",
+                                      "$top": 1
+                                    }
+                                  },
+                                  "runAfter": {
+                                    "Approved_option": [
+                                      "Succeeded"
+                                    ]
+                                  }
+                                },
+                                "Option_check": {
+                                  "type": "Compose",
+                                  "inputs": {
+                                    "status": "@if(not(equals(trim(first(split(last(split(coalesce(first(outputs('List_decision')?['body/value'])?['cr458_details'], ''), 'Requested decision: ')), ';'))), 'Approved')), 'DecisionNotApproved', if(and(not(empty(toLower(trim(coalesce(first(outputs('List_decision')?['body/value'])?['cr458_actor'], ''))))), not(equals(toLower(trim(coalesce(first(outputs('List_request')?['body/value'])?['cr458_approvedby'], ''))), toLower(trim(coalesce(first(outputs('List_decision')?['body/value'])?['cr458_actor'], '')))))), 'ApproverMismatch', if(not(equals(coalesce(first(outputs('List_request')?['body/value'])?['cr458_selectedoption'], ''), outputs('Approved_option'))), 'OptionMismatch', if(empty(outputs('Approved_option')), '', if(empty(outputs('List_option')?['body/value']), 'OptionNotDocumented', if(not(equals(toUpper(coalesce(first(outputs('List_option')?['body/value'])?['cr458_ChangedMilestone']?['cr458_milestonecode'], '')), toUpper(coalesce(first(outputs('List_request')?['body/value'])?['cr458_Milestone']?['cr458_milestonecode'], '')))), 'OptionWrongMilestone', if(not(equals(if(and(not(equals(first(outputs('List_option')?['body/value'])?['cr458_asofdate'], null)), less(formatDateTime(coalesce(first(outputs('List_request')?['body/value'])?['cr458_approvedat'], utcNow()), 'yyyy-MM-dd'), first(outputs('List_option')?['body/value'])?['cr458_asofdate'])), concat('NotYetQuoted: quoted from ', string(first(outputs('List_option')?['body/value'])?['cr458_asofdate'])), if(and(not(equals(first(outputs('List_option')?['body/value'])?['cr458_validuntil'], null)), greater(formatDateTime(coalesce(first(outputs('List_request')?['body/value'])?['cr458_approvedat'], utcNow()), 'yyyy-MM-dd'), first(outputs('List_option')?['body/value'])?['cr458_validuntil'])), 'Expired', if(not(equals(first(outputs('List_option')?['body/value'])?['cr458_availabilitystatus'], 'Confirmed')), concat('NotSelectable: ', coalesce(first(outputs('List_option')?['body/value'])?['cr458_availabilitystatus'], 'unknown availability')), if(equals(first(outputs('List_option')?['body/value'])?['cr458_arrivaldate'], null), 'NoDocumentedArrival', 'Selectable')))), 'Selectable')), 'OptionNotEligible', if(and(not(equals(first(outputs('List_option')?['body/value'])?['cr458_validuntil'], null)), greater(formatDateTime(utcNow(), 'yyyy-MM-dd'), first(outputs('List_option')?['body/value'])?['cr458_validuntil'])), 'OptionNoLongerBookable', ''))))))))",
+                                    "message": "@if(not(equals(trim(first(split(last(split(coalesce(first(outputs('List_decision')?['body/value'])?['cr458_details'], ''), 'Requested decision: ')), ';'))), 'Approved')), concat('The recorded decision for this request is ', trim(first(split(last(split(coalesce(first(outputs('List_decision')?['body/value'])?['cr458_details'], ''), 'Requested decision: ')), ';'))), ', not an approval. Nothing was executed.'), if(and(not(empty(toLower(trim(coalesce(first(outputs('List_decision')?['body/value'])?['cr458_actor'], ''))))), not(equals(toLower(trim(coalesce(first(outputs('List_request')?['body/value'])?['cr458_approvedby'], ''))), toLower(trim(coalesce(first(outputs('List_decision')?['body/value'])?['cr458_actor'], '')))))), concat('The request names ', toLower(trim(coalesce(first(outputs('List_request')?['body/value'])?['cr458_approvedby'], ''))), ' as the approver but the recorded decision was made by ', toLower(trim(coalesce(first(outputs('List_decision')?['body/value'])?['cr458_actor'], ''))), '. Nothing was executed.'), if(not(equals(coalesce(first(outputs('List_request')?['body/value'])?['cr458_selectedoption'], ''), outputs('Approved_option'))), concat('The recovery option on the request is now ', if(empty(coalesce(first(outputs('List_request')?['body/value'])?['cr458_selectedoption'], '')), '(none)', coalesce(first(outputs('List_request')?['body/value'])?['cr458_selectedoption'], '')), ' but the approval recorded ', if(empty(outputs('Approved_option')), '(none)', outputs('Approved_option')), '. Nothing was executed. Re-approve the request to authorize the current option.'), if(empty(outputs('Approved_option')), '', if(empty(outputs('List_option')?['body/value']), concat('Recovery option ', outputs('Approved_option'), ' is not a documented recovery option for this project, so nothing was executed. Approve an option from the project catalogue.'), if(not(equals(toUpper(coalesce(first(outputs('List_option')?['body/value'])?['cr458_ChangedMilestone']?['cr458_milestonecode'], '')), toUpper(coalesce(first(outputs('List_request')?['body/value'])?['cr458_Milestone']?['cr458_milestonecode'], '')))), concat('Recovery option ', outputs('Approved_option'), ' changes milestone ', toUpper(coalesce(first(outputs('List_option')?['body/value'])?['cr458_ChangedMilestone']?['cr458_milestonecode'], '')), ' but this request changes ', toUpper(coalesce(first(outputs('List_request')?['body/value'])?['cr458_Milestone']?['cr458_milestonecode'], '')), '. Nothing was executed.'), if(not(equals(if(and(not(equals(first(outputs('List_option')?['body/value'])?['cr458_asofdate'], null)), less(formatDateTime(coalesce(first(outputs('List_request')?['body/value'])?['cr458_approvedat'], utcNow()), 'yyyy-MM-dd'), first(outputs('List_option')?['body/value'])?['cr458_asofdate'])), concat('NotYetQuoted: quoted from ', string(first(outputs('List_option')?['body/value'])?['cr458_asofdate'])), if(and(not(equals(first(outputs('List_option')?['body/value'])?['cr458_validuntil'], null)), greater(formatDateTime(coalesce(first(outputs('List_request')?['body/value'])?['cr458_approvedat'], utcNow()), 'yyyy-MM-dd'), first(outputs('List_option')?['body/value'])?['cr458_validuntil'])), 'Expired', if(not(equals(first(outputs('List_option')?['body/value'])?['cr458_availabilitystatus'], 'Confirmed')), concat('NotSelectable: ', coalesce(first(outputs('List_option')?['body/value'])?['cr458_availabilitystatus'], 'unknown availability')), if(equals(first(outputs('List_option')?['body/value'])?['cr458_arrivaldate'], null), 'NoDocumentedArrival', 'Selectable')))), 'Selectable')), concat('Recovery option ', outputs('Approved_option'), ' was ', if(and(not(equals(first(outputs('List_option')?['body/value'])?['cr458_asofdate'], null)), less(formatDateTime(coalesce(first(outputs('List_request')?['body/value'])?['cr458_approvedat'], utcNow()), 'yyyy-MM-dd'), first(outputs('List_option')?['body/value'])?['cr458_asofdate'])), concat('NotYetQuoted: quoted from ', string(first(outputs('List_option')?['body/value'])?['cr458_asofdate'])), if(and(not(equals(first(outputs('List_option')?['body/value'])?['cr458_validuntil'], null)), greater(formatDateTime(coalesce(first(outputs('List_request')?['body/value'])?['cr458_approvedat'], utcNow()), 'yyyy-MM-dd'), first(outputs('List_option')?['body/value'])?['cr458_validuntil'])), 'Expired', if(not(equals(first(outputs('List_option')?['body/value'])?['cr458_availabilitystatus'], 'Confirmed')), concat('NotSelectable: ', coalesce(first(outputs('List_option')?['body/value'])?['cr458_availabilitystatus'], 'unknown availability')), if(equals(first(outputs('List_option')?['body/value'])?['cr458_arrivaldate'], null), 'NoDocumentedArrival', 'Selectable')))), ' on the date the decision was recorded (', formatDateTime(coalesce(first(outputs('List_request')?['body/value'])?['cr458_approvedat'], utcNow()), 'yyyy-MM-dd'), '), so it was never an applicable option for this request. Nothing was executed.'), if(and(not(equals(first(outputs('List_option')?['body/value'])?['cr458_validuntil'], null)), greater(formatDateTime(utcNow(), 'yyyy-MM-dd'), first(outputs('List_option')?['body/value'])?['cr458_validuntil'])), concat('Recovery option ', outputs('Approved_option'), ' was eligible when the decision was recorded but its quote lapsed on ', string(first(outputs('List_option')?['body/value'])?['cr458_validuntil']), '. Nothing was executed: re-quote the option and re-approve before booking.'), ''))))))))"
+                                  },
+                                  "runAfter": {
+                                    "List_option": [
+                                      "Succeeded"
+                                    ]
+                                  }
+                                },
+                                "Check_option": {
+                                  "type": "If",
+                                  "expression": "@not(empty(outputs('Option_check')?['status']))",
+                                  "actions": {
+                                    "Set_option_refused": {
+                                      "type": "SetVariable",
+                                      "inputs": {
+                                        "name": "Result",
+                                        "value": "@outputs('Option_check')?['status']"
+                                      },
+                                      "runAfter": {}
+                                    },
+                                    "Set_option_refused_message": {
+                                      "type": "SetVariable",
+                                      "inputs": {
+                                        "name": "ResultMessage",
+                                        "value": "@outputs('Option_check')?['message']"
+                                      },
+                                      "runAfter": {
+                                        "Set_option_refused": [
+                                          "Succeeded"
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  "else": {
+                                    "actions": {
+                                      "Assessment": {
+                                        "type": "Compose",
+                                        "inputs": "@json(first(outputs('List_request')?['body/value'])?['cr458_assessmentjson'])",
+                                        "runAfter": {}
+                                      },
+                                      "Conflict_rows": {
+                                        "type": "Query",
+                                        "inputs": {
+                                          "from": "@outputs('Assessment')?['milestones']",
+                                          "where": "@contains(outputs('Assessment')?['conflicts'], item()?['code'])"
+                                        },
+                                        "runAfter": {
+                                          "Assessment": [
+                                            "Succeeded"
+                                          ]
+                                        }
+                                      },
+                                      "Conflict_actions": {
+                                        "type": "Select",
+                                        "inputs": {
+                                          "from": "@body('Conflict_rows')",
+                                          "select": {
+                                            "title": "@concat('Agree revised ', item()?['code'], ' ', item()?['name'], ' date with the customer (computed ', item()?['computedFinish'], ')')",
+                                            "owner": "@item()?['owner']",
+                                            "milestone": "@item()?['code']",
+                                            "due": "@item()?['baselineFinish']"
+                                          }
+                                        },
+                                        "runAfter": {
+                                          "Conflict_rows": [
+                                            "Succeeded"
+                                          ]
+                                        }
+                                      },
+                                      "First_action": {
+                                        "type": "Compose",
+                                        "inputs": {
+                                          "title": "@if(empty(first(outputs('List_request')?['body/value'])?['cr458_selectedoption']), concat('Confirm revised ', outputs('Assessment')?['changedMilestone']?['code'], ' finish ', outputs('Assessment')?['changedMilestone']?['computedFinish'], ' with the supplier'), concat('Book recovery option ', first(outputs('List_request')?['body/value'])?['cr458_selectedoption'], ' for ', outputs('Assessment')?['changedMilestone']?['code']))",
+                                          "owner": "@outputs('Assessment')?['changedMilestone']?['owner']",
+                                          "milestone": "@outputs('Assessment')?['changedMilestone']?['code']",
+                                          "due": "@if(empty(first(outputs('List_request')?['body/value'])?['cr458_selectedoption']), outputs('Assessment')?['changedMilestone']?['baselineFinish'], coalesce(string(first(outputs('List_option')?['body/value'])?['cr458_validuntil']), string(first(outputs('List_option')?['body/value'])?['cr458_arrivaldate']), outputs('Assessment')?['changedMilestone']?['baselineFinish']))"
+                                        },
+                                        "runAfter": {
+                                          "Conflict_actions": [
+                                            "Succeeded"
+                                          ]
+                                        }
+                                      },
+                                      "Plan": {
+                                        "type": "Compose",
+                                        "inputs": "@union(createArray(outputs('First_action')), body('Conflict_actions'))",
+                                        "runAfter": {
+                                          "First_action": [
+                                            "Succeeded"
+                                          ]
+                                        }
+                                      },
+                                      "Keyed_plan": {
+                                        "type": "Select",
+                                        "inputs": {
+                                          "from": "@range(0, length(outputs('Plan')))",
+                                          "select": {
+                                            "actionKey": "@concat(trim(coalesce(triggerBody()?['text'], '')), '-', string(add(item(), 1)))",
+                                            "title": "@outputs('Plan')[item()]?['title']",
+                                            "owner": "@outputs('Plan')[item()]?['owner']",
+                                            "milestone": "@outputs('Plan')[item()]?['milestone']",
+                                            "due": "@outputs('Plan')[item()]?['due']"
+                                          }
+                                        },
+                                        "runAfter": {
+                                          "Plan": [
+                                            "Succeeded"
+                                          ]
+                                        }
+                                      },
+                                      "Loop_actions": {
+                                        "type": "Foreach",
+                                        "foreach": "@body('Keyed_plan')",
+                                        "actions": {
+                                          "Find_action": {
+                                            "type": "OpenApiConnection",
+                                            "inputs": {
+                                              "host": {
+                                                "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                                                "operationId": "ListRecords",
+                                                "connectionName": "shared_commondataserviceforapps"
+                                              },
+                                              "parameters": {
+                                                "entityName": "cr458_cgrecoveryactions",
+                                                "$filter": "cr458_actionkey eq '@{items('Loop_actions')?['actionKey']}'",
+                                                "$select": "cr458_cgrecoveryactionid",
+                                                "$top": 1
+                                              }
+                                            },
+                                            "runAfter": {}
+                                          },
+                                          "Check_action": {
+                                            "type": "If",
+                                            "expression": "@empty(outputs('Find_action')?['body/value'])",
+                                            "actions": {
+                                              "Create_action": {
+                                                "type": "OpenApiConnection",
+                                                "inputs": {
+                                                  "host": {
+                                                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                                                    "operationId": "CreateRecord",
+                                                    "connectionName": "shared_commondataserviceforapps"
+                                                  },
+                                                  "parameters": {
+                                                    "entityName": "cr458_cgrecoveryactions",
+                                                    "item/cr458_name": "@items('Loop_actions')?['title']",
+                                                    "item/cr458_actionkey": "@items('Loop_actions')?['actionKey']",
+                                                    "item/cr458_ownername": "@items('Loop_actions')?['owner']",
+                                                    "item/cr458_status": "Open",
+                                                    "item/cr458_duedate": "@items('Loop_actions')?['due']",
+                                                    "item/cr458_description": "@concat(items('Loop_actions')?['title'], ' (milestone ', items('Loop_actions')?['milestone'], ')')",
+                                                    "item/cr458_demo": true,
+                                                    "item/cr458_ChangeRequest@odata.bind": "@concat('/cr458_cgchangerequests(', first(outputs('List_request')?['body/value'])?['cr458_cgchangerequestid'], ')')"
+                                                  }
+                                                },
+                                                "runAfter": {}
+                                              },
+                                              "Count_created": {
+                                                "type": "IncrementVariable",
+                                                "inputs": {
+                                                  "name": "Created",
+                                                  "value": 1
+                                                },
+                                                "runAfter": {
+                                                  "Create_action": [
+                                                    "Succeeded"
+                                                  ]
+                                                }
+                                              },
+                                              "Append_created_id": {
+                                                "type": "AppendToArrayVariable",
+                                                "inputs": {
+                                                  "name": "ActionIds",
+                                                  "value": "@body('Create_action')?['cr458_cgrecoveryactionid']"
+                                                },
+                                                "runAfter": {
+                                                  "Count_created": [
+                                                    "Succeeded"
+                                                  ]
+                                                }
+                                              }
+                                            },
+                                            "else": {
+                                              "actions": {
+                                                "Count_reused": {
+                                                  "type": "IncrementVariable",
+                                                  "inputs": {
+                                                    "name": "Reused",
+                                                    "value": 1
+                                                  },
+                                                  "runAfter": {}
+                                                },
+                                                "Append_reused_id": {
+                                                  "type": "AppendToArrayVariable",
+                                                  "inputs": {
+                                                    "name": "ActionIds",
+                                                    "value": "@first(outputs('Find_action')?['body/value'])?['cr458_cgrecoveryactionid']"
+                                                  },
+                                                  "runAfter": {
+                                                    "Count_reused": [
+                                                      "Succeeded"
+                                                    ]
+                                                  }
+                                                }
+                                              }
+                                            },
+                                            "runAfter": {
+                                              "Find_action": [
+                                                "Succeeded"
+                                              ]
+                                            }
+                                          },
+                                          "Record_failure": {
+                                            "type": "AppendToArrayVariable",
+                                            "runAfter": {
+                                              "Check_action": [
+                                                "Failed",
+                                                "TimedOut"
+                                              ]
+                                            },
+                                            "inputs": {
+                                              "name": "Failures",
+                                              "value": "@items('Loop_actions')?['actionKey']"
+                                            }
+                                          }
+                                        },
+                                        "runAfter": {
+                                          "Keyed_plan": [
+                                            "Succeeded"
+                                          ]
+                                        }
+                                      },
+                                      "Set_executed": {
+                                        "type": "SetVariable",
+                                        "inputs": {
+                                          "name": "Result",
+                                          "value": "@if(not(empty(variables('Failures'))), 'PartiallyExecuted', if(and(equals(variables('Created'), 0), equals(first(outputs('List_request')?['body/value'])?['cr458_status'], 'Executed')), 'AlreadyExecuted', 'Executed'))"
+                                        },
+                                        "runAfter": {
+                                          "Loop_actions": [
+                                            "Succeeded"
+                                          ]
+                                        }
+                                      },
+                                      "Commit_execution": {
+                                        "type": "Changeset",
+                                        "kind": "ODataOpenApiConnection",
+                                        "inputs": {
+                                          "host": {
+                                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                                            "operationId": "ExecuteChangeset",
+                                            "connectionName": "shared_commondataserviceforapps"
+                                          }
+                                        },
+                                        "actions": {
+                                          "Update_request": {
+                                            "type": "OpenApiConnection",
+                                            "inputs": {
+                                              "host": {
+                                                "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                                                "operationId": "UpdateRecord",
+                                                "connectionName": "shared_commondataserviceforapps"
+                                              },
+                                              "parameters": {
+                                                "entityName": "cr458_cgchangerequests",
+                                                "recordId": "@first(outputs('List_request')?['body/value'])?['cr458_cgchangerequestid']",
+                                                "item/cr458_status": "@if(equals(variables('Result'), 'AlreadyExecuted'), 'Executed', variables('Result'))"
+                                              }
+                                            },
+                                            "runAfter": {}
+                                          },
+                                          "Audit_executed": {
+                                            "type": "OpenApiConnection",
+                                            "inputs": {
+                                              "host": {
+                                                "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                                                "operationId": "CreateRecord",
+                                                "connectionName": "shared_commondataserviceforapps"
+                                              },
+                                              "parameters": {
+                                                "entityName": "cr458_cgauditevents",
+                                                "item/cr458_name": "@concat(concat('Execute', variables('Result')), ' ', trim(coalesce(triggerBody()?['text'], '')))",
+                                                "item/cr458_eventkey": "@concat(trim(coalesce(triggerBody()?['text'], '')), '-EXEC-', workflow()?['run']?['name'])",
+                                                "item/cr458_eventtype": "@concat('Execute', variables('Result'))",
+                                                "item/cr458_requestkey": "@trim(coalesce(triggerBody()?['text'], ''))",
+                                                "item/cr458_actor": "@'ChangeGuard Control Tower agent (flow connection identity)'",
+                                                "item/cr458_oldstate": "@first(outputs('List_request')?['body/value'])?['cr458_status']",
+                                                "item/cr458_newstate": "@if(contains(createArray('Executed', 'PartiallyExecuted'), variables('Result')), variables('Result'), first(outputs('List_request')?['body/value'])?['cr458_status'])",
+                                                "item/cr458_details": "@concat('created ', string(variables('Created')), ', reused ', string(variables('Reused')), ', failed keys: ', join(variables('Failures'), ','), '. ', variables('ResultMessage'))",
+                                                "item/cr458_occurredon": "@utcNow()",
+                                                "item/cr458_demo": true,
+                                                "item/cr458_ChangeRequest@odata.bind": "@concat('/cr458_cgchangerequests(', first(outputs('List_request')?['body/value'])?['cr458_cgchangerequestid'], ')')"
+                                              }
+                                            },
+                                            "runAfter": {}
+                                          }
+                                        },
+                                        "runAfter": {
+                                          "Set_executed": [
+                                            "Succeeded"
+                                          ]
+                                        }
+                                      },
+                                      "Set_write_failed": {
+                                        "type": "SetVariable",
+                                        "inputs": {
+                                          "name": "Result",
+                                          "value": "WriteFailed"
+                                        },
+                                        "runAfter": {
+                                          "Commit_execution": [
+                                            "Failed",
+                                            "TimedOut"
+                                          ]
+                                        }
+                                      },
+                                      "Set_write_failed_message": {
+                                        "type": "SetVariable",
+                                        "inputs": {
+                                          "name": "ResultMessage",
+                                          "value": "@concat('The recovery work items were created (', string(variables('Created')), ' new, ', string(variables('Reused')), ' reused) but the request status and its execution audit could not be committed, so neither was written and the request is not marked executed. Run the execution again: the work items are keyed and will be reused rather than duplicated.')"
+                                        },
+                                        "runAfter": {
+                                          "Set_write_failed": [
+                                            "Succeeded"
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "runAfter": {
+                                    "Option_check": [
+                                      "Succeeded"
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            "runAfter": {
+                              "List_decision": [
+                                "Succeeded"
+                              ]
+                            }
+                          }
+                        }
+                      },
+                      "runAfter": {
+                        "List_project": [
+                          "Succeeded"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "runAfter": {}
+              }
+            }
+          },
+          "runAfter": {
+            "List_request": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Internal_error_check": {
+          "type": "If",
+          "expression": "@empty(variables('Result'))",
+          "actions": {
+            "Set_status_InternalError": {
+              "type": "SetVariable",
+              "inputs": {
+                "name": "Result",
+                "value": "InternalError"
+              },
+              "runAfter": {}
+            },
+            "Set_internal_error_message": {
+              "type": "SetVariable",
+              "inputs": {
+                "name": "ResultMessage",
+                "value": "@concat('An internal step failed while executing ', trim(coalesce(triggerBody()?['text'], '')), ', so the execution did not complete and the request was not marked executed. See the run history for the failed action.')"
+              },
+              "runAfter": {
+                "Set_status_InternalError": [
+                  "Succeeded"
+                ]
+              }
+            }
+          },
+          "else": {
+            "actions": {}
+          },
+          "runAfter": {
+            "Check_request": [
+              "Succeeded",
+              "Failed",
+              "Skipped"
+            ]
+          }
+        },
+        "Audit_execution": {
+          "type": "If",
+          "expression": "@contains(createArray('Executed', 'PartiallyExecuted', 'AlreadyExecuted'), variables('Result'))",
+          "actions": {},
+          "else": {
+            "actions": {
+              "Audit_outcome": {
+                "type": "If",
+                "expression": "@not(empty(outputs('List_request')?['body/value']))",
+                "actions": {
+                  "Audit_execution_request": {
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                      "host": {
+                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                        "operationId": "CreateRecord",
+                        "connectionName": "shared_commondataserviceforapps"
+                      },
+                      "parameters": {
+                        "entityName": "cr458_cgauditevents",
+                        "item/cr458_name": "@concat(concat('Execute', variables('Result')), ' ', trim(coalesce(triggerBody()?['text'], '')))",
+                        "item/cr458_eventkey": "@concat(trim(coalesce(triggerBody()?['text'], '')), '-EXEC-', workflow()?['run']?['name'])",
+                        "item/cr458_eventtype": "@concat('Execute', variables('Result'))",
+                        "item/cr458_requestkey": "@trim(coalesce(triggerBody()?['text'], ''))",
+                        "item/cr458_actor": "@'ChangeGuard Control Tower agent (flow connection identity)'",
+                        "item/cr458_oldstate": "@first(outputs('List_request')?['body/value'])?['cr458_status']",
+                        "item/cr458_newstate": "@if(contains(createArray('Executed', 'PartiallyExecuted'), variables('Result')), variables('Result'), first(outputs('List_request')?['body/value'])?['cr458_status'])",
+                        "item/cr458_details": "@concat('created ', string(variables('Created')), ', reused ', string(variables('Reused')), ', failed keys: ', join(variables('Failures'), ','), '. ', variables('ResultMessage'))",
+                        "item/cr458_occurredon": "@utcNow()",
+                        "item/cr458_demo": true,
+                        "item/cr458_ChangeRequest@odata.bind": "@concat('/cr458_cgchangerequests(', first(outputs('List_request')?['body/value'])?['cr458_cgchangerequestid'], ')')"
+                      }
+                    },
+                    "runAfter": {}
+                  }
+                },
+                "else": {
+                  "actions": {
+                    "Audit_execution_unknown": {
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                          "operationId": "CreateRecord",
+                          "connectionName": "shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "cr458_cgauditevents",
+                          "item/cr458_name": "@concat(concat('Execute', variables('Result')), ' ', trim(coalesce(triggerBody()?['text'], '')))",
+                          "item/cr458_eventkey": "@concat(trim(coalesce(triggerBody()?['text'], '')), '-EXEC-', workflow()?['run']?['name'])",
+                          "item/cr458_eventtype": "@concat('Execute', variables('Result'))",
+                          "item/cr458_requestkey": "@trim(coalesce(triggerBody()?['text'], ''))",
+                          "item/cr458_actor": "@'ChangeGuard Control Tower agent (flow connection identity)'",
+                          "item/cr458_oldstate": "@''",
+                          "item/cr458_newstate": "@''",
+                          "item/cr458_details": "@concat('created ', string(variables('Created')), ', reused ', string(variables('Reused')), ', failed keys: ', join(variables('Failures'), ','), '. ', variables('ResultMessage'))",
+                          "item/cr458_occurredon": "@utcNow()",
+                          "item/cr458_demo": true
+                        }
+                      },
+                      "runAfter": {}
+                    }
+                  }
+                },
+                "runAfter": {}
+              }
+            }
+          },
+          "runAfter": {
+            "Internal_error_check": [
+              "Succeeded",
+              "Failed"
+            ]
+          }
+        },
+        "Set_audit_failed": {
+          "type": "SetVariable",
+          "inputs": {
+            "name": "Result",
+            "value": "AuditFailed"
+          },
+          "runAfter": {
+            "Audit_execution": [
+              "Failed",
+              "TimedOut"
+            ]
+          }
+        },
+        "Set_audit_failed_message": {
+          "type": "SetVariable",
+          "inputs": {
+            "name": "ResultMessage",
+            "value": "@concat('The execution audit event could not be written, so this execution is not recorded in the audit history. Recovery work items created: ', string(variables('Created')), ' new, ', string(variables('Reused')), ' reused.')"
+          },
+          "runAfter": {
+            "Set_audit_failed": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Respond_to_the_agent": {
+          "type": "Response",
+          "kind": "Skills",
+          "runAfter": {
+            "Set_audit_failed_message": [
+              "Succeeded",
+              "Skipped"
+            ]
+          },
+          "inputs": {
+            "statusCode": 200,
+            "schema": {
+              "type": "object",
+              "additionalProperties": {},
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "Status",
+                  "description": "Executed, PartiallyExecuted, NotApproved, StaleBaseline, OptionMismatch, NoRecordedDecision, OptionNotDocumented, OptionWrongMilestone, OptionNotEligible or NotFound. The hardened build adds AlreadyExecuted (nothing left to do), DecisionNotApproved, ApproverMismatch, OptionNoLongerBookable, and the technical failures InternalError, WriteFailed and AuditFailed, which also fail the run."
+                },
+                "createdcount": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "CreatedCount",
+                  "description": "Recovery actions created in this call."
+                },
+                "reusedcount": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "ReusedCount",
+                  "description": "Existing actions returned instead of duplicated."
+                },
+                "actionidscsv": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "ActionIdsCsv",
+                  "description": "Dataverse ids of the recovery actions."
+                },
+                "failedkeyscsv": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "FailedKeysCsv",
+                  "description": "Action keys that failed; empty when all succeeded."
+                },
+                "message": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "Message",
+                  "description": "Reason when nothing was executed."
+                }
+              }
+            },
+            "body": {
+              "status": "@if(equals(variables('Result'), ''), 'Failed', variables('Result'))",
+              "createdcount": "@string(variables('Created'))",
+              "reusedcount": "@string(variables('Reused'))",
+              "actionidscsv": "@join(variables('ActionIds'), ',')",
+              "failedkeyscsv": "@join(variables('Failures'), ',')",
+              "message": "@variables('ResultMessage')"
+            }
+          }
+        },
+        "Terminate_on_failure": {
+          "type": "If",
+          "expression": "@contains(createArray('InternalError', 'WriteFailed', 'AuditFailed'), variables('Result'))",
+          "actions": {
+            "Terminate_failed": {
+              "type": "Terminate",
+              "inputs": {
+                "runStatus": "Failed",
+                "runError": {
+                  "code": "@variables('Result')",
+                  "message": "@variables('ResultMessage')"
+                }
+              },
+              "runAfter": {}
+            }
+          },
+          "else": {
+            "actions": {}
+          },
+          "runAfter": {
+            "Respond_to_the_agent": [
+              "Succeeded"
+            ]
+          }
+        }
+      },
+      "outputs": {}
+    }
+  },
+  "schemaVersion": "1.0.0.0"
+}

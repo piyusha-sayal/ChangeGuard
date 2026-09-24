@@ -1,0 +1,430 @@
+{
+  "collectedAt": "2026-09-23T22:12:45.152Z",
+  "source": "https://<environment-id-host>.environment.api.powerplatform.com/powerautomate (GET only)",
+  "label": "01_project_baseline_retrieval",
+  "flowId": "9b71c970-28b6-f111-aaad-000d3af45a09",
+  "runId": "08584115251075475748508841119CU12",
+  "status": "Succeeded",
+  "startTime": "2026-09-22T12:56:17.9335755Z",
+  "endTime": "2026-09-22T12:56:18.2874011Z",
+  "correlation": "08584115251075475748508841119CU12",
+  "trigger": {
+    "name": "manual",
+    "status": "Succeeded",
+    "startTime": "2026-09-22T12:56:17.9308097Z",
+    "endTime": "2026-09-22T12:56:17.9308097Z",
+    "inputs": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "x-ms-content-hint": "TEXT",
+            "x-ms-dynamically-added": true,
+            "title": "ProjectCode",
+            "description": "Project code, for example ATLAS."
+          }
+        },
+        "required": [
+          "text"
+        ]
+      }
+    },
+    "outputs": {
+      "headers": {
+        "Host": "10.0.7.21:20331",
+        "Accept-Encoding": "gzip,deflate,br",
+        "Request-Id": "|022413c36c913f75a91f1a6e11c3bb60.b98cab9277238541.",
+        "traceparent": "00-022413c36c913f75a91f1a6e11c3bb60-b98cab9277238541-00",
+        "x-ms-user-agent": "PowerVA/2",
+        "x-ms-client-request-id": "89d2f4b9-659a-4275-986d-2cdd3634ca13",
+        "x-ms-correlation-id": "8cf9ec4b-b1c8-4a42-a3bf-f99437c3e0bb",
+        "x-ms-client-keywords": "BotSchemaName:new_ChangeGuardHardenedStandard,ChannelId:pva-studio,CdsBotId:f7a66f65-3bb6-f111-aaad-000d3af45a09,",
+        "X-Original-Proto": "https",
+        "x-ms-origin-endpoint": "ppapigw.ca-il101.gateway.prod.island.powerapps.com",
+        "X-Original-Host": "10.0.29.8:20043",
+        "x-ms-igw-external-uri": "https://<environment-id-host>.environment.api.powerplatform.com/powerautomate/automations/direct/cu/24/workflows/325eb60cc99b4cffb69f1785ac6642f6/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=REDACTED-SAS-SIGNATURE",
+        "x-ms-gw-trace-id": "075725af-aa49-4df3-8379-e77a6c22e36d",
+        "x-ms-igw-raw-target": "/powerautomate/automations/direct/cu/24/workflows/325eb60cc99b4cffb69f1785ac6642f6/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=REDACTED-SAS-SIGNATURE",
+        "x-ms-activity-vector": "00.00",
+        "x-ms-coreframework-caller-activity-id": "d6d1bcb2-735c-4bb4-abc6-52b1d19a7b0b",
+        "X-Original-For": "[::ffff:10.0.29.4]:61159",
+        "x-ms-ppapi-forwarded-path": "/powerautomate/automations/direct/cu/24/workflows/325eb60cc99b4cffb69f1785ac6642f6/triggers/manual/paths/invoke",
+        "x-ms-ppapi-forwarded-api-version": "1",
+        "x-ms-gateway-clusters": "prdil101eca",
+        "X-Forwarded-For": "40.89.21.136",
+        "X-Forwarded-Prefix": "/53093d62-e170-422b-8724-ac1ce0a7ba7d/134343457753354902",
+        "X-Forwarded-Host": "<environment-id-host>.environment.api.powerplatform.com",
+        "X-Forwarded-Proto": "https",
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "26"
+      },
+      "body": {
+        "text": "CGDEMO-FINAL-01"
+      }
+    }
+  },
+  "actions": {
+    "Check_project": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T12:56:18.1573373Z",
+      "endTime": "2026-09-22T12:56:18.2270171Z",
+      "inputs": {
+        "expressionResult": true
+      },
+      "outputs": null
+    },
+    "Init_Result": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T12:56:18.0350518Z",
+      "endTime": "2026-09-22T12:56:18.0652425Z",
+      "inputs": {
+        "variables": [
+          {
+            "name": "Result",
+            "type": "String",
+            "value": "NotFound"
+          }
+        ]
+      },
+      "outputs": {
+        "variables": [
+          {
+            "name": "Result",
+            "type": "String",
+            "value": "NotFound"
+          }
+        ]
+      }
+    },
+    "List_milestones": {
+      "status": "Succeeded",
+      "code": "OK",
+      "startTime": "2026-09-22T12:56:18.1586757Z",
+      "endTime": "2026-09-22T12:56:18.1920733Z",
+      "inputs": {
+        "host": {
+          "apiId": "subscriptions/d3761481-d83e-4eb1-b06e-37c2aacadb39/providers/Microsoft.Web/locations/canadacentral/runtimes/Canada-001/apis/commondataserviceforapps",
+          "connectionReferenceName": "shared_commondataserviceforapps",
+          "operationId": "ListRecords"
+        },
+        "parameters": {
+          "entityName": "cr458_cgmilestones",
+          "$filter": "_cr458_project_value eq c92b43ba-84b6-f111-aaad-000d3af45a09",
+          "$select": "cr458_milestonecode,cr458_name,cr458_ownername,cr458_baselinefinish,cr458_durationdays,cr458_isexternalcommitment,cr458_status",
+          "$orderby": "cr458_topoorder asc,cr458_milestonecode asc",
+          "accept": "application/json;odata.metadata=minimal"
+        }
+      },
+      "outputs": {
+        "body": {
+          "value": [
+            {
+              "@odata.etag": "W/\"2623272\"",
+              "cr458_baselinefinish@OData.Community.Display.V1.FormattedValue": "10/9/2026",
+              "cr458_baselinefinish": "2026-10-09",
+              "cr458_durationdays@OData.Community.Display.V1.FormattedValue": "10",
+              "cr458_durationdays": 10,
+              "cr458_cgmilestoneid": "ca2b43ba-84b6-f111-aaad-000d3af45a09",
+              "cr458_ownername": "Demo Owner One",
+              "cr458_status": "Planned",
+              "cr458_milestonecode": "CGDEMO-M1",
+              "cr458_name": "Gearbox delivery to site",
+              "cr458_topoorder@OData.Community.Display.V1.FormattedValue": "10",
+              "cr458_topoorder": 10,
+              "cr458_isexternalcommitment@OData.Community.Display.V1.FormattedValue": "No",
+              "cr458_isexternalcommitment": false
+            },
+            {
+              "@odata.etag": "W/\"2623273\"",
+              "cr458_baselinefinish@OData.Community.Display.V1.FormattedValue": "10/23/2026",
+              "cr458_baselinefinish": "2026-10-23",
+              "cr458_durationdays@OData.Community.Display.V1.FormattedValue": "8",
+              "cr458_durationdays": 8,
+              "cr458_cgmilestoneid": "cb2b43ba-84b6-f111-aaad-000d3af45a09",
+              "cr458_ownername": "Demo Owner Two",
+              "cr458_status": "Planned",
+              "cr458_milestonecode": "CGDEMO-M2",
+              "cr458_name": "Mechanical installation",
+              "cr458_topoorder@OData.Community.Display.V1.FormattedValue": "20",
+              "cr458_topoorder": 20,
+              "cr458_isexternalcommitment@OData.Community.Display.V1.FormattedValue": "No",
+              "cr458_isexternalcommitment": false
+            },
+            {
+              "@odata.etag": "W/\"2623274\"",
+              "cr458_baselinefinish@OData.Community.Display.V1.FormattedValue": "11/6/2026",
+              "cr458_baselinefinish": "2026-11-06",
+              "cr458_durationdays@OData.Community.Display.V1.FormattedValue": "5",
+              "cr458_durationdays": 5,
+              "cr458_cgmilestoneid": "cc2b43ba-84b6-f111-aaad-000d3af45a09",
+              "cr458_ownername": "Demo Owner Three",
+              "cr458_status": "Planned",
+              "cr458_milestonecode": "CGDEMO-M3",
+              "cr458_name": "Commissioning and handover",
+              "cr458_topoorder@OData.Community.Display.V1.FormattedValue": "30",
+              "cr458_topoorder": 30,
+              "cr458_isexternalcommitment@OData.Community.Display.V1.FormattedValue": "Yes",
+              "cr458_isexternalcommitment": true
+            }
+          ]
+        }
+      }
+    },
+    "List_project": {
+      "status": "Succeeded",
+      "code": "OK",
+      "startTime": "2026-09-22T12:56:18.0748684Z",
+      "endTime": "2026-09-22T12:56:18.1474551Z",
+      "inputs": {
+        "host": {
+          "apiId": "subscriptions/d3761481-d83e-4eb1-b06e-37c2aacadb39/providers/Microsoft.Web/locations/canadacentral/runtimes/Canada-001/apis/commondataserviceforapps",
+          "connectionReferenceName": "shared_commondataserviceforapps",
+          "operationId": "ListRecords"
+        },
+        "parameters": {
+          "entityName": "cr458_cgprojects",
+          "$filter": "cr458_projectcode eq 'CGDEMO-FINAL-01'",
+          "$select": "cr458_cgprojectid,cr458_projectcode,cr458_name,cr458_baselineversion,cr458_calendarcode,cr458_status",
+          "$top": 1,
+          "accept": "application/json;odata.metadata=minimal"
+        }
+      },
+      "outputs": {
+        "statusCode": 200,
+        "headers": {
+          "Cache-Control": "no-cache",
+          "Vary": "Accept-Encoding",
+          "Set-Cookie": "ARRAffinity=2a570086dda919de769e4850d3b10fd8c0d196088c5614145ac4efe7cf706caf15134d20c556b0b34b9b6ae43ec3f5dcdad61788de889ffc592af7aca85fc1c508DF18AD15A020730000000218908450; path=/; secure; HttpOnly,ReqClientId=d6487211-3801-4fda-806f-2e228b15c309; expires=Tue, 22-Sep-2076 12:56:18 GMT; path=/; secure; HttpOnly,ARRAffinity=2a570086dda919de769e4850d3b10fd8c0d196088c5614145ac4efe7cf706caf15134d20c556b0b34b9b6ae43ec3f5dcdad61788de889ffc592af7aca85fc1c508DF18AD15A020730000000218908450; path=/; secure; HttpOnly",
+          "x-ms-service-request-id": "3691f7a7-0cfc-477c-ba36-96d5f1581749",
+          "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+          "REQ_ID": "3691f7a7-0cfc-477c-ba36-96d5f1581749",
+          "AuthActivityId": "3c8d4eff-6ccf-4c9d-b470-509f1a0d1445",
+          "x-ms-dop-hint": "4",
+          "x-ms-ratelimit-time-remaining-xrm-requests": "1,200.00",
+          "x-ms-ratelimit-burst-remaining-xrm-requests": "7999",
+          "X-Content-Type-Options": "nosniff",
+          "OData-Version": "4.0",
+          "Preference-Applied": "odata.include-annotations=\"*\"",
+          "X-Source": "10523815952149249177372247491512343517151627485712011119758748842222661618130,156128168236119233764011115815125412211874105142418105193129148243203511012691120155132",
+          "Public": "OPTIONS,GET,HEAD,POST",
+          "Date": "Tue, 22 Sep 2026 12:56:17 GMT",
+          "Allow": "OPTIONS,GET,HEAD,POST",
+          "Content-Type": "application/json; odata.metadata=minimal",
+          "Expires": "-1",
+          "Content-Length": "715"
+        },
+        "body": {
+          "@odata.context": "https://<org>.crm3.dynamics.com/api/data/v9.1/$metadata#cr458_cgprojects(cr458_cgprojectid,cr458_projectcode,cr458_name,cr458_baselineversion,cr458_calendarcode,cr458_status)",
+          "@Microsoft.Dynamics.CRM.totalrecordcount": -1,
+          "@Microsoft.Dynamics.CRM.totalrecordcountlimitexceeded": false,
+          "@Microsoft.Dynamics.CRM.globalmetadataversion": "2340066",
+          "value": [
+            {
+              "@odata.etag": "W/\"2623270\"",
+              "cr458_status": "Active",
+              "cr458_cgprojectid": "c92b43ba-84b6-f111-aaad-000d3af45a09",
+              "cr458_name": "Harbour Crane Retrofit (synthetic demo)",
+              "cr458_baselineversion@OData.Community.Display.V1.FormattedValue": "1",
+              "cr458_baselineversion": 1,
+              "cr458_projectcode": "CGDEMO-FINAL-01",
+              "cr458_calendarcode": "CGDEMO-CAL"
+            }
+          ]
+        }
+      }
+    },
+    "Milestone_rows": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T12:56:18.2013553Z",
+      "endTime": "2026-09-22T12:56:18.2028257Z",
+      "inputs": {
+        "from": [
+          {
+            "@odata.etag": "W/\"2623272\"",
+            "cr458_baselinefinish@OData.Community.Display.V1.FormattedValue": "10/9/2026",
+            "cr458_baselinefinish": "2026-10-09",
+            "cr458_durationdays@OData.Community.Display.V1.FormattedValue": "10",
+            "cr458_durationdays": 10,
+            "cr458_cgmilestoneid": "ca2b43ba-84b6-f111-aaad-000d3af45a09",
+            "cr458_ownername": "Demo Owner One",
+            "cr458_status": "Planned",
+            "cr458_milestonecode": "CGDEMO-M1",
+            "cr458_name": "Gearbox delivery to site",
+            "cr458_topoorder@OData.Community.Display.V1.FormattedValue": "10",
+            "cr458_topoorder": 10,
+            "cr458_isexternalcommitment@OData.Community.Display.V1.FormattedValue": "No",
+            "cr458_isexternalcommitment": false
+          },
+          {
+            "@odata.etag": "W/\"2623273\"",
+            "cr458_baselinefinish@OData.Community.Display.V1.FormattedValue": "10/23/2026",
+            "cr458_baselinefinish": "2026-10-23",
+            "cr458_durationdays@OData.Community.Display.V1.FormattedValue": "8",
+            "cr458_durationdays": 8,
+            "cr458_cgmilestoneid": "cb2b43ba-84b6-f111-aaad-000d3af45a09",
+            "cr458_ownername": "Demo Owner Two",
+            "cr458_status": "Planned",
+            "cr458_milestonecode": "CGDEMO-M2",
+            "cr458_name": "Mechanical installation",
+            "cr458_topoorder@OData.Community.Display.V1.FormattedValue": "20",
+            "cr458_topoorder": 20,
+            "cr458_isexternalcommitment@OData.Community.Display.V1.FormattedValue": "No",
+            "cr458_isexternalcommitment": false
+          },
+          {
+            "@odata.etag": "W/\"2623274\"",
+            "cr458_baselinefinish@OData.Community.Display.V1.FormattedValue": "11/6/2026",
+            "cr458_baselinefinish": "2026-11-06",
+            "cr458_durationdays@OData.Community.Display.V1.FormattedValue": "5",
+            "cr458_durationdays": 5,
+            "cr458_cgmilestoneid": "cc2b43ba-84b6-f111-aaad-000d3af45a09",
+            "cr458_ownername": "Demo Owner Three",
+            "cr458_status": "Planned",
+            "cr458_milestonecode": "CGDEMO-M3",
+            "cr458_name": "Commissioning and handover",
+            "cr458_topoorder@OData.Community.Display.V1.FormattedValue": "30",
+            "cr458_topoorder": 30,
+            "cr458_isexternalcommitment@OData.Community.Display.V1.FormattedValue": "Yes",
+            "cr458_isexternalcommitment": true
+          }
+        ]
+      },
+      "outputs": {
+        "body": [
+          "| CGDEMO-M1 | Gearbox delivery to site | Demo Owner One | 2026-10-09 | 10 | No |",
+          "| CGDEMO-M2 | Mechanical installation | Demo Owner Two | 2026-10-23 | 8 | No |",
+          "| CGDEMO-M3 | Commissioning and handover | Demo Owner Three | 2026-11-06 | 5 | Yes |"
+        ]
+      }
+    },
+    "Respond_to_the_agent": {
+      "status": "Succeeded",
+      "code": "OK",
+      "startTime": "2026-09-22T12:56:18.2284309Z",
+      "endTime": "2026-09-22T12:56:18.2427134Z",
+      "inputs": {
+        "statusCode": "200",
+        "schema": {
+          "type": "object",
+          "additionalProperties": {},
+          "properties": {
+            "status": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "Status",
+              "description": "Found or NotFound. Never substitute another project."
+            },
+            "projectname": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "ProjectName",
+              "description": "Project name."
+            },
+            "baselineversion": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "BaselineVersion",
+              "description": "Current baseline version."
+            },
+            "calendarcode": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "CalendarCode",
+              "description": "Working calendar."
+            },
+            "milestonestablemarkdown": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "MilestonesTableMarkdown",
+              "description": "Baseline milestones. Reproduce exactly."
+            }
+          }
+        },
+        "body": {
+          "status": "Found",
+          "projectname": "Harbour Crane Retrofit (synthetic demo)",
+          "baselineversion": "1",
+          "calendarcode": "CGDEMO-CAL",
+          "milestonestablemarkdown": "| Milestone | Name | Owner | Baseline finish | Duration (working days) | External commitment |\n|---|---|---|---|---|---|\n| CGDEMO-M1 | Gearbox delivery to site | Demo Owner One | 2026-10-09 | 10 | No |\n| CGDEMO-M2 | Mechanical installation | Demo Owner Two | 2026-10-23 | 8 | No |\n| CGDEMO-M3 | Commissioning and handover | Demo Owner Three | 2026-11-06 | 5 | Yes |"
+        }
+      },
+      "outputs": {
+        "statusCode": "200",
+        "schema": {
+          "type": "object",
+          "additionalProperties": {},
+          "properties": {
+            "status": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "Status",
+              "description": "Found or NotFound. Never substitute another project."
+            },
+            "projectname": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "ProjectName",
+              "description": "Project name."
+            },
+            "baselineversion": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "BaselineVersion",
+              "description": "Current baseline version."
+            },
+            "calendarcode": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "CalendarCode",
+              "description": "Working calendar."
+            },
+            "milestonestablemarkdown": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "MilestonesTableMarkdown",
+              "description": "Baseline milestones. Reproduce exactly."
+            }
+          }
+        },
+        "body": {
+          "status": "Found",
+          "projectname": "Harbour Crane Retrofit (synthetic demo)",
+          "baselineversion": "1",
+          "calendarcode": "CGDEMO-CAL",
+          "milestonestablemarkdown": "| Milestone | Name | Owner | Baseline finish | Duration (working days) | External commitment |\n|---|---|---|---|---|---|\n| CGDEMO-M1 | Gearbox delivery to site | Demo Owner One | 2026-10-09 | 10 | No |\n| CGDEMO-M2 | Mechanical installation | Demo Owner Two | 2026-10-23 | 8 | No |\n| CGDEMO-M3 | Commissioning and handover | Demo Owner Three | 2026-11-06 | 5 | Yes |"
+        }
+      }
+    },
+    "Set_found": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T12:56:18.2041527Z",
+      "endTime": "2026-09-22T12:56:18.2181114Z",
+      "inputs": {
+        "name": "Result",
+        "value": "Found"
+      },
+      "outputs": {
+        "body": {
+          "name": "Result",
+          "type": "String",
+          "value": "Found"
+        }
+      }
+    }
+  }
+}

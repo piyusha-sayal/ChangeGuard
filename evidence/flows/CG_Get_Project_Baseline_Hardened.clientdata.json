@@ -1,0 +1,213 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "cr458_ChangeGuardDataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "metadata": {
+        "defaultToEmbeddedConnections": true
+      },
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "ProjectCode",
+                  "description": "Project code, for example ATLAS."
+                }
+              },
+              "required": [
+                "text"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Init_Result": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "Result",
+                "type": "string",
+                "value": "NotFound"
+              }
+            ]
+          },
+          "runAfter": {}
+        },
+        "List_project": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "connectionName": "shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "cr458_cgprojects",
+              "$filter": "cr458_projectcode eq '@{replace(toUpper(trim(coalesce(triggerBody()?['text'], ''))), '''', '''''')}'",
+              "$select": "cr458_cgprojectid,cr458_projectcode,cr458_name,cr458_baselineversion,cr458_calendarcode,cr458_status",
+              "$top": 1
+            }
+          },
+          "runAfter": {
+            "Init_Result": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Check_project": {
+          "type": "If",
+          "expression": "@not(empty(outputs('List_project')?['body/value']))",
+          "actions": {
+            "List_milestones": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "connectionName": "shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "cr458_cgmilestones",
+                  "$filter": "_cr458_project_value eq @{first(outputs('List_project')?['body/value'])?['cr458_cgprojectid']}",
+                  "$select": "cr458_milestonecode,cr458_name,cr458_ownername,cr458_baselinefinish,cr458_durationdays,cr458_isexternalcommitment,cr458_status",
+                  "$orderby": "cr458_topoorder asc,cr458_milestonecode asc"
+                }
+              },
+              "runtimeConfiguration": {
+                "paginationPolicy": {
+                  "minimumItemCount": 5000
+                }
+              },
+              "runAfter": {}
+            },
+            "Milestone_rows": {
+              "type": "Select",
+              "inputs": {
+                "from": "@outputs('List_milestones')?['body/value']",
+                "select": "@concat('| ', item()?['cr458_milestonecode'], ' | ', item()?['cr458_name'], ' | ', coalesce(item()?['cr458_ownername'], 'unassigned'), ' | ', if(equals(item()?['cr458_baselinefinish'], null), 'unknown', string(item()?['cr458_baselinefinish'])), ' | ', if(equals(item()?['cr458_durationdays'], null), 'not documented', string(item()?['cr458_durationdays'])), ' | ', if(equals(item()?['cr458_isexternalcommitment'], true), 'Yes', 'No'), ' |')"
+              },
+              "runAfter": {
+                "List_milestones": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Set_found": {
+              "type": "SetVariable",
+              "inputs": {
+                "name": "Result",
+                "value": "Found"
+              },
+              "runAfter": {
+                "Milestone_rows": [
+                  "Succeeded"
+                ]
+              }
+            }
+          },
+          "else": {
+            "actions": {}
+          },
+          "runAfter": {
+            "List_project": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Respond_to_the_agent": {
+          "type": "Response",
+          "kind": "Skills",
+          "runAfter": {
+            "Check_project": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "statusCode": 200,
+            "schema": {
+              "type": "object",
+              "additionalProperties": {},
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "Status",
+                  "description": "Found or NotFound. Never substitute another project."
+                },
+                "projectname": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "ProjectName",
+                  "description": "Project name."
+                },
+                "baselineversion": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "BaselineVersion",
+                  "description": "Current baseline version."
+                },
+                "calendarcode": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "CalendarCode",
+                  "description": "Working calendar."
+                },
+                "milestonestablemarkdown": {
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true,
+                  "title": "MilestonesTableMarkdown",
+                  "description": "Baseline milestones. Reproduce exactly."
+                }
+              }
+            },
+            "body": {
+              "status": "@variables('Result')",
+              "projectname": "@if(equals(variables('Result'), 'Found'), first(outputs('List_project')?['body/value'])?['cr458_name'], '')",
+              "baselineversion": "@if(equals(variables('Result'), 'Found'), string(first(outputs('List_project')?['body/value'])?['cr458_baselineversion']), '')",
+              "calendarcode": "@if(equals(variables('Result'), 'Found'), first(outputs('List_project')?['body/value'])?['cr458_calendarcode'], '')",
+              "milestonestablemarkdown": "@if(equals(variables('Result'), 'Found'), concat('| Milestone | Name | Owner | Baseline finish | Duration (working days) | External commitment |', decodeUriComponent('%0A'), '|---|---|---|---|---|---|', decodeUriComponent('%0A'), join(body('Milestone_rows'), decodeUriComponent('%0A'))), '')"
+            }
+          }
+        }
+      },
+      "outputs": {}
+    }
+  },
+  "schemaVersion": "1.0.0.0"
+}

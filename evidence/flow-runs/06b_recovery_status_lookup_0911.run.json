@@ -1,0 +1,430 @@
+{
+  "collectedAt": "2026-09-23T22:12:45.152Z",
+  "source": "https://<environment-id-host>.environment.api.powerplatform.com/powerautomate (GET only)",
+  "label": "06b_recovery_status_lookup_0911",
+  "flowId": "5e7f18e6-41b6-f111-aaad-000d3af45a09",
+  "runId": "08584115241882836559484613175CU07",
+  "status": "Succeeded",
+  "startTime": "2026-09-22T13:11:37.1977222Z",
+  "endTime": "2026-09-22T13:11:37.5120849Z",
+  "correlation": "08584115241882836559484613175CU07",
+  "trigger": {
+    "name": "manual",
+    "status": "Succeeded",
+    "startTime": "2026-09-22T13:11:37.1950181Z",
+    "endTime": "2026-09-22T13:11:37.1950181Z",
+    "inputs": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "x-ms-content-hint": "TEXT",
+            "x-ms-dynamically-added": true,
+            "title": "Scope",
+            "description": "A project code (for example ATLAS) or a RequestKey (CR-...)."
+          }
+        },
+        "required": [
+          "text"
+        ]
+      }
+    },
+    "outputs": {
+      "headers": {
+        "Host": "10.0.7.24:20504",
+        "Accept-Encoding": "gzip,deflate,br",
+        "Request-Id": "|e598afac83033fdc66ecac8cf8f16c1a.16e7a86dbbc308e8.",
+        "traceparent": "00-e598afac83033fdc66ecac8cf8f16c1a-16e7a86dbbc308e8-00",
+        "x-ms-user-agent": "PowerVA/2",
+        "x-ms-client-request-id": "27e3fc8d-054f-48b5-b398-05e3655972bd",
+        "x-ms-correlation-id": "eb4f518f-a0c8-47fe-8775-c519b7e1d5ca",
+        "x-ms-client-keywords": "BotSchemaName:new_ChangeGuardHardenedStandard,ChannelId:pva-studio,CdsBotId:f7a66f65-3bb6-f111-aaad-000d3af45a09,",
+        "X-Original-Proto": "https",
+        "x-ms-origin-endpoint": "ppapigw.ca-il101.gateway.prod.island.powerapps.com",
+        "X-Original-Host": "10.0.29.4:20041",
+        "x-ms-igw-external-uri": "https://<environment-id-host>.environment.api.powerplatform.com/powerautomate/automations/direct/cu/17/workflows/7a1403b81a6b4e31b4c04a8d5ffc12ca/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=REDACTED-SAS-SIGNATURE",
+        "x-ms-gw-trace-id": "4c92c835-061f-4245-af46-55c773ecb62b",
+        "x-ms-igw-raw-target": "/powerautomate/automations/direct/cu/17/workflows/7a1403b81a6b4e31b4c04a8d5ffc12ca/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=REDACTED-SAS-SIGNATURE",
+        "x-ms-activity-vector": "00.00",
+        "x-ms-coreframework-caller-activity-id": "afad09e2-ea64-49bd-a8c2-6012c34eb87e",
+        "X-Original-For": "[::ffff:10.0.29.8]:52133",
+        "x-ms-ppapi-forwarded-path": "/powerautomate/automations/direct/cu/17/workflows/7a1403b81a6b4e31b4c04a8d5ffc12ca/triggers/manual/paths/invoke",
+        "x-ms-ppapi-forwarded-api-version": "1",
+        "x-ms-gateway-clusters": "prdil101eca",
+        "X-Forwarded-For": "40.89.21.136",
+        "X-Forwarded-Prefix": "/53093d62-e170-422b-8724-ac1ce0a7ba7d/134342595558006919",
+        "X-Forwarded-Host": "<environment-id-host>.environment.api.powerplatform.com",
+        "X-Forwarded-Proto": "https",
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "53"
+      },
+      "body": {
+        "text": "CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1"
+      }
+    }
+  },
+  "actions": {
+    "Action_rows": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T13:11:37.4611355Z",
+      "endTime": "2026-09-22T13:11:37.461892Z",
+      "inputs": {
+        "from": []
+      },
+      "outputs": {
+        "body": []
+      }
+    },
+    "Audit_rows": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T13:11:37.4855713Z",
+      "endTime": "2026-09-22T13:11:37.4865047Z",
+      "inputs": {
+        "from": [
+          {
+            "@odata.etag": "W/\"2623443\"",
+            "cr458_cgauditeventid": "3ec66bc0-85b6-f111-aaad-000d3af45a09",
+            "cr458_requestkey": "CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1",
+            "cr458_actor": "ChangeGuard Control Tower agent (flow connection identity)",
+            "cr458_eventtype": "Saved",
+            "cr458_newstate": "PendingReview",
+            "cr458_occurredon@OData.Community.Display.V1.FormattedValue": "9/22/2026 1:01 PM",
+            "cr458_occurredon": "2026-09-22T13:01:40Z"
+          }
+        ]
+      },
+      "outputs": {
+        "body": [
+          "- 2026-09-22T13:01:40Z Saved CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1:  -> PendingReview by ChangeGuard Control Tower agent (flow connection identity)"
+        ]
+      }
+    },
+    "Blocked": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T13:11:37.4545025Z",
+      "endTime": "2026-09-22T13:11:37.4552123Z",
+      "inputs": [],
+      "outputs": {
+        "body": []
+      }
+    },
+    "List_actions": {
+      "status": "Succeeded",
+      "code": "OK",
+      "startTime": "2026-09-22T13:11:37.3334871Z",
+      "endTime": "2026-09-22T13:11:37.3852383Z",
+      "inputs": {
+        "host": {
+          "apiId": "subscriptions/d3761481-d83e-4eb1-b06e-37c2aacadb39/providers/Microsoft.Web/locations/canadacentral/runtimes/Canada-001/apis/commondataserviceforapps",
+          "connectionReferenceName": "shared_commondataserviceforapps",
+          "operationId": "ListRecords"
+        },
+        "parameters": {
+          "entityName": "cr458_cgrecoveryactions",
+          "$filter": "startswith(cr458_actionkey, 'CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1')",
+          "$select": "cr458_actionkey,cr458_name,cr458_ownername,cr458_status,cr458_duedate,cr458_completedon",
+          "$orderby": "cr458_actionkey asc",
+          "accept": "application/json;odata.metadata=minimal"
+        }
+      },
+      "outputs": {
+        "body": {
+          "value": []
+        }
+      }
+    },
+    "List_audit": {
+      "status": "Succeeded",
+      "code": "OK",
+      "startTime": "2026-09-22T13:11:37.3956093Z",
+      "endTime": "2026-09-22T13:11:37.4300856Z",
+      "inputs": {
+        "host": {
+          "apiId": "subscriptions/d3761481-d83e-4eb1-b06e-37c2aacadb39/providers/Microsoft.Web/locations/canadacentral/runtimes/Canada-001/apis/commondataserviceforapps",
+          "connectionReferenceName": "shared_commondataserviceforapps",
+          "operationId": "ListRecords"
+        },
+        "parameters": {
+          "entityName": "cr458_cgauditevents",
+          "$filter": "startswith(cr458_requestkey, 'CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1')",
+          "$select": "cr458_eventtype,cr458_requestkey,cr458_actor,cr458_oldstate,cr458_newstate,cr458_occurredon",
+          "$orderby": "cr458_occurredon desc",
+          "$top": 15,
+          "accept": "application/json;odata.metadata=minimal"
+        }
+      },
+      "outputs": {
+        "statusCode": 200,
+        "headers": {
+          "Cache-Control": "no-cache",
+          "Vary": "Accept-Encoding",
+          "Set-Cookie": "ARRAffinity=2a570086dda919de769e4850d3b10fd8c0d196088c5614145ac4efe7cf706caf15134d20c556b0b34b9b6ae43ec3f5dcdad61788de889ffc592af7aca85fc1c508DF18AF398FAE680000001402751025; path=/; secure; HttpOnly,ReqClientId=4205b4e6-d933-4e1f-9018-62083f53a8bc; expires=Tue, 22-Sep-2076 13:11:37 GMT; path=/; secure; HttpOnly,ARRAffinity=2a570086dda919de769e4850d3b10fd8c0d196088c5614145ac4efe7cf706caf15134d20c556b0b34b9b6ae43ec3f5dcdad61788de889ffc592af7aca85fc1c508DF18AF398FAE680000001402751025; path=/; secure; HttpOnly",
+          "x-ms-service-request-id": "07cc7b0d-7de7-4486-bbf5-61b8ce206c62",
+          "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+          "REQ_ID": "07cc7b0d-7de7-4486-bbf5-61b8ce206c62",
+          "AuthActivityId": "e835ee25-2138-402a-bbd6-5813a2d13960",
+          "x-ms-dop-hint": "4",
+          "x-ms-ratelimit-time-remaining-xrm-requests": "1,200.00",
+          "x-ms-ratelimit-burst-remaining-xrm-requests": "7997",
+          "X-Content-Type-Options": "nosniff",
+          "OData-Version": "4.0",
+          "Preference-Applied": "odata.include-annotations=\"*\"",
+          "X-Source": "10523815952149249177372247491512343517151627485712011119758748842222661618130,2183894182482237420202221238179123321412822917614912910615222120110226135183237149144140",
+          "Public": "OPTIONS,GET,HEAD,POST",
+          "Date": "Tue, 22 Sep 2026 13:11:37 GMT",
+          "Allow": "OPTIONS,GET,HEAD,POST",
+          "Content-Type": "application/json; odata.metadata=minimal",
+          "Expires": "-1",
+          "Content-Length": "808"
+        },
+        "body": {
+          "@odata.context": "https://<org>.crm3.dynamics.com/api/data/v9.1/$metadata#cr458_cgauditevents(cr458_eventtype,cr458_requestkey,cr458_actor,cr458_oldstate,cr458_newstate,cr458_occurredon)",
+          "@Microsoft.Dynamics.CRM.totalrecordcount": -1,
+          "@Microsoft.Dynamics.CRM.totalrecordcountlimitexceeded": false,
+          "@Microsoft.Dynamics.CRM.globalmetadataversion": "2340066",
+          "value": [
+            {
+              "@odata.etag": "W/\"2623443\"",
+              "cr458_cgauditeventid": "3ec66bc0-85b6-f111-aaad-000d3af45a09",
+              "cr458_requestkey": "CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1",
+              "cr458_actor": "ChangeGuard Control Tower agent (flow connection identity)",
+              "cr458_eventtype": "Saved",
+              "cr458_newstate": "PendingReview",
+              "cr458_occurredon@OData.Community.Display.V1.FormattedValue": "9/22/2026 1:01 PM",
+              "cr458_occurredon": "2026-09-22T13:01:40Z"
+            }
+          ]
+        }
+      }
+    },
+    "List_requests": {
+      "status": "Succeeded",
+      "code": "OK",
+      "startTime": "2026-09-22T13:11:37.2719569Z",
+      "endTime": "2026-09-22T13:11:37.3225722Z",
+      "inputs": {
+        "host": {
+          "apiId": "subscriptions/d3761481-d83e-4eb1-b06e-37c2aacadb39/providers/Microsoft.Web/locations/canadacentral/runtimes/Canada-001/apis/commondataserviceforapps",
+          "connectionReferenceName": "shared_commondataserviceforapps",
+          "operationId": "ListRecords"
+        },
+        "parameters": {
+          "entityName": "cr458_cgchangerequests",
+          "$filter": "startswith(cr458_requestkey, 'CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1')",
+          "$select": "cr458_requestkey,cr458_status,cr458_approvaldecision,cr458_approvedby,cr458_approvedat,cr458_proposedfinish,cr458_baselineversion",
+          "$orderby": "cr458_requestkey asc",
+          "accept": "application/json;odata.metadata=minimal"
+        }
+      },
+      "outputs": {
+        "body": {
+          "value": [
+            {
+              "@odata.etag": "W/\"2623475\"",
+              "cr458_requestkey": "CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1",
+              "cr458_status": "PendingReview",
+              "cr458_proposedfinish@OData.Community.Display.V1.FormattedValue": "10/30/2026",
+              "cr458_proposedfinish": "2026-10-30",
+              "cr458_baselineversion@OData.Community.Display.V1.FormattedValue": "1",
+              "cr458_baselineversion": 1,
+              "cr458_cgchangerequestid": "162c5b9e-a413-4644-ac1b-f9c8872ba192"
+            }
+          ]
+        }
+      }
+    },
+    "Open_actions": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T13:11:37.4567896Z",
+      "endTime": "2026-09-22T13:11:37.4574965Z",
+      "inputs": [],
+      "outputs": {
+        "body": []
+      }
+    },
+    "Overdue": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T13:11:37.4401682Z",
+      "endTime": "2026-09-22T13:11:37.4413622Z",
+      "inputs": [],
+      "outputs": {
+        "body": []
+      }
+    },
+    "Overdue_keys": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T13:11:37.4519946Z",
+      "endTime": "2026-09-22T13:11:37.453134Z",
+      "inputs": {
+        "from": []
+      },
+      "outputs": {
+        "body": []
+      }
+    },
+    "Prefix": {
+      "status": "Succeeded",
+      "code": "OK",
+      "startTime": "2026-09-22T13:11:37.2692005Z",
+      "endTime": "2026-09-22T13:11:37.2700704Z",
+      "inputs": "CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1",
+      "outputs": "CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1"
+    },
+    "Request_rows": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T13:11:37.4588933Z",
+      "endTime": "2026-09-22T13:11:37.4597416Z",
+      "inputs": {
+        "from": [
+          {
+            "@odata.etag": "W/\"2623475\"",
+            "cr458_requestkey": "CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1",
+            "cr458_status": "PendingReview",
+            "cr458_proposedfinish@OData.Community.Display.V1.FormattedValue": "10/30/2026",
+            "cr458_proposedfinish": "2026-10-30",
+            "cr458_baselineversion@OData.Community.Display.V1.FormattedValue": "1",
+            "cr458_baselineversion": 1,
+            "cr458_cgchangerequestid": "162c5b9e-a413-4644-ac1b-f9c8872ba192"
+          }
+        ]
+      },
+      "outputs": {
+        "body": [
+          "| CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1 | PendingReview | none | none |"
+        ]
+      }
+    },
+    "Respond_to_the_agent": {
+      "status": "Succeeded",
+      "code": "OK",
+      "startTime": "2026-09-22T13:11:37.4881302Z",
+      "endTime": "2026-09-22T13:11:37.4944008Z",
+      "inputs": {
+        "statusCode": "200",
+        "schema": {
+          "type": "object",
+          "additionalProperties": {},
+          "properties": {
+            "status": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "Status",
+              "description": "Found or NoRecords."
+            },
+            "requeststablemarkdown": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "RequestsTableMarkdown",
+              "description": "Change requests and decisions. Reproduce exactly."
+            },
+            "actionstablemarkdown": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "ActionsTableMarkdown",
+              "description": "Recovery actions with overdue flags. Reproduce exactly."
+            },
+            "audittrailmarkdown": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "AuditTrailMarkdown",
+              "description": "Latest audit events, newest first."
+            },
+            "overduekeyscsv": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "OverdueKeysCsv",
+              "description": "Open actions past their due date."
+            },
+            "summary": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "Summary",
+              "description": "Counts computed by the flow."
+            }
+          }
+        },
+        "body": {
+          "status": "Found",
+          "requeststablemarkdown": "| RequestKey | Status | Decided by | Decided at (UTC) |\n|---|---|---|---|\n| CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1 | PendingReview | none | none |",
+          "actionstablemarkdown": "No recovery actions.",
+          "audittrailmarkdown": "- 2026-09-22T13:01:40Z Saved CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1:  -> PendingReview by ChangeGuard Control Tower agent (flow connection identity)",
+          "overduekeyscsv": "",
+          "summary": "1 request(s); 0 open action(s); 0 overdue; 0 blocked. Checked on 2026-09-22 (UTC)."
+        }
+      },
+      "outputs": {
+        "statusCode": "200",
+        "schema": {
+          "type": "object",
+          "additionalProperties": {},
+          "properties": {
+            "status": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "Status",
+              "description": "Found or NoRecords."
+            },
+            "requeststablemarkdown": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "RequestsTableMarkdown",
+              "description": "Change requests and decisions. Reproduce exactly."
+            },
+            "actionstablemarkdown": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "ActionsTableMarkdown",
+              "description": "Recovery actions with overdue flags. Reproduce exactly."
+            },
+            "audittrailmarkdown": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "AuditTrailMarkdown",
+              "description": "Latest audit events, newest first."
+            },
+            "overduekeyscsv": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "OverdueKeysCsv",
+              "description": "Open actions past their due date."
+            },
+            "summary": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "Summary",
+              "description": "Counts computed by the flow."
+            }
+          }
+        },
+        "body": {
+          "status": "Found",
+          "requeststablemarkdown": "| RequestKey | Status | Decided by | Decided at (UTC) |\n|---|---|---|---|\n| CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1 | PendingReview | none | none |",
+          "actionstablemarkdown": "No recovery actions.",
+          "audittrailmarkdown": "- 2026-09-22T13:01:40Z Saved CR-CGDEMO-FINAL-01-CGDEMO-M1-2026-10-30-B1:  -> PendingReview by ChangeGuard Control Tower agent (flow connection identity)",
+          "overduekeyscsv": "",
+          "summary": "1 request(s); 0 open action(s); 0 overdue; 0 blocked. Checked on 2026-09-22 (UTC)."
+        }
+      }
+    }
+  }
+}

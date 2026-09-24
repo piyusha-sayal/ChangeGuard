@@ -1,0 +1,780 @@
+{
+  "collectedAt": "2026-09-23T22:12:45.152Z",
+  "source": "https://<environment-id-host>.environment.api.powerplatform.com/powerautomate (GET only)",
+  "label": "03_recovery_option_comparison",
+  "flowId": "e87c17cc-41b6-f111-aaad-000d3af45a09",
+  "runId": "08584115250012417263369730501CU04",
+  "status": "Succeeded",
+  "startTime": "2026-09-22T12:58:04.2393418Z",
+  "endTime": "2026-09-22T12:58:04.6322093Z",
+  "correlation": "08584115250012417263369730501CU04",
+  "trigger": {
+    "name": "manual",
+    "status": "Succeeded",
+    "startTime": "2026-09-22T12:58:04.2364941Z",
+    "endTime": "2026-09-22T12:58:04.2364941Z",
+    "inputs": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "x-ms-content-hint": "TEXT",
+            "x-ms-dynamically-added": true,
+            "title": "ProjectCode",
+            "description": "Project code, for example ATLAS."
+          },
+          "text_1": {
+            "type": "string",
+            "x-ms-content-hint": "TEXT",
+            "x-ms-dynamically-added": true,
+            "title": "MilestoneCode",
+            "description": "Milestone whose delay the options address, for example M1."
+          },
+          "text_2": {
+            "type": "string",
+            "x-ms-content-hint": "TEXT",
+            "x-ms-dynamically-added": true,
+            "title": "AsOfDate",
+            "description": "Explicit scenario date YYYY-MM-DD used to check option validity."
+          }
+        },
+        "required": [
+          "text",
+          "text_1",
+          "text_2"
+        ]
+      }
+    },
+    "outputs": {
+      "headers": {
+        "Host": "10.0.7.30:20252",
+        "Accept-Encoding": "gzip,deflate,br",
+        "Request-Id": "|6a1f3b1f11ca320963f65c2da2e1d238.58c23e8a46907ad0.",
+        "traceparent": "00-6a1f3b1f11ca320963f65c2da2e1d238-58c23e8a46907ad0-00",
+        "x-ms-user-agent": "PowerVA/2",
+        "x-ms-client-request-id": "8f6a1575-944e-4113-a3a0-182f0eaa8f0a",
+        "x-ms-correlation-id": "8cf9ec4b-b1c8-4a42-a3bf-f99437c3e0bb",
+        "x-ms-client-keywords": "BotSchemaName:new_ChangeGuardHardenedStandard,ChannelId:pva-studio,CdsBotId:f7a66f65-3bb6-f111-aaad-000d3af45a09,",
+        "X-Original-Proto": "https",
+        "x-ms-origin-endpoint": "ppapigw.ca-il101.gateway.prod.island.powerapps.com",
+        "X-Original-Host": "10.0.29.4:20041",
+        "x-ms-igw-external-uri": "https://<environment-id-host>.environment.api.powerplatform.com/powerautomate/automations/direct/cu/14/workflows/e169271247a0498c889d4f1d1e3087df/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=REDACTED-SAS-SIGNATURE",
+        "x-ms-gw-trace-id": "509dbf9d-d35e-4fc8-a03a-c6a32b82d839",
+        "x-ms-igw-raw-target": "/powerautomate/automations/direct/cu/14/workflows/e169271247a0498c889d4f1d1e3087df/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=REDACTED-SAS-SIGNATURE",
+        "x-ms-activity-vector": "00.00",
+        "x-ms-coreframework-caller-activity-id": "ae429229-7e20-4046-8b29-46ca1f1dc2a5",
+        "X-Original-For": "[::ffff:10.0.29.7]:39886",
+        "x-ms-ppapi-forwarded-path": "/powerautomate/automations/direct/cu/14/workflows/e169271247a0498c889d4f1d1e3087df/triggers/manual/paths/invoke",
+        "x-ms-ppapi-forwarded-api-version": "1",
+        "x-ms-gateway-clusters": "prdil101eca",
+        "X-Forwarded-For": "40.89.21.136",
+        "X-Forwarded-Prefix": "/53093d62-e170-422b-8724-ac1ce0a7ba7d/134342595558006919",
+        "X-Forwarded-Host": "<environment-id-host>.environment.api.powerplatform.com",
+        "X-Forwarded-Proto": "https",
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "69"
+      },
+      "body": {
+        "text": "CGDEMO-FINAL-01",
+        "text_1": "CGDEMO-M1",
+        "text_2": "2026-09-22"
+      }
+    }
+  },
+  "actions": {
+    "Check_input": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T12:58:04.4722012Z",
+      "endTime": "2026-09-22T12:58:04.5917644Z",
+      "inputs": {
+        "expressionResult": false
+      },
+      "outputs": null
+    },
+    "Check_project": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T12:58:04.4761547Z",
+      "endTime": "2026-09-22T12:58:04.5897217Z",
+      "inputs": {
+        "expressionResult": false
+      },
+      "outputs": null
+    },
+    "Evaluated": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T12:58:04.5483075Z",
+      "endTime": "2026-09-22T12:58:04.5497656Z",
+      "inputs": {
+        "from": [
+          {
+            "@odata.etag": "W/\"2623280\"",
+            "cr458_leadtimeworkingdays@OData.Community.Display.V1.FormattedValue": "4",
+            "cr458_leadtimeworkingdays": 4,
+            "cr458_availabilitystatus": "Confirmed",
+            "cr458_validuntil@OData.Community.Display.V1.FormattedValue": "10/9/2026",
+            "cr458_validuntil": "2026-10-09",
+            "cr458_cgrecoveryoptionid": "d62b43ba-84b6-f111-aaad-000d3af45a09",
+            "cr458_asofdate@OData.Community.Display.V1.FormattedValue": "9/21/2026",
+            "cr458_asofdate": "2026-09-21",
+            "cr458_incrementalcost@OData.Community.Display.V1.FormattedValue": "8,200.00",
+            "cr458_incrementalcost": 8200,
+            "cr458_evidenceref": "Supplier quotation DEMO-Q-118 (synthetic)",
+            "cr458_currencycode": "USD",
+            "cr458_name": "Air freight the gearbox from the supplier hub",
+            "cr458_optioncode": "CGDEMO-OPT-AIR",
+            "cr458_arrivaldate@OData.Community.Display.V1.FormattedValue": "10/16/2026",
+            "cr458_arrivaldate": "2026-10-16",
+            "cr458_ChangedMilestone": {
+              "cr458_cgmilestoneid": "ca2b43ba-84b6-f111-aaad-000d3af45a09",
+              "cr458_milestonecode": "CGDEMO-M1"
+            },
+            "cr458_Project": {
+              "cr458_cgprojectid": "c92b43ba-84b6-f111-aaad-000d3af45a09",
+              "cr458_projectcode": "CGDEMO-FINAL-01"
+            }
+          },
+          {
+            "@odata.etag": "W/\"2623282\"",
+            "cr458_leadtimeworkingdays@OData.Community.Display.V1.FormattedValue": "8",
+            "cr458_leadtimeworkingdays": 8,
+            "cr458_availabilitystatus": "Provisional",
+            "cr458_validuntil@OData.Community.Display.V1.FormattedValue": "10/20/2026",
+            "cr458_validuntil": "2026-10-20",
+            "cr458_cgrecoveryoptionid": "d82b43ba-84b6-f111-aaad-000d3af45a09",
+            "cr458_asofdate@OData.Community.Display.V1.FormattedValue": "10/5/2026",
+            "cr458_asofdate": "2026-10-05",
+            "cr458_incrementalcost@OData.Community.Display.V1.FormattedValue": "4,600.00",
+            "cr458_incrementalcost": 4600,
+            "cr458_evidenceref": "Supplier indication DEMO-Q-131 (synthetic, not yet quoted)",
+            "cr458_currencycode": "USD",
+            "cr458_name": "Partial airlift of the critical sub-assembly",
+            "cr458_optioncode": "CGDEMO-OPT-PART",
+            "cr458_arrivaldate@OData.Community.Display.V1.FormattedValue": "10/21/2026",
+            "cr458_arrivaldate": "2026-10-21",
+            "cr458_ChangedMilestone": {
+              "cr458_cgmilestoneid": "ca2b43ba-84b6-f111-aaad-000d3af45a09",
+              "cr458_milestonecode": "CGDEMO-M1"
+            },
+            "cr458_Project": {
+              "cr458_cgprojectid": "c92b43ba-84b6-f111-aaad-000d3af45a09",
+              "cr458_projectcode": "CGDEMO-FINAL-01"
+            }
+          },
+          {
+            "@odata.etag": "W/\"2623281\"",
+            "cr458_leadtimeworkingdays@OData.Community.Display.V1.FormattedValue": "20",
+            "cr458_leadtimeworkingdays": 20,
+            "cr458_availabilitystatus": "Confirmed",
+            "cr458_validuntil@OData.Community.Display.V1.FormattedValue": "9/18/2026",
+            "cr458_validuntil": "2026-09-18",
+            "cr458_cgrecoveryoptionid": "d72b43ba-84b6-f111-aaad-000d3af45a09",
+            "cr458_asofdate@OData.Community.Display.V1.FormattedValue": "9/8/2026",
+            "cr458_asofdate": "2026-09-08",
+            "cr458_incrementalcost@OData.Community.Display.V1.FormattedValue": "1,500.00",
+            "cr458_incrementalcost": 1500,
+            "cr458_evidenceref": "Supplier quotation DEMO-Q-102 (synthetic, lapsed)",
+            "cr458_currencycode": "USD",
+            "cr458_name": "Re-quote the original sea freight booking",
+            "cr458_optioncode": "CGDEMO-OPT-SEA",
+            "cr458_arrivaldate@OData.Community.Display.V1.FormattedValue": "10/30/2026",
+            "cr458_arrivaldate": "2026-10-30",
+            "cr458_ChangedMilestone": {
+              "cr458_cgmilestoneid": "ca2b43ba-84b6-f111-aaad-000d3af45a09",
+              "cr458_milestonecode": "CGDEMO-M1"
+            },
+            "cr458_Project": {
+              "cr458_cgprojectid": "c92b43ba-84b6-f111-aaad-000d3af45a09",
+              "cr458_projectcode": "CGDEMO-FINAL-01"
+            }
+          }
+        ]
+      },
+      "outputs": {
+        "body": [
+          {
+            "optionCode": "CGDEMO-OPT-AIR",
+            "name": "Air freight the gearbox from the supplier hub",
+            "milestone": "CGDEMO-M1",
+            "arrivalDate": "2026-10-16",
+            "leadTimeWorkingDays": 4,
+            "incrementalCost": 8200,
+            "currency": "USD",
+            "availability": "Confirmed",
+            "validUntil": "2026-10-09",
+            "evidenceRef": "Supplier quotation DEMO-Q-118 (synthetic)",
+            "evaluation": "Selectable"
+          },
+          {
+            "optionCode": "CGDEMO-OPT-PART",
+            "name": "Partial airlift of the critical sub-assembly",
+            "milestone": "CGDEMO-M1",
+            "arrivalDate": "2026-10-21",
+            "leadTimeWorkingDays": 8,
+            "incrementalCost": 4600,
+            "currency": "USD",
+            "availability": "Provisional",
+            "validUntil": "2026-10-20",
+            "evidenceRef": "Supplier indication DEMO-Q-131 (synthetic, not yet quoted)",
+            "evaluation": "NotYetQuoted: quoted from 2026-10-05"
+          },
+          {
+            "optionCode": "CGDEMO-OPT-SEA",
+            "name": "Re-quote the original sea freight booking",
+            "milestone": "CGDEMO-M1",
+            "arrivalDate": "2026-10-30",
+            "leadTimeWorkingDays": 20,
+            "incrementalCost": 1500,
+            "currency": "USD",
+            "availability": "Confirmed",
+            "validUntil": "2026-09-18",
+            "evidenceRef": "Supplier quotation DEMO-Q-102 (synthetic, lapsed)",
+            "evaluation": "Expired"
+          }
+        ]
+      }
+    },
+    "Init_Result": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T12:58:04.3247627Z",
+      "endTime": "2026-09-22T12:58:04.3814031Z",
+      "inputs": {
+        "variables": [
+          {
+            "name": "Result",
+            "type": "String",
+            "value": ""
+          }
+        ]
+      },
+      "outputs": {
+        "variables": [
+          {
+            "name": "Result",
+            "type": "String",
+            "value": ""
+          }
+        ]
+      }
+    },
+    "Init_ResultMessage": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T12:58:04.3931139Z",
+      "endTime": "2026-09-22T12:58:04.4096445Z",
+      "inputs": {
+        "variables": [
+          {
+            "name": "ResultMessage",
+            "type": "String",
+            "value": ""
+          }
+        ]
+      },
+      "outputs": {
+        "variables": [
+          {
+            "name": "ResultMessage",
+            "type": "String",
+            "value": ""
+          }
+        ]
+      }
+    },
+    "List_options": {
+      "status": "Succeeded",
+      "code": "OK",
+      "startTime": "2026-09-22T12:58:04.4797573Z",
+      "endTime": "2026-09-22T12:58:04.5340489Z",
+      "inputs": {
+        "host": {
+          "apiId": "subscriptions/d3761481-d83e-4eb1-b06e-37c2aacadb39/providers/Microsoft.Web/locations/canadacentral/runtimes/Canada-001/apis/commondataserviceforapps",
+          "connectionReferenceName": "shared_commondataserviceforapps",
+          "operationId": "ListRecords"
+        },
+        "parameters": {
+          "entityName": "cr458_cgrecoveryoptions",
+          "$filter": "_cr458_project_value eq c92b43ba-84b6-f111-aaad-000d3af45a09",
+          "$select": "cr458_optioncode,cr458_name,cr458_arrivaldate,cr458_asofdate,cr458_leadtimeworkingdays,cr458_incrementalcost,cr458_currencycode,cr458_availabilitystatus,cr458_evidenceref,cr458_validuntil",
+          "$orderby": "cr458_optioncode asc",
+          "$expand": "cr458_ChangedMilestone($select=cr458_milestonecode),cr458_Project($select=cr458_projectcode)",
+          "accept": "application/json;odata.metadata=minimal"
+        }
+      },
+      "outputs": {
+        "body": {
+          "value": [
+            {
+              "@odata.etag": "W/\"2623280\"",
+              "cr458_leadtimeworkingdays@OData.Community.Display.V1.FormattedValue": "4",
+              "cr458_leadtimeworkingdays": 4,
+              "cr458_availabilitystatus": "Confirmed",
+              "cr458_validuntil@OData.Community.Display.V1.FormattedValue": "10/9/2026",
+              "cr458_validuntil": "2026-10-09",
+              "cr458_cgrecoveryoptionid": "d62b43ba-84b6-f111-aaad-000d3af45a09",
+              "cr458_asofdate@OData.Community.Display.V1.FormattedValue": "9/21/2026",
+              "cr458_asofdate": "2026-09-21",
+              "cr458_incrementalcost@OData.Community.Display.V1.FormattedValue": "8,200.00",
+              "cr458_incrementalcost": 8200,
+              "cr458_evidenceref": "Supplier quotation DEMO-Q-118 (synthetic)",
+              "cr458_currencycode": "USD",
+              "cr458_name": "Air freight the gearbox from the supplier hub",
+              "cr458_optioncode": "CGDEMO-OPT-AIR",
+              "cr458_arrivaldate@OData.Community.Display.V1.FormattedValue": "10/16/2026",
+              "cr458_arrivaldate": "2026-10-16",
+              "cr458_ChangedMilestone": {
+                "cr458_cgmilestoneid": "ca2b43ba-84b6-f111-aaad-000d3af45a09",
+                "cr458_milestonecode": "CGDEMO-M1"
+              },
+              "cr458_Project": {
+                "cr458_cgprojectid": "c92b43ba-84b6-f111-aaad-000d3af45a09",
+                "cr458_projectcode": "CGDEMO-FINAL-01"
+              }
+            },
+            {
+              "@odata.etag": "W/\"2623282\"",
+              "cr458_leadtimeworkingdays@OData.Community.Display.V1.FormattedValue": "8",
+              "cr458_leadtimeworkingdays": 8,
+              "cr458_availabilitystatus": "Provisional",
+              "cr458_validuntil@OData.Community.Display.V1.FormattedValue": "10/20/2026",
+              "cr458_validuntil": "2026-10-20",
+              "cr458_cgrecoveryoptionid": "d82b43ba-84b6-f111-aaad-000d3af45a09",
+              "cr458_asofdate@OData.Community.Display.V1.FormattedValue": "10/5/2026",
+              "cr458_asofdate": "2026-10-05",
+              "cr458_incrementalcost@OData.Community.Display.V1.FormattedValue": "4,600.00",
+              "cr458_incrementalcost": 4600,
+              "cr458_evidenceref": "Supplier indication DEMO-Q-131 (synthetic, not yet quoted)",
+              "cr458_currencycode": "USD",
+              "cr458_name": "Partial airlift of the critical sub-assembly",
+              "cr458_optioncode": "CGDEMO-OPT-PART",
+              "cr458_arrivaldate@OData.Community.Display.V1.FormattedValue": "10/21/2026",
+              "cr458_arrivaldate": "2026-10-21",
+              "cr458_ChangedMilestone": {
+                "cr458_cgmilestoneid": "ca2b43ba-84b6-f111-aaad-000d3af45a09",
+                "cr458_milestonecode": "CGDEMO-M1"
+              },
+              "cr458_Project": {
+                "cr458_cgprojectid": "c92b43ba-84b6-f111-aaad-000d3af45a09",
+                "cr458_projectcode": "CGDEMO-FINAL-01"
+              }
+            },
+            {
+              "@odata.etag": "W/\"2623281\"",
+              "cr458_leadtimeworkingdays@OData.Community.Display.V1.FormattedValue": "20",
+              "cr458_leadtimeworkingdays": 20,
+              "cr458_availabilitystatus": "Confirmed",
+              "cr458_validuntil@OData.Community.Display.V1.FormattedValue": "9/18/2026",
+              "cr458_validuntil": "2026-09-18",
+              "cr458_cgrecoveryoptionid": "d72b43ba-84b6-f111-aaad-000d3af45a09",
+              "cr458_asofdate@OData.Community.Display.V1.FormattedValue": "9/8/2026",
+              "cr458_asofdate": "2026-09-08",
+              "cr458_incrementalcost@OData.Community.Display.V1.FormattedValue": "1,500.00",
+              "cr458_incrementalcost": 1500,
+              "cr458_evidenceref": "Supplier quotation DEMO-Q-102 (synthetic, lapsed)",
+              "cr458_currencycode": "USD",
+              "cr458_name": "Re-quote the original sea freight booking",
+              "cr458_optioncode": "CGDEMO-OPT-SEA",
+              "cr458_arrivaldate@OData.Community.Display.V1.FormattedValue": "10/30/2026",
+              "cr458_arrivaldate": "2026-10-30",
+              "cr458_ChangedMilestone": {
+                "cr458_cgmilestoneid": "ca2b43ba-84b6-f111-aaad-000d3af45a09",
+                "cr458_milestonecode": "CGDEMO-M1"
+              },
+              "cr458_Project": {
+                "cr458_cgprojectid": "c92b43ba-84b6-f111-aaad-000d3af45a09",
+                "cr458_projectcode": "CGDEMO-FINAL-01"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "List_project": {
+      "status": "Succeeded",
+      "code": "OK",
+      "startTime": "2026-09-22T12:58:04.4203928Z",
+      "endTime": "2026-09-22T12:58:04.4619584Z",
+      "inputs": {
+        "host": {
+          "apiId": "subscriptions/d3761481-d83e-4eb1-b06e-37c2aacadb39/providers/Microsoft.Web/locations/canadacentral/runtimes/Canada-001/apis/commondataserviceforapps",
+          "connectionReferenceName": "shared_commondataserviceforapps",
+          "operationId": "ListRecords"
+        },
+        "parameters": {
+          "entityName": "cr458_cgprojects",
+          "$filter": "cr458_projectcode eq 'CGDEMO-FINAL-01'",
+          "$select": "cr458_cgprojectid,cr458_projectcode",
+          "$top": 1,
+          "accept": "application/json;odata.metadata=minimal"
+        }
+      },
+      "outputs": {
+        "statusCode": 200,
+        "headers": {
+          "Cache-Control": "no-cache",
+          "Vary": "Accept-Encoding",
+          "Set-Cookie": "ARRAffinity=2a570086dda919de769e4850d3b10fd8c0d196088c5614145ac4efe7cf706caf15134d20c556b0b34b9b6ae43ec3f5dcdad61788de889ffc592af7aca85fc1c508DF18AD54FF82700000001392197909; path=/; secure; HttpOnly,ReqClientId=2248ce89-1dfc-4f09-b251-917d935b3012; expires=Tue, 22-Sep-2076 12:58:04 GMT; path=/; secure; HttpOnly,ARRAffinity=2a570086dda919de769e4850d3b10fd8c0d196088c5614145ac4efe7cf706caf15134d20c556b0b34b9b6ae43ec3f5dcdad61788de889ffc592af7aca85fc1c508DF18AD54FF82700000001392197909; path=/; secure; HttpOnly",
+          "x-ms-service-request-id": "898d3c36-2086-40bd-864f-eb2530c5662e",
+          "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+          "REQ_ID": "898d3c36-2086-40bd-864f-eb2530c5662e",
+          "AuthActivityId": "33bbd305-1ddf-4cd1-95b5-d59e8d39bc6c",
+          "x-ms-dop-hint": "4",
+          "x-ms-ratelimit-time-remaining-xrm-requests": "1,199.86",
+          "x-ms-ratelimit-burst-remaining-xrm-requests": "7992",
+          "X-Content-Type-Options": "nosniff",
+          "OData-Version": "4.0",
+          "Preference-Applied": "odata.include-annotations=\"*\"",
+          "X-Source": "10523815952149249177372247491512343517151627485712011119758748842222661618130,16914218792511959741442531039721513319117820919616193241225245165141671282101146425",
+          "Public": "OPTIONS,GET,HEAD,POST",
+          "Date": "Tue, 22 Sep 2026 12:58:03 GMT",
+          "Allow": "OPTIONS,GET,HEAD,POST",
+          "Content-Type": "application/json; odata.metadata=minimal",
+          "Expires": "-1",
+          "Content-Length": "441"
+        },
+        "body": {
+          "@odata.context": "https://<org>.crm3.dynamics.com/api/data/v9.1/$metadata#cr458_cgprojects(cr458_cgprojectid,cr458_projectcode)",
+          "@Microsoft.Dynamics.CRM.totalrecordcount": -1,
+          "@Microsoft.Dynamics.CRM.totalrecordcountlimitexceeded": false,
+          "@Microsoft.Dynamics.CRM.globalmetadataversion": "2340066",
+          "value": [
+            {
+              "@odata.etag": "W/\"2623270\"",
+              "cr458_cgprojectid": "c92b43ba-84b6-f111-aaad-000d3af45a09",
+              "cr458_projectcode": "CGDEMO-FINAL-01"
+            }
+          ]
+        }
+      }
+    },
+    "Respond_to_the_agent": {
+      "status": "Succeeded",
+      "code": "OK",
+      "startTime": "2026-09-22T12:58:04.5932128Z",
+      "endTime": "2026-09-22T12:58:04.6077694Z",
+      "inputs": {
+        "statusCode": "200",
+        "schema": {
+          "type": "object",
+          "additionalProperties": {},
+          "properties": {
+            "status": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "Status",
+              "description": "Compared, NotFound or InvalidDate."
+            },
+            "optionstablemarkdown": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "OptionsTableMarkdown",
+              "description": "Pre-formatted option table. Reproduce exactly."
+            },
+            "selectablecodescsv": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "SelectableCodesCsv",
+              "description": "Options that may be simulated with SimulateRecoveryOption."
+            },
+            "optionsjson": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "OptionsJson",
+              "description": "Structured option evaluation."
+            },
+            "message": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "Message",
+              "description": "Reason when Status is not Compared."
+            }
+          }
+        },
+        "body": {
+          "status": "Compared",
+          "optionstablemarkdown": "| Option | Name | For milestone | Availability | Documented arrival | Incremental cost | Valid until | Evaluation (as of 2026-09-22) | Evidence |\n|---|---|---|---|---|---|---|---|---|\n| CGDEMO-OPT-AIR | Air freight the gearbox from the supplier hub | CGDEMO-M1 | Confirmed | 2026-10-16 | 8200 USD | 2026-10-09 | Selectable | Supplier quotation DEMO-Q-118 (synthetic) |\n| CGDEMO-OPT-PART | Partial airlift of the critical sub-assembly | CGDEMO-M1 | Provisional | 2026-10-21 | 4600 USD | 2026-10-20 | NotYetQuoted: quoted from 2026-10-05 | Supplier indication DEMO-Q-131 (synthetic, not yet quoted) |\n| CGDEMO-OPT-SEA | Re-quote the original sea freight booking | CGDEMO-M1 | Confirmed | 2026-10-30 | 1500 USD | 2026-09-18 | Expired | Supplier quotation DEMO-Q-102 (synthetic, lapsed) |",
+          "selectablecodescsv": "CGDEMO-OPT-AIR",
+          "optionsjson": "[{\"optionCode\":\"CGDEMO-OPT-AIR\",\"name\":\"Air freight the gearbox from the supplier hub\",\"milestone\":\"CGDEMO-M1\",\"arrivalDate\":\"2026-10-16\",\"leadTimeWorkingDays\":4,\"incrementalCost\":8200.0,\"currency\":\"USD\",\"availability\":\"Confirmed\",\"validUntil\":\"2026-10-09\",\"evidenceRef\":\"Supplier quotation DEMO-Q-118 (synthetic)\",\"evaluation\":\"Selectable\"},{\"optionCode\":\"CGDEMO-OPT-PART\",\"name\":\"Partial airlift of the critical sub-assembly\",\"milestone\":\"CGDEMO-M1\",\"arrivalDate\":\"2026-10-21\",\"leadTimeWorkingDays\":8,\"incrementalCost\":4600.0,\"currency\":\"USD\",\"availability\":\"Provisional\",\"validUntil\":\"2026-10-20\",\"evidenceRef\":\"Supplier indication DEMO-Q-131 (synthetic, not yet quoted)\",\"evaluation\":\"NotYetQuoted: quoted from 2026-10-05\"},{\"optionCode\":\"CGDEMO-OPT-SEA\",\"name\":\"Re-quote the original sea freight booking\",\"milestone\":\"CGDEMO-M1\",\"arrivalDate\":\"2026-10-30\",\"leadTimeWorkingDays\":20,\"incrementalCost\":1500.0,\"currency\":\"USD\",\"availability\":\"Confirmed\",\"validUntil\":\"2026-09-18\",\"evidenceRef\":\"Supplier quotation DEMO-Q-102 (synthetic, lapsed)\",\"evaluation\":\"Expired\"}]",
+          "message": ""
+        }
+      },
+      "outputs": {
+        "statusCode": "200",
+        "schema": {
+          "type": "object",
+          "additionalProperties": {},
+          "properties": {
+            "status": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "Status",
+              "description": "Compared, NotFound or InvalidDate."
+            },
+            "optionstablemarkdown": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "OptionsTableMarkdown",
+              "description": "Pre-formatted option table. Reproduce exactly."
+            },
+            "selectablecodescsv": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "SelectableCodesCsv",
+              "description": "Options that may be simulated with SimulateRecoveryOption."
+            },
+            "optionsjson": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "OptionsJson",
+              "description": "Structured option evaluation."
+            },
+            "message": {
+              "type": "string",
+              "x-ms-content-hint": "TEXT",
+              "x-ms-dynamically-added": true,
+              "title": "Message",
+              "description": "Reason when Status is not Compared."
+            }
+          }
+        },
+        "body": {
+          "status": "Compared",
+          "optionstablemarkdown": "| Option | Name | For milestone | Availability | Documented arrival | Incremental cost | Valid until | Evaluation (as of 2026-09-22) | Evidence |\n|---|---|---|---|---|---|---|---|---|\n| CGDEMO-OPT-AIR | Air freight the gearbox from the supplier hub | CGDEMO-M1 | Confirmed | 2026-10-16 | 8200 USD | 2026-10-09 | Selectable | Supplier quotation DEMO-Q-118 (synthetic) |\n| CGDEMO-OPT-PART | Partial airlift of the critical sub-assembly | CGDEMO-M1 | Provisional | 2026-10-21 | 4600 USD | 2026-10-20 | NotYetQuoted: quoted from 2026-10-05 | Supplier indication DEMO-Q-131 (synthetic, not yet quoted) |\n| CGDEMO-OPT-SEA | Re-quote the original sea freight booking | CGDEMO-M1 | Confirmed | 2026-10-30 | 1500 USD | 2026-09-18 | Expired | Supplier quotation DEMO-Q-102 (synthetic, lapsed) |",
+          "selectablecodescsv": "CGDEMO-OPT-AIR",
+          "optionsjson": "[{\"optionCode\":\"CGDEMO-OPT-AIR\",\"name\":\"Air freight the gearbox from the supplier hub\",\"milestone\":\"CGDEMO-M1\",\"arrivalDate\":\"2026-10-16\",\"leadTimeWorkingDays\":4,\"incrementalCost\":8200.0,\"currency\":\"USD\",\"availability\":\"Confirmed\",\"validUntil\":\"2026-10-09\",\"evidenceRef\":\"Supplier quotation DEMO-Q-118 (synthetic)\",\"evaluation\":\"Selectable\"},{\"optionCode\":\"CGDEMO-OPT-PART\",\"name\":\"Partial airlift of the critical sub-assembly\",\"milestone\":\"CGDEMO-M1\",\"arrivalDate\":\"2026-10-21\",\"leadTimeWorkingDays\":8,\"incrementalCost\":4600.0,\"currency\":\"USD\",\"availability\":\"Provisional\",\"validUntil\":\"2026-10-20\",\"evidenceRef\":\"Supplier indication DEMO-Q-131 (synthetic, not yet quoted)\",\"evaluation\":\"NotYetQuoted: quoted from 2026-10-05\"},{\"optionCode\":\"CGDEMO-OPT-SEA\",\"name\":\"Re-quote the original sea freight booking\",\"milestone\":\"CGDEMO-M1\",\"arrivalDate\":\"2026-10-30\",\"leadTimeWorkingDays\":20,\"incrementalCost\":1500.0,\"currency\":\"USD\",\"availability\":\"Confirmed\",\"validUntil\":\"2026-09-18\",\"evidenceRef\":\"Supplier quotation DEMO-Q-102 (synthetic, lapsed)\",\"evaluation\":\"Expired\"}]",
+          "message": ""
+        }
+      }
+    },
+    "Selectable": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T12:58:04.551184Z",
+      "endTime": "2026-09-22T12:58:04.5523852Z",
+      "inputs": [
+        {
+          "optionCode": "CGDEMO-OPT-AIR",
+          "name": "Air freight the gearbox from the supplier hub",
+          "milestone": "CGDEMO-M1",
+          "arrivalDate": "2026-10-16",
+          "leadTimeWorkingDays": 4,
+          "incrementalCost": 8200,
+          "currency": "USD",
+          "availability": "Confirmed",
+          "validUntil": "2026-10-09",
+          "evidenceRef": "Supplier quotation DEMO-Q-118 (synthetic)",
+          "evaluation": "Selectable"
+        },
+        {
+          "optionCode": "CGDEMO-OPT-PART",
+          "name": "Partial airlift of the critical sub-assembly",
+          "milestone": "CGDEMO-M1",
+          "arrivalDate": "2026-10-21",
+          "leadTimeWorkingDays": 8,
+          "incrementalCost": 4600,
+          "currency": "USD",
+          "availability": "Provisional",
+          "validUntil": "2026-10-20",
+          "evidenceRef": "Supplier indication DEMO-Q-131 (synthetic, not yet quoted)",
+          "evaluation": "NotYetQuoted: quoted from 2026-10-05"
+        },
+        {
+          "optionCode": "CGDEMO-OPT-SEA",
+          "name": "Re-quote the original sea freight booking",
+          "milestone": "CGDEMO-M1",
+          "arrivalDate": "2026-10-30",
+          "leadTimeWorkingDays": 20,
+          "incrementalCost": 1500,
+          "currency": "USD",
+          "availability": "Confirmed",
+          "validUntil": "2026-09-18",
+          "evidenceRef": "Supplier quotation DEMO-Q-102 (synthetic, lapsed)",
+          "evaluation": "Expired"
+        }
+      ],
+      "outputs": {
+        "body": [
+          {
+            "optionCode": "CGDEMO-OPT-AIR",
+            "name": "Air freight the gearbox from the supplier hub",
+            "milestone": "CGDEMO-M1",
+            "arrivalDate": "2026-10-16",
+            "leadTimeWorkingDays": 4,
+            "incrementalCost": 8200,
+            "currency": "USD",
+            "availability": "Confirmed",
+            "validUntil": "2026-10-09",
+            "evidenceRef": "Supplier quotation DEMO-Q-118 (synthetic)",
+            "evaluation": "Selectable"
+          }
+        ]
+      }
+    },
+    "Selectable_codes": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T12:58:04.5537491Z",
+      "endTime": "2026-09-22T12:58:04.554535Z",
+      "inputs": {
+        "from": [
+          {
+            "optionCode": "CGDEMO-OPT-AIR",
+            "name": "Air freight the gearbox from the supplier hub",
+            "milestone": "CGDEMO-M1",
+            "arrivalDate": "2026-10-16",
+            "leadTimeWorkingDays": 4,
+            "incrementalCost": 8200,
+            "currency": "USD",
+            "availability": "Confirmed",
+            "validUntil": "2026-10-09",
+            "evidenceRef": "Supplier quotation DEMO-Q-118 (synthetic)",
+            "evaluation": "Selectable"
+          }
+        ]
+      },
+      "outputs": {
+        "body": [
+          "CGDEMO-OPT-AIR"
+        ]
+      }
+    },
+    "Set_compared": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T12:58:04.5583083Z",
+      "endTime": "2026-09-22T12:58:04.5770274Z",
+      "inputs": {
+        "name": "Result",
+        "value": "Compared"
+      },
+      "outputs": {
+        "body": {
+          "name": "Result",
+          "type": "String",
+          "value": "Compared"
+        }
+      }
+    },
+    "Set_invalid_date": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T12:58:04.4736294Z",
+      "endTime": "2026-09-22T12:58:04.4742676Z",
+      "error": {
+        "code": "ActionBranchingConditionNotSatisfied",
+        "message": "The execution of template action 'Set_invalid_date' skipped: the branching condition for this action is not satisfied.",
+        "messageTemplate": "The execution of template action '{0}' skipped: the branching condition for this action is not satisfied."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Set_invalid_message": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T12:58:04.4748611Z",
+      "endTime": "2026-09-22T12:58:04.4754231Z",
+      "error": {
+        "code": "ActionConditionFailed",
+        "message": "The execution of template action 'Set_invalid_message' is skipped: the 'runAfter' condition for action 'Set_invalid_date' is not satisfied. Expected status values 'Succeeded' and actual value 'Skipped'.",
+        "messageTemplate": "The execution of template action '{0}' is skipped: the 'runAfter' condition for action '{1}' is not satisfied. Expected status values '{2}' and actual value '{3}'."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Set_not_found": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T12:58:04.4774681Z",
+      "endTime": "2026-09-22T12:58:04.4780606Z",
+      "error": {
+        "code": "ActionBranchingConditionNotSatisfied",
+        "message": "The execution of template action 'Set_not_found' skipped: the branching condition for this action is not satisfied.",
+        "messageTemplate": "The execution of template action '{0}' skipped: the branching condition for this action is not satisfied."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Set_not_found_message": {
+      "status": "Skipped",
+      "code": "ActionSkipped",
+      "startTime": "2026-09-22T12:58:04.478623Z",
+      "endTime": "2026-09-22T12:58:04.4791798Z",
+      "error": {
+        "code": "ActionConditionFailed",
+        "message": "The execution of template action 'Set_not_found_message' is skipped: the 'runAfter' condition for action 'Set_not_found' is not satisfied. Expected status values 'Succeeded' and actual value 'Skipped'.",
+        "messageTemplate": "The execution of template action '{0}' is skipped: the 'runAfter' condition for action '{1}' is not satisfied. Expected status values '{2}' and actual value '{3}'."
+      },
+      "inputs": null,
+      "outputs": null
+    },
+    "Table_rows": {
+      "status": "Succeeded",
+      "code": "NotSpecified",
+      "startTime": "2026-09-22T12:58:04.5558582Z",
+      "endTime": "2026-09-22T12:58:04.5569721Z",
+      "inputs": {
+        "from": [
+          {
+            "optionCode": "CGDEMO-OPT-AIR",
+            "name": "Air freight the gearbox from the supplier hub",
+            "milestone": "CGDEMO-M1",
+            "arrivalDate": "2026-10-16",
+            "leadTimeWorkingDays": 4,
+            "incrementalCost": 8200,
+            "currency": "USD",
+            "availability": "Confirmed",
+            "validUntil": "2026-10-09",
+            "evidenceRef": "Supplier quotation DEMO-Q-118 (synthetic)",
+            "evaluation": "Selectable"
+          },
+          {
+            "optionCode": "CGDEMO-OPT-PART",
+            "name": "Partial airlift of the critical sub-assembly",
+            "milestone": "CGDEMO-M1",
+            "arrivalDate": "2026-10-21",
+            "leadTimeWorkingDays": 8,
+            "incrementalCost": 4600,
+            "currency": "USD",
+            "availability": "Provisional",
+            "validUntil": "2026-10-20",
+            "evidenceRef": "Supplier indication DEMO-Q-131 (synthetic, not yet quoted)",
+            "evaluation": "NotYetQuoted: quoted from 2026-10-05"
+          },
+          {
+            "optionCode": "CGDEMO-OPT-SEA",
+            "name": "Re-quote the original sea freight booking",
+            "milestone": "CGDEMO-M1",
+            "arrivalDate": "2026-10-30",
+            "leadTimeWorkingDays": 20,
+            "incrementalCost": 1500,
+            "currency": "USD",
+            "availability": "Confirmed",
+            "validUntil": "2026-09-18",
+            "evidenceRef": "Supplier quotation DEMO-Q-102 (synthetic, lapsed)",
+            "evaluation": "Expired"
+          }
+        ]
+      },
+      "outputs": {
+        "body": [
+          "| CGDEMO-OPT-AIR | Air freight the gearbox from the supplier hub | CGDEMO-M1 | Confirmed | 2026-10-16 | 8200 USD | 2026-10-09 | Selectable | Supplier quotation DEMO-Q-118 (synthetic) |",
+          "| CGDEMO-OPT-PART | Partial airlift of the critical sub-assembly | CGDEMO-M1 | Provisional | 2026-10-21 | 4600 USD | 2026-10-20 | NotYetQuoted: quoted from 2026-10-05 | Supplier indication DEMO-Q-131 (synthetic, not yet quoted) |",
+          "| CGDEMO-OPT-SEA | Re-quote the original sea freight booking | CGDEMO-M1 | Confirmed | 2026-10-30 | 1500 USD | 2026-09-18 | Expired | Supplier quotation DEMO-Q-102 (synthetic, lapsed) |"
+        ]
+      }
+    }
+  }
+}
